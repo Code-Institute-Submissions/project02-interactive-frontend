@@ -30,13 +30,3 @@ $.ajax({
   $("#apod_date2").text(euroDateFormat.getDate() + " " + euroDateFormatM + " " + euroDateFormat.getFullYear());
 }
 });
-
-var neoUrl = "https://api.nasa.gov/neo/rest/v1/feed?start_date=START_DATE&end_date=END_DATE&api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ"
-var myend_date = 2018-03-01;
-var mystart_date = 2018-05-22;
-
-
-
-function getNeoW(startdate, enddate){
-  
-}
