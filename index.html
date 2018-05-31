@@ -26,16 +26,46 @@
             <label for="formDate">Date</label>
             <input type="text" class="form-control" name="formDate" id="formDate" aria-describedby="startDateHelp" placeholder="DD-MM-YYYY" value="2015-10-31" />
         </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="imageType" id="naturalImage" value="naturalImage" checked>
+            <label class="form-check-label" for="enhancedImageName">Natural Image</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="imageType" id="enhancedImage" value="enhancedImage">
+            <label class="form-check-label" for="exampleRadios2">Enhanced Image</label>
+        </div>
+
         <button type="button" class="btn btn-primary" onclick="getEpicImageByDate()">Submit</button>
     </form>
 
+    <hr>
+    <div>Total count: <span id="totalCount"></span></div>
+    <br>
+    <hr><br>
 
 
-    <br><br><br><br><br>
-    <div><b>Showing image <span id="imageCount"></span> of <span id="imageTotalCount"></span></b></div>
-    <div><b>Image name: <span id="imageName"></span></div>
-    <div id="image"><img src="" id="imageID" /></div>
-    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1>Image Data</h1>
+                <div id="dataCol">
+                </div>
+            </div>
+            <div class="col">
+                <h1>Image Picture</h1>
+                <div id="imageCol">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
 
 
 
