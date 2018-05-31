@@ -43,7 +43,7 @@ function buildUrl() {
 
 
 
-  // NASA only allows 7 days of data returned. User chooses Start Date, this function adds 7 days to get End Date
+  // NASA only allows x days of data returned. User chooses Start Date, this function adds 7 days to get End Date
   // StackOverflow
   function addDays(startDate, daysToAdd) {
     var endDate = new Date(startDate);

@@ -15,28 +15,27 @@
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="epic.js"></script>
-    <title>NEO WS</title>
+    <title>EPIC</title>
 </head>
 
 <body>
     <h1>EPICS</h1>
-
+    <div class="tip">The first acquired images start on 2015-09-01</div>
     <form>
         <div class="form-group">
             <label for="formDate">Date</label>
             <input type="text" class="form-control" name="formDate" id="formDate" aria-describedby="startDateHelp" placeholder="DD-MM-YYYY" value="2015-10-31" />
         </div>
-
-        <button type="button" class="btn btn-primary" onclick="getEpicImage()">Submit</button>
-
+        <button type="button" class="btn btn-primary" onclick="getEpicImageByDate()">Submit</button>
     </form>
 
 
 
     <br><br><br><br><br>
-    <b>Element Count(Total sum of individual celestial objects that is returned in the requested date range):</b>
-    <div id="elementCount"></div>
-    <div id="image"><img src="" id="imageID"/></div>
+    <div><b>Showing image <span id="imageCount"></span> of <span id="imageTotalCount"></span></b></div>
+    <div><b>Image name: <span id="imageName"></span></div>
+    <div id="image"><img src="" id="imageID" /></div>
+    
 
 
 
@@ -46,6 +45,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
+    <!-- Bootstrap Date-Picker Plugin -->
+    <!-- Bootstrap Date-Picker supplied by https://bootstrap-datepicker.readthedocs.io/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+    <!-- DataPicker script -->
+    <script>
+        $(document).ready(function() {
+            var date_input = $('input[name="formDate"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            var options = {
+                format: 'yyyy-mm-dd',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+                weekStart: 1,
+                startView: 1,
+                daysOfWeekHighlighted: "0,6"
+            };
+            date_input.datepicker(options);
+        })
+    </script>
 </body>
 
 </html>
