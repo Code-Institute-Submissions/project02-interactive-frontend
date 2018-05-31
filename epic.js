@@ -27,22 +27,28 @@ function getEpicImageByDate() {
 
         document.getElementById('totalCount').textContent = result.length; //total number of records returned by call to API
 
-        result.forEach(function(item) {
-          console.log(item.image);
-          let epicEnhancedUrl = "https://epic.gsfc.nasa.gov/archive/enhanced/" + varYear + "/" + varMonth + "/" + varDay + "/jpg/" + item.image + ".jpg";
+        if (result.length !== 0) {
+          result.forEach(function(item) {
 
-          varDataCol.innerHTML += "<div class='imageData'>" +
-            "<div class='imageName'>" + item.image + "</div>" +
-            "<div class='imageCount'><b>Showing image: </b>" + (result.indexOf(item) + 1) + " of " + +result.length + "</div>" +
-            "<div class='imageCoord'>Lat: " + item.centroid_coordinates.lat + " Lon: " + item.centroid_coordinates.lon + "</div>" +
-            "<div class='imageGoogleMaps'><a href='https://www.google.ie/maps/@" + item.centroid_coordinates.lat + "," + item.centroid_coordinates.lon + ",4z' target='_blank'>view on Google Maps</a></div>" +
-            "</div>";
+            console.log(item.image);
+            document.getElementById('imageStatus').textContent = 'Found';
+            let epicEnhancedUrl = "https://epic.gsfc.nasa.gov/archive/enhanced/" + varYear + "/" + varMonth + "/" + varDay + "/jpg/" + item.image + ".jpg";
 
-          varimageCol.innerHTML += "<div class='image'>" +
-            "<img id='imageID' src='" + epicEnhancedUrl + "'/>" +
-            "</div>";
+            varDataCol.innerHTML += "<div class='imageData'>" +
+              "<div class='imageName'>" + item.image + "</div>" +
+              "<div class='imageCount'><b>Showing image: </b>" + (result.indexOf(item) + 1) + " of " + +result.length + "</div>" +
+              "<div class='imageCoord'>Lat: " + item.centroid_coordinates.lat + " Lon: " + item.centroid_coordinates.lon + "</div>" +
+              "<div class='imageGoogleMaps'><a href='https://www.google.ie/maps/@" + item.centroid_coordinates.lat + "," + item.centroid_coordinates.lon + ",4z' target='_blank'>view on Google Maps</a></div>" +
+              "</div>";
 
-        });
+            varimageCol.innerHTML += "<div class='image'>" +
+              "<img id='imageID' src='" + epicEnhancedUrl + "'/>" +
+              "</div>";
+          });
+        }
+        else {
+          document.getElementById('imageStatus').textContent = 'Please note images were not captured before 2015-09-01 or there were no images captured for that date: ' + varDate;
+        }
       }).catch(function(error) {
         console.log('Request failed', error.message);
       });
@@ -66,22 +72,29 @@ function getEpicImageByDate() {
 
         document.getElementById('totalCount').textContent = result.length; //total number of records returned by call to API
 
-        result.forEach(function(item) {
-          console.log(item.image);
-          let epicNaturalUrl = "https://epic.gsfc.nasa.gov/archive/natural/" + varYear + "/" + varMonth + "/" + varDay + "/jpg/" + item.image + ".jpg";
+        if (result.length !== 0) {
 
-          varDataCol.innerHTML += "<div class='imageData'>" +
-            "<div class='imageName'>" + item.image + "</div>" +
-            "<div class='imageCount'><b>Showing image: </b>" + (result.indexOf(item) + 1) + " of " + +result.length + "</div>" +
-            "<div class='imageCoord'>Lat: " + item.centroid_coordinates.lat + " Lon: " + item.centroid_coordinates.lon + "</div>" +
-            "<div class='imageGoogleMaps'><a href='https://www.google.ie/maps/@" + item.centroid_coordinates.lat + "," + item.centroid_coordinates.lon + ",4z' target='_blank'>view on Google Maps</a></div>" +
-            "</div>";
+          result.forEach(function(item) {
+            console.log(item.image);
+            document.getElementById('imageStatus').textContent = 'Found';
+            let epicNaturalUrl = "https://epic.gsfc.nasa.gov/archive/natural/" + varYear + "/" + varMonth + "/" + varDay + "/jpg/" + item.image + ".jpg";
 
-          varimageCol.innerHTML += "<div class='image'>" +
-            "<img id='imageID' src='" + epicNaturalUrl + "'/>" +
-            "</div>";
+            varDataCol.innerHTML += "<div class='imageData'>" +
+              "<div class='imageName'>" + item.image + "</div>" +
+              "<div class='imageCount'><b>Showing image: </b>" + (result.indexOf(item) + 1) + " of " + +result.length + "</div>" +
+              "<div class='imageCoord'>Lat: " + item.centroid_coordinates.lat + " Lon: " + item.centroid_coordinates.lon + "</div>" +
+              "<div class='imageGoogleMaps'><a href='https://www.google.ie/maps/@" + item.centroid_coordinates.lat + "," + item.centroid_coordinates.lon + ",4z' target='_blank'>view on Google Maps</a></div>" +
+              "</div>";
 
-        });
+            varimageCol.innerHTML += "<div class='image'>" +
+              "<img id='imageID' src='" + epicNaturalUrl + "'/>" +
+              "</div>";
+          });
+        }
+        else {
+          document.getElementById('imageStatus').textContent = 'Please note images were not captured before 2015-09-01 or there were no images captured for that date: ' + varDate;
+        }
+
       }).catch(function(error) {
         console.log('Request failed', error.message);
       });
