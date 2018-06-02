@@ -37,15 +37,34 @@
 
         <button type="button" class="btn btn-primary" onclick="getEpicImageByDate()">Submit</button>
     </form>
-    
+
     <div id="imageStatus"></div>
+    
+    <form>
+        <div class="form-group">
+            <label for="allImages">Date</label>
+            <input type="text" class="form-control" name="allImages" id="allImages" aria-describedby="startDateHelp" />
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="getAllImages()">Submit</button>
+    </form>    
+    
+    
+    <div id="allImagesResult"></div>
+    
+    
 
     <hr>
     <div>Total count: <span id="totalCount"></span></div>
     <br>
     <hr><br>
 
-
+    <div>
+        <button id="nextLink">next</button><br>
+        <button id="prevLink">Prev</button>
+    </div>
+    
+    <hr><br>
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -60,6 +79,8 @@
             </div>
         </div>
     </div>
+
+
 
 
 
