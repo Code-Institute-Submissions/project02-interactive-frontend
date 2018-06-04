@@ -14,8 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="epic.js"></script>
-    <title>EPIC</title>
+    <script type="text/javascript" src="paging.js"></script>
+    <title>EPIC Paging</title>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
     </form>
 
     <div id="imageStatus"></div>
-    
+
     <form>
         <div class="form-group">
             <label for="allImages">Date</label>
@@ -47,12 +47,12 @@
         </div>
 
         <button type="button" class="btn btn-primary" onclick="getAllImages()">Submit</button>
-    </form>    
-    
-    
+    </form>
+
+
     <div id="allImagesResult"></div>
-    
-    
+
+
 
     <hr>
     <div>Total count: <span id="totalCount"></span></div>
@@ -60,10 +60,12 @@
     <hr><br>
 
     <div>
-        <button id="nextLink">next</button><br>
-        <button id="prevLink">Prev</button>
+<input type="button" id="first" onclick="firstPage()" value="first" />
+<input type="button" id="next" onclick="nextPage()" value="next" />
+<input type="button" id="previous" onclick="previousPage()" value="previous" />
+<input type="button" id="last" onclick="lastPage()" value="last" />
     </div>
-    
+
     <hr><br>
     <div class="container-fluid">
         <div class="row">
@@ -79,6 +81,12 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+   
 
 
 
@@ -120,6 +128,7 @@
             date_input.datepicker(options);
         })
     </script>
+
 </body>
 
 </html>

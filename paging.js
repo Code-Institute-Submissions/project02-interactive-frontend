@@ -1,5 +1,16 @@
 // EPIC ==================================================================================
 
+var pageList = new Array();
+var currentPage = 1;
+var numberPerPage = 1;
+var numberOfPages = 1;   // calculates the total number of pages
+
+var currentImageNumber = 1;
+var numberOfImages = 1;
+
+
+
+
 function getAllImages() {
   // START OF GET DATA
   let varImagesDiv = document.getElementById("allImagesResult");
@@ -61,8 +72,11 @@ function getEpicImageByDate() {
         console.log(result);
         varDataCol.innerHTML = ""; //clear div between refreshes
         varImageCol.innerHTML = ""; //clear div between refreshes
+        
+        let totalResultCount = result.length;
         document.getElementById('totalCount').textContent = result.length; //total number of records returned by call to API
-        getResultItems(result, varImageType, objDateSplitUp, varDataCol, varImageCol);
+        let pagedResultEnhanced = pageTheResult(result);
+        getResultItems(pagedResultEnhanced, varImageType, objDateSplitUp, varDataCol, varImageCol, totalResultCount);
       }).catch(function(error) {
         console.log('Request failed', error.message);
       });
@@ -79,9 +93,14 @@ function getEpicImageByDate() {
         varDataCol.innerHTML = ""; //clear div between refreshes
         varImageCol.innerHTML = ""; //clear div between refreshes
 
+        let totalResultCount = result.length;
         document.getElementById('totalCount').textContent = result.length; //total number of records returned by call to API
         
-        getResultItems(result, varImageType, objDateSplitUp, varDataCol, varImageCol);
+        let pagedResultNatural = pageTheResult(result);
+        console.log(pagedResultNatural);
+        console.log(currentImageNumber);
+        
+        getResultItems(pagedResultNatural, varImageType, objDateSplitUp, varDataCol, varImageCol, totalResultCount);
         
 
       }).catch(function(error) {
@@ -116,12 +135,12 @@ function splitDate(varDate) {
 }
 
 //Start get data items from API result
-function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varImageCol) {
+function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varImageCol, totalResultCount) {
  
   if (result.length !== 0) {
    result.forEach(function(item) {
       document.getElementById('imageStatus').textContent = 'Found';
-      let epicNaturalUrl = "https://epic.gsfc.nasa.gov/archive/" + varImageType + "/" + objDateSplitUp.year + "/" + objDateSplitUp.month + "/" + objDateSplitUp.day + "/jpg/" + item.image + ".jpg";
+      let epicImageTypeUrl = "https://epic.gsfc.nasa.gov/archive/" + varImageType + "/" + objDateSplitUp.year + "/" + objDateSplitUp.month + "/" + objDateSplitUp.day + "/jpg/" + item.image + ".jpg";
       let distanceToSun = discovrDistance(item.dscovr_j2000_position.x, item.dscovr_j2000_position.y, item.dscovr_j2000_position.z, item.sun_j2000_position.x, item.sun_j2000_position.y, item.sun_j2000_position.z).toLocaleString();
       let distanceToEarth = discovrDistance(0, 0, 0, item.dscovr_j2000_position.x, item.dscovr_j2000_position.y, item.dscovr_j2000_position.z).toLocaleString();
       console.log(item.image);
@@ -129,7 +148,9 @@ function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varIma
       varDataCol.innerHTML += "<div class='imageData'>" +
         "<div class='imageName'>" + item.image + "</div>" +
         "<div class='imageCaption'>" + item.caption + "</div>" +
-        "<div class='imageCount'><b>Showing image: </b>" + (result.indexOf(item) + 1) + " of " + +result.length + "</div>" +
+        
+        "<div class='imageCount'><b>Showing image: </b>" + currentImageNumber + " of " + totalResultCount + "</div>" +
+ 
         "<div class='imageCoord'>Lat: " + item.centroid_coordinates.lat + " Lon: " + item.centroid_coordinates.lon + "</div>" +
         "<div class='imageGoogleMaps'><a href='https://www.google.ie/maps/@" + item.centroid_coordinates.lat + "," + item.centroid_coordinates.lon + ",4z' target='_blank'>view on Google Maps</a></div>" +
         "<div class='distanceSun'>distance To Sun: " + distanceToSun + "km</div>" +
@@ -139,13 +160,64 @@ function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varIma
 
       //Images natural and enhanced
       varImageCol.innerHTML += "<div class='image'>" +
-        "<img id='imageID' src='" + epicNaturalUrl + "'/>" +
+        "<img id='imageID' src='" + epicImageTypeUrl + "'/>" +
         "</div>" +
         "<div><br><br></div>";
     });
   }
   else {
-    document.getElementById('imageStatus').textContent = 'Please note images were not captured before 2015-09-01 or there were no images captured for that date: ' + objDateSplitUp.year + objDateSplitUp.month + objDateSplitUp.day;
+    document.getElementById('imageStatus').textContent = 'Please note images were not captured before 2015-09-01 2015-08-01 or there were no images captured for that date: ' + objDateSplitUp.year + objDateSplitUp.month + objDateSplitUp.day;
   }
 
 } //End get data items from API result
+
+
+function pageTheResult(resultApiResponse) {
+    numberOfPages = getNumberOfPages(resultApiResponse);
+    numberOfImages = resultApiResponse.length;
+    
+    var begin = ((currentPage - 1) * numberPerPage);
+    var end = begin + numberPerPage;
+    
+    pageList = resultApiResponse.slice(begin, end);
+    check();
+    return pageList;
+}
+
+
+function getNumberOfPages(resultApiResponse) {
+    return Math.ceil(resultApiResponse.length / numberPerPage);
+}
+
+
+function nextPage() {
+    currentPage += 1;
+    currentImageNumber += 1;
+    getEpicImageByDate();
+}
+
+function previousPage() {
+    currentPage -= 1;
+    currentImageNumber -= 1;
+    getEpicImageByDate();
+}
+
+function firstPage() {
+    currentPage = 1;
+    currentImageNumber = 1;
+    getEpicImageByDate();
+}
+
+function lastPage() {
+    currentPage = numberOfPages;
+    currentImageNumber = numberOfImages;
+    getEpicImageByDate();
+}
+
+
+function check() {
+    document.getElementById("next").disabled = currentPage == numberOfPages ? true : false;
+    document.getElementById("previous").disabled = currentPage == 1 ? true : false;
+    document.getElementById("first").disabled = currentPage == 1 ? true : false;
+    document.getElementById("last").disabled = currentPage == numberOfPages ? true : false;
+}
