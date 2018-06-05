@@ -9,3 +9,13 @@
 #imageID {
     max-width: 100px;
 }
+
+#searchResultContainer {
+    float:left;
+    background-color: yellow;
+}
+
+#thumbnailContainer {
+    
+    background-color: cyan;
+}

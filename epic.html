@@ -14,8 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="epic.js"></script>
-    <title>EPIC</title>
+    <script type="text/javascript" src="epicPaging.js"></script>
+    <title>EPIC Paging</title>
 </head>
 
 <body>
@@ -27,25 +27,46 @@
             <input type="text" class="form-control" name="formDate" id="formDate" aria-describedby="startDateHelp" placeholder="DD-MM-YYYY" value="2015-10-31" />
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="imageType" id="naturalImage" value="naturalImage" checked>
+            <input class="form-check-input" type="radio" name="imageType" id="naturalImage" value="natural" checked>
             <label class="form-check-label" for="enhancedImageName">Natural Image</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="imageType" id="enhancedImage" value="enhancedImage">
+            <input class="form-check-input" type="radio" name="imageType" id="enhancedImage" value="enhanced">
             <label class="form-check-label" for="exampleRadios2">Enhanced Image</label>
         </div>
 
         <button type="button" class="btn btn-primary" onclick="getEpicImageByDate()">Submit</button>
     </form>
-    
+
     <div id="imageStatus"></div>
+
+    <form>
+        <div class="form-group">
+            <label for="allImages">Date</label>
+            <input type="text" class="form-control" name="allImages" id="allImages" aria-describedby="startDateHelp" />
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="getAllImages()">Submit</button>
+    </form>
+
+
+    <div id="allImagesResult"></div>
+
+
 
     <hr>
     <div>Total count: <span id="totalCount"></span></div>
     <br>
     <hr><br>
 
+    <div>
+<input type="button" id="first" onclick="firstPage()" value="first" />
+<input type="button" id="next" onclick="nextPage()" value="next" />
+<input type="button" id="previous" onclick="previousPage()" value="previous" />
+<input type="button" id="last" onclick="lastPage()" value="last" />
+    </div>
 
+    <hr><br>
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -60,17 +81,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
 
     <!-- Script Links --------------------------------------------------------------->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -99,6 +109,7 @@
             date_input.datepicker(options);
         })
     </script>
+
 </body>
 
 </html>

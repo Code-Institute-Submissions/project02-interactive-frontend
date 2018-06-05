@@ -139,6 +139,7 @@ function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varIma
  
   if (result.length !== 0) {
    result.forEach(function(item) {
+     console.log(result, typeof(result));
       document.getElementById('imageStatus').textContent = 'Found';
       let epicImageTypeUrl = "https://epic.gsfc.nasa.gov/archive/" + varImageType + "/" + objDateSplitUp.year + "/" + objDateSplitUp.month + "/" + objDateSplitUp.day + "/jpg/" + item.image + ".jpg";
       let distanceToSun = discovrDistance(item.dscovr_j2000_position.x, item.dscovr_j2000_position.y, item.dscovr_j2000_position.z, item.sun_j2000_position.x, item.sun_j2000_position.y, item.sun_j2000_position.z).toLocaleString();
@@ -164,8 +165,7 @@ function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varIma
         "</div>" +
         "<div><br><br></div>";
     });
-  }
-  else {
+  }else {
     document.getElementById('imageStatus').textContent = 'Please note images were not captured before 2015-09-01 2015-08-01 or there were no images captured for that date: ' + objDateSplitUp.year + objDateSplitUp.month + objDateSplitUp.day;
   }
 

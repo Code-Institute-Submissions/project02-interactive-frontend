@@ -14,120 +14,43 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="paging.js"></script>
-    <title>EPIC Paging</title>
+    <script type="text/javascript" src="library.js"></script>
+    <title>Library</title>
 </head>
 
 <body>
-    <h1>EPICS</h1>
-    <div class="tip">The first acquired images start on 2015-09-01</div>
+    <h1>Library</h1>
     <form>
         <div class="form-group">
-            <label for="formDate">Date</label>
-            <input type="text" class="form-control" name="formDate" id="formDate" aria-describedby="startDateHelp" placeholder="DD-MM-YYYY" value="2015-10-31" />
+            <label for="searchText">Search NASA</label>            
+            <input type="text" class="form-control" id="searchText" placeholder="Example input" value="ireland">
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="imageType" id="naturalImage" value="natural" checked>
-            <label class="form-check-label" for="enhancedImageName">Natural Image</label>
+            <input class="form-check-input" type="radio" name="mediaType" id="image" value="image" checked>
+            <label class="form-check-label" for="image">Image</label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="imageType" id="enhancedImage" value="enhanced">
-            <label class="form-check-label" for="exampleRadios2">Enhanced Image</label>
+            <input class="form-check-input" type="radio" name="mediaType" id="video" value="video">
+            <label class="form-check-label" for="video">Video</label>
         </div>
-
-        <button type="button" class="btn btn-primary" onclick="getEpicImageByDate()">Submit</button>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="mediaType" id="audio" value="audio">
+            <label class="form-check-label" for="video">Audio</label>
+        </div>         
+        <button type="button" class="btn btn-primary" onclick="getQueryText()">Submit</button>
     </form>
-
-    <div id="imageStatus"></div>
-
-    <form>
-        <div class="form-group">
-            <label for="allImages">Date</label>
-            <input type="text" class="form-control" name="allImages" id="allImages" aria-describedby="startDateHelp" />
-        </div>
-
-        <button type="button" class="btn btn-primary" onclick="getAllImages()">Submit</button>
-    </form>
-
-
-    <div id="allImagesResult"></div>
-
-
-
-    <hr>
-    <div>Total count: <span id="totalCount"></span></div>
     <br>
     <hr><br>
-
-    <div>
-<input type="button" id="first" onclick="firstPage()" value="first" />
-<input type="button" id="next" onclick="nextPage()" value="next" />
-<input type="button" id="previous" onclick="previousPage()" value="previous" />
-<input type="button" id="last" onclick="lastPage()" value="last" />
-    </div>
-
-    <hr><br>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <h1>Image Data</h1>
-                <div id="dataCol">
-                </div>
-            </div>
-            <div class="col">
-                <h1>Image Picture</h1>
-                <div id="imageCol">
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<h1>search results</h1>
+<div>Total hits: <span id="totalHits"></span></div>
+<div class="dataWrapper">
+<div id="searchResultContainer"></div>
+<div id="thumbnailContainer"></div>
+</div>
     <!-- Script Links --------------------------------------------------------------->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap Date-Picker Plugin -->
-    <!-- Bootstrap Date-Picker supplied by https://bootstrap-datepicker.readthedocs.io/ -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
-
-    <!-- DataPicker script -->
-    <script>
-        $(document).ready(function() {
-            var date_input = $('input[name="formDate"]'); //our date input has the name "date"
-            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-            var options = {
-                format: 'yyyy-mm-dd',
-                container: container,
-                todayHighlight: true,
-                autoclose: true,
-                weekStart: 1,
-                startView: 1,
-                daysOfWeekHighlighted: "0,6"
-            };
-            date_input.datepicker(options);
-        })
-    </script>
 
 </body>
 
