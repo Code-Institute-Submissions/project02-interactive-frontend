@@ -22,7 +22,7 @@ $.ajax({
         $("#apod_explaination").text(result.explanation); //Image explanation
         $("#apod_title").text(result.title);    //Image title
     
-        var varDateString = splitDateMonthName(result.date); //Show date of image with Month name
+        var varDateString = splitDate(result.date, 1); //Show date of image with Month name. 1 = get Month name
 
         $("#apod_date").text(varDateString.day + " " + varDateString.month + " " + varDateString.year);
     }

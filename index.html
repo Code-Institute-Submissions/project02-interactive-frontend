@@ -19,6 +19,7 @@
   <!-- Custom fonts for this template -->
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet" type="text/css">
 
   <!-- Plugin CSS -->
   <link href="assets/js/magnific-popup/magnific-popup.css" rel="stylesheet">
@@ -33,7 +34,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">APOD</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">An intro to NASA available data</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -61,31 +62,63 @@
       <div class="row">
         <div class="col-lg-12 mx-auto">
           <h1 class="text-uppercase">
-            <strong>APOD of the day</strong>
+            <strong>Astronomy Image of the day</strong>
           </h1>
-          <hr>
         </div>
         <div class="col-lg-12 mx-auto">
-          <img id="apod_img_id" width="250px" alt="Astronomy image of the day" />
+          <p class="text-faded apod-introText mx-auto">One of the most popular websites at NASA is the Astronomy Picture of the Day. Each day a different image or photograph of our fascinating universe is featured, along with a brief explanation written by a professional astronomer.
+            <a href="https://apod.nasa.gov/apod/archivepix.html" class="paralink" target="blank">Click here</a> to view all images archived since 1995.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 mx-auto">
+          <img id="apod_img_id" class="apod-image mb-2" alt="Astronomy image of the day" />
           <iframe id="apod_vid_id" type="text/html" width="640" height="385" frameborder="0"></iframe>
-          <p id="copyright"></p>
           <h3 id="apod_title"></h3>
-          <p id="apod_date"></p>
-          <p class="text-faded mb-5"  id="apod_explaination">Start Bootstrap can help you build better websites using the Bootstrap CSS framework! Just download your template and start going, no strings attached!</p>
+        </div>
+        <div class="col-lg-6 mx-auto">
+          <p class="text-faded mb-4">
+            <span id="apod_date" class="apod-date"></span>
+            <span id="copyright" class="apod-copyright"></span>
+          </p>
+          <p class="text-faded mb-5" id="apod_explaination">...loading images details.</p>
         </div>
       </div>
     </div>
+
   </header>
 
-  <section class="bg-primary" id="epic">
+  <section id="epic" class="bg-primary">
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 mx-auto text-center">
-          <h2 class="section-heading text-white">We've got what you need!</h2>
-          <hr class="light my-4">
-          <p class="text-faded mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
-          <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
-          <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+        <div class="col-lg-12 mx-auto text-center">
+          <h2 class="section-heading text-white">EPIC</h2>
+          <p class="text-faded mb-4">EPIC provides information on the daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument. Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures unique
+            perspectives of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a 30-cm aperture Cassegrain telescope.</p>
+          <p class="text-faded mb-4">Please note: The first acquired images start on 01 September 2015.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 mx-auto">
+          <input type="text" class="form-control" name="formDate" id="formDate" aria-describedby="startDateHelp" placeholder="Enter a date in the format: YYYY-MM-DD" value="2015-10-31" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 mx-auto">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="imageType" id="naturalImage" value="natural" checked>
+            <label class="form-check-label text-faded" for="naturalImage">Natural Image</label>
+          </div>
+          <div class="form-check ml-3">
+            <input class="form-check-input" type="radio" name="imageType" id="enhancedImage" value="enhanced">
+            <label class="form-check-label text-faded" for="enhancedImage">Enhanced Image</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 mx-auto text-center pt-30">
+          <!--<a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>-->
+          <button type="button" class="mt-30 btn btn-light btn-xl js-scroll-trigger" onclick="getEpicImageByDate()">Submit</button>
         </div>
       </div>
     </div>
@@ -134,12 +167,12 @@
     </div>
   </section>
 
-  <section class="p-0" id="neo">
+  <section id="neo" class="p-0">
     <div class="container-fluid p-0">
       <div class="row no-gutters popup-gallery">
         <div class="col-lg-4 col-sm-6">
           <a class="neo-box" href="img/portfolio/fullsize/1.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
+              <img class="img-fluid" src="assets/img/portfolio/thumbnails/1.jpg" alt="">
               <div class="neo-box-caption">
                 <div class="neo-box-caption-content">
                   <div class="project-category text-faded">
@@ -154,7 +187,7 @@
         </div>
         <div class="col-lg-4 col-sm-6">
           <a class="neo-box" href="img/portfolio/fullsize/2.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
+              <img class="img-fluid" src="assets/img/portfolio/thumbnails/2.jpg" alt="">
               <div class="neo-box-caption">
                 <div class="neo-box-caption-content">
                   <div class="project-category text-faded">
@@ -169,7 +202,7 @@
         </div>
         <div class="col-lg-4 col-sm-6">
           <a class="neo-box" href="img/portfolio/fullsize/3.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/3.jpg" alt="">
+              <img class="img-fluid" src="assets/img/portfolio/thumbnails/3.jpg" alt="">
               <div class="neo-box-caption">
                 <div class="neo-box-caption-content">
                   <div class="project-category text-faded">
@@ -184,7 +217,7 @@
         </div>
         <div class="col-lg-4 col-sm-6">
           <a class="neo-box" href="img/portfolio/fullsize/4.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/4.jpg" alt="">
+              <img class="img-fluid" src="assets/img/portfolio/thumbnails/4.jpg" alt="">
               <div class="neo-box-caption">
                 <div class="neo-box-caption-content">
                   <div class="project-category text-faded">
@@ -199,7 +232,7 @@
         </div>
         <div class="col-lg-4 col-sm-6">
           <a class="neo-box" href="img/portfolio/fullsize/5.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/5.jpg" alt="">
+              <img class="img-fluid" src="assets/img/portfolio/thumbnails/5.jpg" alt="">
               <div class="neo-box-caption">
                 <div class="neo-box-caption-content">
                   <div class="project-category text-faded">
@@ -214,7 +247,7 @@
         </div>
         <div class="col-lg-4 col-sm-6">
           <a class="neo-box" href="img/portfolio/fullsize/6.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/6.jpg" alt="">
+              <img class="img-fluid" src="assets/img/portfolio/thumbnails/6.jpg" alt="">
               <div class="neo-box-caption">
                 <div class="neo-box-caption-content">
                   <div class="project-category text-faded">
@@ -273,7 +306,7 @@
 
   <!-- Custom scripts for this template -->
   <script src="assets/js/custom.js"></script>
-  <script src="assets/js/commonTools.js"></script>  
+  <script src="assets/js/commonTools.js"></script>
   <script src="assets/js/nasaAPI.js"></script>
 
 </body>

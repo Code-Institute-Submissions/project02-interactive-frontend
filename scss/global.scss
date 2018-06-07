@@ -6,7 +6,7 @@ html {
 }
 
 body {
-  @include serif-font;
+  @include sans-serif-font;
 }
 
 hr {
@@ -24,6 +24,22 @@ a {
   @include transition-all;
   &:hover {
     color: darken($primary, .1);
+  }
+}
+
+a {
+  color: $primary;
+  @include transition-all;
+  &:hover {
+    color: darken($primary, .1);
+  }
+}
+
+a.paralink {
+  color: $brightlink;
+  @include transition-all;
+  &:hover {
+    color: darken($brightlink, .1);
   }
 }
 

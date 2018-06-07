@@ -2,7 +2,7 @@
 header.apod {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
-  background-image: url('../../img/header.jpg');
+  background-image: url('../img/stars70.jpg'); //image from https://free-images.com/
   background-position: center center;
   @include background-cover;
   hr {
@@ -14,10 +14,26 @@ header.apod {
   }
   p {
     font-weight: 300;
+    text-align:justify;
+  }
+  .apod-image {
+    max-width: 300px;
+    border: 1px solid #333;
+  }
+  .apod-copyright {
+    font-size: .7rem;
+    float:right;
+  }
+  .apod-date {
+    float:left;
+  }
+  .apod-introText {
+    width: 80%;
+    font-size: .8rem;
   }
   @media (min-width: 768px) {
     p {
-      font-size: 1.15rem;
+      font-size: 0.9rem;
     }
   }
   @media (min-width: 992px) {
@@ -31,7 +47,7 @@ header.apod {
   }
   @media (min-width: 1200px) {
     h1 {
-      font-size: 4rem;
+      font-size: 3.5rem;
     }
   }
 }
