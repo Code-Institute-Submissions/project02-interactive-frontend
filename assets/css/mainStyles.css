@@ -58,6 +58,9 @@ h6 {
 .text-faded {
   color: rgba(255, 255, 255, 0.7); }
 
+.errorMessage {
+  color: #cc3333; }
+
 section {
   padding: 8rem 0; }
 
@@ -184,7 +187,7 @@ header.apod {
   border-bottom: 1px solid #333; }
   #epic.epicResults .form-check {
     display: inline-block; }
-  #epic.epicResults #resultsContainer {
+  #epic.epicResults #epicResultsContainer {
     display: none; }
   #epic.epicResults a {
     color: rgba(255, 255, 255, 0.7); }
@@ -208,6 +211,12 @@ header.apod {
 
 .library-box {
   max-width: 400px; }
+
+#searchResultsContainer {
+  display: none; }
+
+#library.librarySection .form-check {
+  display: inline-block; }
 
 .neo-box {
   position: relative;

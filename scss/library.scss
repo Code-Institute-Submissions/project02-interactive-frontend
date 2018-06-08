@@ -1,4 +1,12 @@
 // Styling for the services section
 .library-box {
-  max-width: 400px;
+    max-width: 400px;
+}
+
+#searchResultsContainer {
+    display: none;
+}
+
+#library.librarySection .form-check {
+    display: inline-block;
 }

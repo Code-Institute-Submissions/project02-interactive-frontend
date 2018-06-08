@@ -2,28 +2,30 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="cache-control" content="no-cache" />
     <meta name="description" content="NASA API">
     <meta name="keywords" content="HTML,CSS">
     <meta name="author" content="Coole Sites 2018">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="cache-control" content="no-cache" />
     <script type="text/javascript" src="library.js"></script>
-    <title>Library</title>
+    <title>NASA Library</title>
+    <style type="text/css">
+        #searchResultsContainer {
+            display:none;
+        }
+    </style>
+
 </head>
 
 <body>
     <h1>Library</h1>
     <form>
         <div class="form-group">
-            <label for="searchText">Search NASA</label>            
-            <input type="text" class="form-control" id="searchText" placeholder="Example input" value="ireland">
+            <label for="searchLibraryText">Search NASA</label>
+            <input type="text" class="form-control" id="searchLibraryText" placeholder="Example input">
         </div>
         <div class="form-check">
             <input class="form-check-input" type="radio" name="mediaType" id="image" value="image" checked>
@@ -36,21 +38,23 @@
         <div class="form-check">
             <input class="form-check-input" type="radio" name="mediaType" id="audio" value="audio">
             <label class="form-check-label" for="video">Audio</label>
-        </div>         
-        <button type="button" class="btn btn-primary" onclick="getQueryText()">Submit</button>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="getQueryText()">Search NASA</button>
     </form>
+    <div id="errorMessage"></div>
     <br>
     <hr><br>
-<h1>search results</h1>
-<div>Total hits: <span id="totalHits"></span></div>
-<div class="dataWrapper">
-<div id="searchResultContainer"></div>
-<div id="thumbnailContainer"></div>
-</div>
+    <div id="searchResultsContainer">
+        <h1>search results</h1>
+        <div>Total hits: <span id="totalLibraryHits"></span></div>
+
+        <div id="libraryResults"></div>
+        <div id="libraryThumbnailResults"></div>
+    </div>
     <!-- Script Links --------------------------------------------------------------->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- Custom scripts for this template -->
 
 </body>
 

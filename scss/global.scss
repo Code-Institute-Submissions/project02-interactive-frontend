@@ -68,6 +68,10 @@ h6 {
   color: fade-out($white, .3);
 }
 
+.errorMessage {
+  color: $error-red;
+}
+
 section {
   padding: 8rem 0;
 }

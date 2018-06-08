@@ -117,7 +117,12 @@
           </div>
         </div>
       </div>
-
+      <!-- Error Message Row -->
+      <div class="row">
+        <div class="col-lg-4 mx-auto">
+          <span id="errorMessage" class="errorMessage"></span>
+        </div>
+      </div>
       <!-- Button row -->
       <div class="row">
         <div class="col-lg-12 text-center mt-5">
@@ -127,7 +132,7 @@
       </div>
     </div>
 
-    <div class="container mt-5" id="resultsContainer">
+    <div class="container mt-5" id="epicResultsContainer">
       <!--number of images returned -->
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -138,7 +143,7 @@
       <!-- Results -->
       <div class="row">
         <div class="col-lg-6 text-center">
-          <div id="imageCol"></div>
+          <div id="imageCol">image loading...</div>
         </div>
         <div class="col-lg-6 pt-5">
           <div id="dataCol" class="text-faded"></div>
@@ -158,43 +163,55 @@
     </div>
   </section>
 
-  <section id="library">
+  <section id="library" class="librarySection">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading">Library</h2>
-          <hr class="my-4">
+          <h2 class="section-heading">Search NASA Image and Video Library</h2>
         </div>
       </div>
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-lg-3 col-md-6 text-center">
-          <div class="library-box mt-5 mx-auto">
-            <i class="fa fa-4x fa-diamond text-primary mb-3 sr-icons"></i>
-            <h3 class="mb-3">Sturdy Templates</h3>
-            <p class="text-muted mb-0">Our templates are updated regularly so they don't break.</p>
-          </div>
+        <div class="col-lg-8 mt-5 mx-auto">
+          <form>
+            <div class="form-group">
+              <label for="searchLibraryText">Enter text to search and choose media type.</label>
+              <input type="text" class="form-control" id="searchLibraryText" placeholder="e.g. apollo, moon, europe">
+            </div>
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="mediaType" id="image" value="image" checked>
+              <label class="form-check-label" for="image">Image</label>
+            </div>
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="mediaType" id="video" value="video">
+              <label class="form-check-label" for="video">Video</label>
+            </div>
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="mediaType" id="audio" value="audio">
+              <label class="form-check-label" for="video">Audio</label>
+            </div>
+          </form>
         </div>
-        <div class="col-lg-3 col-md-6 text-center">
-          <div class="library-box mt-5 mx-auto">
-            <i class="fa fa-4x fa-paper-plane text-primary mb-3 sr-icons"></i>
-            <h3 class="mb-3">Ready to Ship</h3>
-            <p class="text-muted mb-0">You can use this theme as is, or you can make changes!</p>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 mx-auto mt-1 text-center errorMessage" id="errorLibraryMessage"></div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 mx-auto text-center mt-3">
+          <button type="button" class="btn btn-primary btn-xl" onclick="getQueryText()">Search NASA</button>
         </div>
-        <div class="col-lg-3 col-md-6 text-center">
-          <div class="library-box mt-5 mx-auto">
-            <i class="fa fa-4x fa-newspaper-o text-primary mb-3 sr-icons"></i>
-            <h3 class="mb-3">Up to Date</h3>
-            <p class="text-muted mb-0">We update dependencies to keep things fresh.</p>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 text-center">
-          <div class="library-box mt-5 mx-auto">
-            <i class="fa fa-4x fa-heart text-primary mb-3 sr-icons"></i>
-            <h3 class="mb-3">Made with Love</h3>
-            <p class="text-muted mb-0">You have to make your websites with love these days!</p>
+      </div>
+    </div>
+    <div class="container" id="searchResultsContainer">
+      <div class="row">
+        <div class="col-lg-12">
+          <div>
+            <h1>search results</h1>
+            <div>Total hits: <span id="totalLibraryHits"></span></div>
+
+            <div id="libraryResults"></div>
+            <div id="libraryThumbnailResults"></div>
           </div>
         </div>
       </div>
@@ -337,29 +354,29 @@
   <script src="assets/js/jquery-easing/jquery.easing.min.js"></script>
   <script src="assets/js/scrollreveal/scrollreveal.min.js"></script>
   <script src="assets/js/magnific-popup/jquery.magnific-popup.min.js"></script>
-  
-  <!-- Bootstrap Date-Picker Plugin -->
-    <!-- Bootstrap Date-Picker supplied by https://bootstrap-datepicker.readthedocs.io/ -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
-    <!-- DataPicker script -->
-    <script>
-        $(document).ready(function() {
-            var date_input = $('input[name="formDate"]'); //our date input has the name "date"
-            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-            var options = {
-                format: 'yyyy-mm-dd',
-                container: container,
-                todayHighlight: true,
-                autoclose: true,
-                weekStart: 1,
-                startView: 1,
-                daysOfWeekHighlighted: "0,6"
-            };
-            date_input.datepicker(options);
-        })
-    </script>
+  <!-- Bootstrap Date-Picker Plugin -->
+  <!-- Bootstrap Date-Picker supplied by https://bootstrap-datepicker.readthedocs.io/ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+  <!-- DataPicker script -->
+  <script>
+    $(document).ready(function() {
+      var date_input = $('input[name="formDate"]'); //our date input has the name "date"
+      var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+      var options = {
+        format: 'yyyy-mm-dd',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+        weekStart: 1,
+        startView: 1,
+        daysOfWeekHighlighted: "0,6"
+      };
+      date_input.datepicker(options);
+    })
+  </script>
 
   <!-- Custom scripts for this template -->
   <script src="assets/js/custom.js"></script>
