@@ -53,3 +53,16 @@ function splitDate(varDate, monthName) {
     var varDay = varDateArray[2]; //day 
     return { year: varYear, month: varMonth, day: varDay } // return an object with properties year, month(name), day
 }
+
+
+// Calculation found on https://www.calculatorsoup.com/calculators/geometry-solids/distance-two-points.php
+// Calculate 3D distance between two sets of xyz coordinates
+function dscovrDistance(x1, y1, z1, x2, y2, z2) {
+    var xSqr = (x2 - x1) * (x2 - x1);
+    var ySqr = (y2 - y1) * (y2 - y1);
+    var zSqr = (z2 - z1) * (z2 - z1);
+    var d = xSqr + ySqr + zSqr;
+    d = Math.sqrt(d);
+    d = Math.round(d);
+    return d;
+}

@@ -1,3 +1,39 @@
-.form-check {
-  display: inline-block;
+#epic.epicResults {
+    border-top: 1px solid $lightgray;
+    border-bottom: 1px solid $lightgray;
+  
+  .form-check {
+    display: inline-block;
+  }
+  #resultsContainer {
+    display: none;
+  }
+  a {
+    color: fade-out($white, .3);
+    &:hover {
+      color: $white;
+    }
+  }
+  #imageCol img {
+    max-width: 250px;
+  }
+  .earthImage {
+    text-align: center;
+  }
+  #searchResultContainer {
+    float: left;
+  }
+  #dataCol,
+  #pagingRow {
+      text-align: center;
+    }
+  @media (min-width: 992px) {
+    #imageCol img {
+      max-width: 400px;
+    }
+    #dataCol,
+    #pagingRow {
+      text-align: left;
+    }
+  }
 }

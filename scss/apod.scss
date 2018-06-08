@@ -13,28 +13,23 @@ header.apod {
     font-size: 2rem;
   }
   p {
-    font-weight: 300;
-    text-align:justify;
+    text-align:left;
   }
   .apod-image {
     max-width: 300px;
     border: 1px solid #333;
   }
   .apod-copyright {
-    font-size: .7rem;
     float:right;
   }
   .apod-date {
     float:left;
   }
-  .apod-introText {
-    width: 80%;
-    font-size: .8rem;
+  .apod-para {
+    background-color: $fadedbkg;
   }
   @media (min-width: 768px) {
-    p {
-      font-size: 0.9rem;
-    }
+    
   }
   @media (min-width: 992px) {
     height: 100vh;

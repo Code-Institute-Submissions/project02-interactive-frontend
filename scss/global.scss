@@ -60,6 +60,10 @@ h6 {
   background-color: $gray-900 !important;
 }
 
+.bg-black {
+  background-color: $black !important;
+}
+
 .text-faded {
   color: fade-out($white, .3);
 }
@@ -92,25 +96,4 @@ img::selection {
 img::-moz-selection {
   color: $white;
   background: transparent;
-}
-
-#dataCol {
-    background-color: yellow;
-}
-
-#imageCol {
-    background-color: blue;
-}
-
-#imageID {
-    max-width: 100px;
-}
-
-#searchResultContainer {
-    float:left;
-    background-color: yellow;
-}
-
-#thumbnailContainer {
-    background-color: green;
 }

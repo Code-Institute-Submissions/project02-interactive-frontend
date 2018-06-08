@@ -52,6 +52,9 @@ h6 {
 .bg-dark {
   background-color: #212529 !important; }
 
+.bg-black {
+  background-color: #000 !important; }
+
 .text-faded {
   color: rgba(255, 255, 255, 0.7); }
 
@@ -78,22 +81,6 @@ img::selection {
 img::-moz-selection {
   color: #fff;
   background: transparent; }
-
-#dataCol {
-  background-color: yellow; }
-
-#imageCol {
-  background-color: blue; }
-
-#imageID {
-  max-width: 100px; }
-
-#searchResultContainer {
-  float: left;
-  background-color: yellow; }
-
-#thumbnailContainer {
-  background-color: green; }
 
 #mainNav {
   border-bottom: 1px solid rgba(33, 37, 41, 0.1);
@@ -170,22 +157,16 @@ header.apod {
   header.apod h1 {
     font-size: 2rem; }
   header.apod p {
-    font-weight: 300;
-    text-align: justify; }
+    text-align: left; }
   header.apod .apod-image {
     max-width: 300px;
     border: 1px solid #333; }
   header.apod .apod-copyright {
-    font-size: .7rem;
     float: right; }
   header.apod .apod-date {
     float: left; }
-  header.apod .apod-introText {
-    width: 80%;
-    font-size: .8rem; }
-  @media (min-width: 768px) {
-    header.apod p {
-      font-size: 0.9rem; } }
+  header.apod .apod-para {
+    background-color: rgba(0, 18, 52, 0.3); }
   @media (min-width: 992px) {
     header.apod {
       height: 100vh;
@@ -198,8 +179,32 @@ header.apod {
     header.apod h1 {
       font-size: 3.5rem; } }
 
-.form-check {
-  display: inline-block; }
+#epic.epicResults {
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333; }
+  #epic.epicResults .form-check {
+    display: inline-block; }
+  #epic.epicResults #resultsContainer {
+    display: none; }
+  #epic.epicResults a {
+    color: rgba(255, 255, 255, 0.7); }
+    #epic.epicResults a:hover {
+      color: #fff; }
+  #epic.epicResults #imageCol img {
+    max-width: 250px; }
+  #epic.epicResults .earthImage {
+    text-align: center; }
+  #epic.epicResults #searchResultContainer {
+    float: left; }
+  #epic.epicResults #dataCol,
+  #epic.epicResults #pagingRow {
+    text-align: center; }
+  @media (min-width: 992px) {
+    #epic.epicResults #imageCol img {
+      max-width: 400px; }
+    #epic.epicResults #dataCol,
+    #epic.epicResults #pagingRow {
+      text-align: left; } }
 
 .library-box {
   max-width: 400px; }
@@ -257,6 +262,9 @@ header.apod {
   border: none;
   border-radius: 300px;
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; }
+
+.btn-light:disabled {
+  background-color: #999; }
 
 .btn-xl {
   padding: 1rem 2rem; }

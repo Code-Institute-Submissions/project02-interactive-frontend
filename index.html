@@ -32,7 +32,7 @@
 <body id="page-top">
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">An intro to NASA available data</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,49 +60,51 @@
   <header class="apod text-center text-white d-flex">
     <div class="container my-auto">
       <div class="row">
-        <div class="col-lg-12 mx-auto">
+        <div class="col-lg-12 mx-auto mb-5">
           <h1 class="text-uppercase">
             <strong>Astronomy Image of the day</strong>
           </h1>
         </div>
-        <div class="col-lg-12 mx-auto">
-          <p class="text-faded apod-introText mx-auto">One of the most popular websites at NASA is the Astronomy Picture of the Day. Each day a different image or photograph of our fascinating universe is featured, along with a brief explanation written by a professional astronomer.
-            <a href="https://apod.nasa.gov/apod/archivepix.html" class="paralink" target="blank">Click here</a> to view all images archived since 1995.</p>
+        <div class="col-lg-10 mx-auto mb-3">
+          <p class="text-faded mx-auto">One of the most popular websites at NASA is the Astronomy Picture of the Day. Each day a different image or photograph of our fascinating universe is featured, along with a brief explanation written by a professional astronomer.
+            <br><a href="https://apod.nasa.gov/apod/archivepix.html" class="paralink" target="blank">Click here</a> <i class='fa fa-external-link' aria-hidden='true'></i> to view all images archived since 1995.</p>
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6 mx-auto">
+        <div class="col-lg-4 mx-auto">
           <img id="apod_img_id" class="apod-image mb-2" alt="Astronomy image of the day" />
           <iframe id="apod_vid_id" type="text/html" width="640" height="385" frameborder="0"></iframe>
           <h3 id="apod_title"></h3>
         </div>
-        <div class="col-lg-6 mx-auto">
+        <div class="col-lg-8 mx-auto apod-para">
           <p class="text-faded mb-4">
             <span id="apod_date" class="apod-date"></span>
             <span id="copyright" class="apod-copyright"></span>
           </p>
-          <p class="text-faded mb-5" id="apod_explaination">...loading images details.</p>
+          <p class="text-faded pt-4" id="apod_explaination">...loading images details.</p>
         </div>
       </div>
     </div>
 
   </header>
 
-  <section id="epic" class="bg-primary">
-    <div class="container">
+  <section id="epic" class="epicResults bg-black">
+    <div class="container" id="epicContainer">
       <div class="row">
-        <div class="col-lg-12 mx-auto text-center">
+        <div class="col-lg-12 text-center">
           <h2 class="section-heading text-white">EPIC</h2>
           <p class="text-faded mb-4">EPIC provides information on the daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument. Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures unique
             perspectives of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a 30-cm aperture Cassegrain telescope.</p>
-          <p class="text-faded mb-4">Please note: The first acquired images start on 01 September 2015.</p>
+          <p class="text-faded mb-4" id="DateHelp">Enter a search date and click submit. The first acquired images start on 01 September 2015.</p>
         </div>
       </div>
+      <!-- Date row -->
       <div class="row">
         <div class="col-lg-4 mx-auto">
-          <input type="text" class="form-control" name="formDate" id="formDate" aria-describedby="startDateHelp" placeholder="Enter a date in the format: YYYY-MM-DD" value="2015-10-31" />
+          <input type="text" class="form-control" name="formDate" id="formDate" aria-describedby="DateHelp" placeholder="Enter a date in the format: YYYY-MM-DD" />
         </div>
       </div>
+      <!-- Image Type row -->
       <div class="row">
         <div class="col-lg-4 mx-auto">
           <div class="form-check">
@@ -115,10 +117,42 @@
           </div>
         </div>
       </div>
+
+      <!-- Button row -->
       <div class="row">
-        <div class="col-lg-3 mx-auto text-center pt-30">
+        <div class="col-lg-12 text-center mt-5">
           <!--<a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>-->
-          <button type="button" class="mt-30 btn btn-light btn-xl js-scroll-trigger" onclick="getEpicImageByDate()">Submit</button>
+          <button type="button" class="btn btn-light btn-xl" onclick="getEpicImageByDate()">Search</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5" id="resultsContainer">
+      <!--number of images returned -->
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h3 class="section-heading text-white">Results</h3>
+          <div id="resultStatus"></div>
+        </div>
+      </div>
+      <!-- Results -->
+      <div class="row">
+        <div class="col-lg-6 text-center">
+          <div id="imageCol"></div>
+        </div>
+        <div class="col-lg-6 pt-5">
+          <div id="dataCol" class="text-faded"></div>
+          <!-- Paging  -->
+          <div id="pagingRow">
+            <div class="mt-3">
+              <div>
+                <input type="button" id="first" onclick="firstPage()" value="first" class="btn btn-light btn-sm" />
+                <input type="button" id="next" onclick="nextPage()" value="next" class="btn btn-light btn-sm" />
+                <input type="button" id="previous" onclick="previousPage()" value="previous" class="btn btn-light btn-sm" />
+                <input type="button" id="last" onclick="lastPage()" value="last" class="btn btn-light btn-sm" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -303,10 +337,33 @@
   <script src="assets/js/jquery-easing/jquery.easing.min.js"></script>
   <script src="assets/js/scrollreveal/scrollreveal.min.js"></script>
   <script src="assets/js/magnific-popup/jquery.magnific-popup.min.js"></script>
+  
+  <!-- Bootstrap Date-Picker Plugin -->
+    <!-- Bootstrap Date-Picker supplied by https://bootstrap-datepicker.readthedocs.io/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+    <!-- DataPicker script -->
+    <script>
+        $(document).ready(function() {
+            var date_input = $('input[name="formDate"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            var options = {
+                format: 'yyyy-mm-dd',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+                weekStart: 1,
+                startView: 1,
+                daysOfWeekHighlighted: "0,6"
+            };
+            date_input.datepicker(options);
+        })
+    </script>
 
   <!-- Custom scripts for this template -->
   <script src="assets/js/custom.js"></script>
-  <script src="assets/js/commonTools.js"></script>
+  <script src="assets/js/helperTools.js"></script>
   <script src="assets/js/nasaAPI.js"></script>
 
 </body>

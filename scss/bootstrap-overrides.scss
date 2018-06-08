@@ -2,7 +2,6 @@
 .text-primary {
   color: $primary !important;
 }
-
 .btn {
   font-weight: 700;
   text-transform: uppercase;
@@ -10,11 +9,12 @@
   border-radius: 300px;
   @include sans-serif-font;
 }
-
+.btn-light:disabled {
+  background-color: $darkgray;
+}
 .btn-xl {
   padding: 1rem 2rem;
 }
-
 .btn-primary {
   background-color: $primary;
   border-color: $primary;
