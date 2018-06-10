@@ -1,4 +1,4 @@
-// APOD ================================================================================== //
+// START APOD =================================================================================================================== //
 var url = "https://api.nasa.gov/planetary/apod?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ";
 
 $.ajax({
@@ -28,9 +28,11 @@ $.ajax({
     }
 });
 
+// END APOD ===================================================================================================================== //
 
-// EPIC WITH ONE ITEM PER PAGE  - PAGING ================================================================================== //
+// START EPIC WITH ONE ITEM PER PAGE  - PAGING ================================================================================== //
 
+// EPIC Global variables for paging
 var pageList = new Array();
 var currentPage = 1;
 var numberPerPage = 1;
@@ -38,8 +40,8 @@ var numberOfPages = 1; // calculates the total number of pages
 var currentImageNumber = 1;
 var numberOfImages = 1;
 
-// Function called from Submit button
-// Call made to EPIC API. Result Object returned
+// Function called from Search button
+// Call made to EPIC API using FETCH. Result Object returned
 // Result object sent to getResultItems() for looping and rendering to HTML
 function getEpicImageByDate() {
     if (document.getElementById("formDate").value !== "") {
@@ -64,7 +66,7 @@ function getEpicImageByDate() {
                     document.getElementById('resultStatus').innerHTML = ""; //clear div between refreshes
 
                     let totalResultCount = result.length; //get total count of results returned
-                    document.getElementById('resultStatus').innerHTML += "<p class='text-faded'>There were <span>" + totalResultCount + "</span> enhanced images found for <span>" +
+                    document.getElementById('resultStatus').innerHTML += "<p class='text-faded'>There were <span class='font-weight-bold'>" + totalResultCount + "</span> enhanced images found for <br><span class='font-weight-bold'>" +
                         objDateSplitUp.day + "-" + objDateSplitUp.month + "-" + objDateSplitUp.year + "</span></p>"; //Results message to site user
 
                     if (result.length !== 0) {
@@ -96,7 +98,7 @@ function getEpicImageByDate() {
                     document.getElementById('resultStatus').innerHTML = ""; //clear div between refreshes
 
                     let totalResultCount = result.length; //Get total count of results returned
-                    document.getElementById('resultStatus').innerHTML += "<p class='text-faded'>There were <span>" + totalResultCount + "</span> natural images found for <span>" +
+                    document.getElementById('resultStatus').innerHTML += "<p class='text-faded'>There were <span class='font-weight-bold'>" + totalResultCount + "</span> natural images found for <br><span class='font-weight-bold'>" +
                         objDateSplitUp.day + "-" + objDateSplitUp.month + "-" + objDateSplitUp.year + "</span></p>"; //Results message to site user
 
                     if (result.length !== 0) {
@@ -109,7 +111,7 @@ function getEpicImageByDate() {
                     else {
                         $('#epicResultsContainer').show();
                         $('#pagingRow').hide();
-                        document.getElementById('resultStatus').innerHTML += "<p class='text-faded'>Please note images were not captured before 01 September 2015 or there were no images captured for the date: " +
+                        document.getElementById('resultStatus').innerHTML += "<p class='text-faded font-weight-bold'>Please note images were not captured before 01 September 2015 or there were no images captured for the date: " +
                             +objDateSplitUp.day + "-" + objDateSplitUp.month + "-" + objDateSplitUp.year;
                     }
                 }).catch(function(error) {
@@ -214,9 +216,20 @@ function check() {
     document.getElementById("last").disabled = currentPage == numberOfPages ? true : false;
 }
 
+// END EPIC  =========================================================================================================== //
 
+// START NASA IMAGE AND VIDEO LIBRARY ================================================================================== //
 
-// NASA IMAGE AND VIDEO LIBRARY ================================================================================== //
+//Library global variables for paging
+var pageLibraryList = new Array();
+var currentLibraryPage = 1;
+var numberPerLibraryPage = 5;
+var numberOfLibraryPages = 1; // calculates the total number of pages
+var currentLibraryImageNumber = 1;
+var numberOfLibraryImages = 1;
+
+// Function called from Search button
+// Values received from html form and validated
 function getQueryText() {
     document.getElementById("errorMessage").textContent = "";
     var varLibraryQuery = document.getElementById("searchLibraryText").value; //Get user date input via form
@@ -229,22 +242,21 @@ function getQueryText() {
     }
 }
 
+// Call made to NASA Library API using XMLHttpRequest()
+// Result object sent to getLibraryResultsData() for looping and rendering to HTML
 function searchNASALibrary(searchLibraryText, varMediaType) {
     var varLibraryResult = document.getElementById("libraryResults");
-    var varthumbnailContainer = document.getElementById("libraryThumbnailResults");
 
     var xhr = new XMLHttpRequest();
     var url = "https://images-api.nasa.gov/search?q=" + searchLibraryText + "&media_type=" + varMediaType;
 
     xhr.open("GET", url);
     xhr.send();
-
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var varNasaLibraryData = JSON.parse(this.responseText); //write out responseText as json object
             //console.log(varNasaData);
             varLibraryResult.innerHTML = ""; //clear div between refreshes
-            varthumbnailContainer.innerHTML = ""; //clear div between refreshes
             document.getElementById("errorLibraryMessage").innerHTML = ""; //clear div between refreshes
 
             var varTotalLibraryHits = varNasaLibraryData.collection.metadata.total_hits;
@@ -254,45 +266,115 @@ function searchNASALibrary(searchLibraryText, varMediaType) {
             }
             else {
                 document.getElementById("errorLibraryMessage").innerHTML = "There were no <strong>" + varMediaType + "</strong> results for <strong>" + searchLibraryText + "</strong>";
-                $('#searchResultsContainer').hide();
+                $('#searchLibraryResultsContainer').hide();
             }
         }
     };
 }
 
+// Start get data items from Library API result
+// Render data to HTML
 function getLibraryResultsData(queryResponseData, varMediaType) {
-    var resultObj = queryResponseData.collection; // Get result collection
-    var itemsArray = resultObj.items; // Get items array
+    let resultObj = queryResponseData.collection; // Get result collection
+    let itemsArray = resultObj.items; // Get items array
+    let pagedLibraryResult = pageTheLibraryResult(itemsArray); //slice up the array into pages of 10 items
+    // Paging information
+    document.getElementById('pageNumber').innerHTML = currentLibraryPage;
+    document.getElementById('pageCount').innerHTML = numberOfLibraryPages;
 
     if (varMediaType === "image") {
-        $('#searchResultsContainer').show(); // Results div hidden when page loads. Show for results.
-        itemsArray.forEach(function(item) { // Items: data, href, links, we need data[{}] array
+        $('#searchLibraryResultsContainer').show(); // Results div hidden when page loads. Show for results.
+        
+        pagedLibraryResult.forEach(function(item, i) { // Items: data, href, links, we need data[{}] array
             var itemsDataObj = item.data; // Data object
             var itemsLinkObj = item.links; // Links object
-
+            
             itemsDataObj.forEach(function(item) {
-                var varTruncatedDataDescription = item.description.substring(0, 30)
-                document.getElementById('libraryResults').innerHTML += "<div class='dataDetails'>Centre: " + item.center + "</div>" +
-                    "<div class='dataDetails'>Date created: " + item.date_created + "</div>" +
-                    "<div class='dataDetails'>Description: " + varTruncatedDataDescription + "</div>" +
-                    "<div class='dataDetails'>Nasa id: " + item.nasa_id + "</div>" +
-                    "<div class='dataDetails'>Title: " + item.title + "</div>";
+                var varTruncatedDataDescription = item.description.substring(0, 150);
+                var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and splite out date into day, month, year
 
-                itemsLinkObj.forEach(function(item) {
-                    //console.log(item.description, typeof(item));
-                    document.getElementById('libraryThumbnailResults').innerHTML += "<div class='image'>" +
-                        "<img alt='item.href' id='imageID' src='" + item.href + "'/>" +
-                        "</div>" +
-                        "<div><br><br></div>";
-                });
+                // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
+                document.getElementById('libraryResults').innerHTML += "<div class='row' id='libraryResultsItem"+i+"'><div class='col-4 col-sm-2 text-center'>" +
+                    "<img src='https://images-assets.nasa.gov/image/" + item.nasa_id + "/" + item.nasa_id + "~thumb.jpg' alt='" + item.title + "'/></div>" +
+                    "<div class='col-8 col-sm-10'><p><strong>Title:</strong> " + item.title + "<br>" +
+                    "<strong>Center:</strong> " + item.center + "<br>" +
+                    "<strong>Description:</strong> " + varTruncatedDataDescription + "...<br>" +
+                    "<strong>Nasa id:</strong> " + item.nasa_id + "<br>" +
+                    "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "</p>" +
+                    "</div></div>";
+                    
             });
-
+            // if the index (i) is divisable by 2 then it's even otherwise odd
+            // different background colours are applied by css if row is even/odd
+            if (i % 2 == 0) {
+                 document.getElementById('libraryResultsItem'+i).classList.add('evenColour');
+            }else {
+                document.getElementById('libraryResultsItem'+i).classList.add('oddColour');
+            }
         });
     }
     else if (varMediaType === "video") {
         console.log("video");
     }
     else if (varMediaType === "audio") {
-        console.log("audio");
+        console.log
+
+        ("audio");
     }
 }
+
+// Paging the library result to ten items per page
+function pageTheLibraryResult(resultLibraryApi) {
+    numberOfLibraryPages = getNumberOfLibraryPages(resultLibraryApi);
+    numberOfLibraryImages = resultLibraryApi.length;
+
+    var begin = ((currentLibraryPage - 1) * numberPerLibraryPage);
+    var end = begin + numberPerLibraryPage;
+
+    pageLibraryList = resultLibraryApi.slice(begin, end);
+    checkLibraryResultButtons();
+    return pageLibraryList;
+}
+
+// Get total number of items returned from API
+function getNumberOfLibraryPages(resultLibraryApi) {
+    return Math.ceil(resultLibraryApi.length / numberPerLibraryPage);
+}
+
+// Next Button
+function nextLibraryPage() {
+    currentLibraryPage += 1;
+    currentLibraryImageNumber += 1;
+    getQueryText();
+}
+
+// Previous Button
+function previousLibraryPage() {
+    currentLibraryPage -= 1;
+    currentLibraryImageNumber -= 1;
+    getQueryText();
+}
+
+// First Item Button
+function firstLibraryPage() {
+    currentLibraryPage = 1;
+    currentLibraryImageNumber = 1;
+    getQueryText();
+}
+
+// Last Item Button
+function lastLibraryPage() {
+    currentLibraryPage = numberOfLibraryPages;
+    currentLibraryImageNumber = numberOfLibraryImages;
+    getQueryText();
+}
+
+// Enable/Disable paging buttons if necessary
+function checkLibraryResultButtons() {
+    document.getElementById("nextLibrary").disabled = currentLibraryPage == numberOfLibraryPages ? true : false;
+    document.getElementById("previousLibrary").disabled = currentLibraryPage == 1 ? true : false;
+    document.getElementById("firstLibrary").disabled = currentLibraryPage == 1 ? true : false;
+    document.getElementById("lastLibrary").disabled = currentLibraryPage == numberOfLibraryPages ? true : false;
+}
+
+// END  NASA IMAGE AND VIDEO LIBRARY ================================================================================== //

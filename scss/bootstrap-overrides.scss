@@ -11,6 +11,11 @@
 }
 .btn-light:disabled {
   background-color: $darkgray;
+  color: $midgray;
+}
+.btn-dark:disabled {
+  background-color: $darkgray;
+  color: $midgray;
 }
 .btn-xl {
   padding: 1rem 2rem;

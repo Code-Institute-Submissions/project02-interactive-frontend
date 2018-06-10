@@ -7,9 +7,9 @@ body {
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; }
 
 hr {
-  max-width: 50px;
-  border-width: 3px;
-  border-color: #050215; }
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, transparent, rgba(5, 2, 21, 0.75), transparent); }
 
 hr.light {
   border-color: #fff; }
@@ -201,7 +201,7 @@ header.apod {
     float: left; }
   #epic.epicResults #dataCol,
   #epic.epicResults #pagingRow {
-    text-align: center; }
+    text-align: left; }
   @media (min-width: 992px) {
     #epic.epicResults #imageCol img {
       max-width: 400px; }
@@ -209,14 +209,24 @@ header.apod {
     #epic.epicResults #pagingRow {
       text-align: left; } }
 
-.library-box {
-  max-width: 400px; }
-
-#searchResultsContainer {
+#searchLibraryResultsContainer {
   display: none; }
 
 #library.librarySection .form-check {
   display: inline-block; }
+
+#libraryResults p {
+  font-size: 0.8rem; }
+#libraryResults div {
+  margin-top: 20px; }
+#libraryResults img {
+  max-width: 80px; }
+
+.evenColour {
+  background-color: #e9ecef; }
+
+.oddColour {
+  background-color: #f8f9fa; }
 
 .neo-box {
   position: relative;
@@ -273,7 +283,12 @@ header.apod {
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; }
 
 .btn-light:disabled {
-  background-color: #999; }
+  background-color: #999;
+  color: #666; }
+
+.btn-dark:disabled {
+  background-color: #999;
+  color: #666; }
 
 .btn-xl {
   padding: 1rem 2rem; }

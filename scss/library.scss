@@ -1,12 +1,27 @@
-// Styling for the services section
-.library-box {
-    max-width: 400px;
-}
+// Styling for the library section
 
-#searchResultsContainer {
+#searchLibraryResultsContainer {
     display: none;
 }
-
 #library.librarySection .form-check {
     display: inline-block;
 }
+#libraryResults {
+    p {
+        font-size: 0.8rem;
+    }
+    div {
+        margin-top:20px;
+    }
+    img {
+        max-width: 80px;
+    }
+}
+    .evenColour {
+        background-color: $gray-200;
+    }
+    .oddColour{
+        background-color: $gray-100;
+    }
+
+
