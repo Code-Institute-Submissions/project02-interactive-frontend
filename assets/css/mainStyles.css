@@ -216,11 +216,15 @@ header.apod {
   display: inline-block; }
 
 #libraryResults p {
-  font-size: 0.8rem; }
+  font-size: 0.8rem;
+  line-height: 1.2rem; }
 #libraryResults div {
-  margin-top: 20px; }
+  margin-top: 10px; }
 #libraryResults img {
+  width: 80px;
   max-width: 80px; }
+#libraryResults div {
+  width: 100%; }
 
 .evenColour {
   background-color: #e9ecef; }

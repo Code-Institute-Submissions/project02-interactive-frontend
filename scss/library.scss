@@ -9,12 +9,17 @@
 #libraryResults {
     p {
         font-size: 0.8rem;
+        line-height: 1.2rem;
     }
     div {
-        margin-top:20px;
+        margin-top: 10px;
     }
     img {
+        width: 80px;
         max-width: 80px;
+    }
+    div {
+        width:100%;
     }
 }
     .evenColour {

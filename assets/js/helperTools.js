@@ -66,3 +66,49 @@ function dscovrDistance(x1, y1, z1, x2, y2, z2) {
     d = Math.round(d);
     return d;
 }
+
+
+function nasaCenter(centerName) {
+     if (centerName !== "") {
+        switch (centerName) {
+            case "JPL":
+                varMonth = "January";
+                break;
+            case "JSC":
+                varMonth = "February";
+                break;
+            case "ARC":
+                varMonth = "March";
+                break;
+            case "GSFC":
+                varMonth = "April";
+                break;
+            case "KSC":
+                varMonth = "May";
+                break;
+            case "MSFC":
+                varMonth = "June";
+                break;
+            case "HQ":
+                varMonth = "July";
+                break;
+            case "08":
+                varMonth = "August";
+                break;
+            case "09":
+                varMonth = "September";
+                break;
+            case "10":
+                varMonth = "October";
+                break;
+            case "11":
+                varMonth = "November";
+                break;
+            case "12":
+                varMonth = "December";
+                break;
+                Default:
+                    varMonth = "No Month supplied";
+        }
+    }
+}

@@ -284,32 +284,41 @@ function getLibraryResultsData(queryResponseData, varMediaType) {
 
     if (varMediaType === "image") {
         $('#searchLibraryResultsContainer').show(); // Results div hidden when page loads. Show for results.
-        
+
         pagedLibraryResult.forEach(function(item, i) { // Items: data, href, links, we need data[{}] array
             var itemsDataObj = item.data; // Data object
             var itemsLinkObj = item.links; // Links object
-            
-            itemsDataObj.forEach(function(item) {
-                var varTruncatedDataDescription = item.description.substring(0, 150);
-                var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and splite out date into day, month, year
 
-                // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
-                document.getElementById('libraryResults').innerHTML += "<div class='row' id='libraryResultsItem"+i+"'><div class='col-4 col-sm-2 text-center'>" +
-                    "<img src='https://images-assets.nasa.gov/image/" + item.nasa_id + "/" + item.nasa_id + "~thumb.jpg' alt='" + item.title + "'/></div>" +
-                    "<div class='col-8 col-sm-10'><p><strong>Title:</strong> " + item.title + "<br>" +
-                    "<strong>Center:</strong> " + item.center + "<br>" +
-                    "<strong>Description:</strong> " + varTruncatedDataDescription + "...<br>" +
-                    "<strong>Nasa id:</strong> " + item.nasa_id + "<br>" +
-                    "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "</p>" +
-                    "</div></div>";
-                    
+            //iterate through Data object for item info
+            itemsDataObj.forEach(function(item) {
+                //nasaCenter(item.center);
+                //iterate through Links object to get url for image
+                itemsLinkObj.forEach(function(itemUrl) {
+                    var imageUrl = itemUrl.href;
+
+                    var varTruncatedDataDescription = item.description.substring(0, 170);
+                    var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and splite out date into day, month, year
+
+                    // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
+                    document.getElementById('libraryResults').innerHTML += "<div class='row' id='libraryResultsItem" + i + "'><div class='col-3 col-sm-2 text-center'>" +
+                        "<a href='"+imageUrl+"' target='blank'><img src='" + imageUrl + "' alt='" + item.title + "' tooltip='"+ item.title + "'/></a></div>" +
+                        "<div class='col-9 col-sm-10'><p><strong>Title:</strong> " + item.title + "<br>" +
+                        "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
+                        "<strong>Description:</strong> " + varTruncatedDataDescription + "...<br>" +
+                        "<strong>Center:</strong> " + item.center + "<br>" +                        
+                        "<strong>Nasa id:</strong> " + item.nasa_id + "</p>" +
+                        "</div></div>";
+                });
+
             });
+
             // if the index (i) is divisable by 2 then it's even otherwise odd
             // different background colours are applied by css if row is even/odd
             if (i % 2 == 0) {
-                 document.getElementById('libraryResultsItem'+i).classList.add('evenColour');
-            }else {
-                document.getElementById('libraryResultsItem'+i).classList.add('oddColour');
+                document.getElementById('libraryResultsItem' + i).classList.add('evenColour');
+            }
+            else {
+                document.getElementById('libraryResultsItem' + i).classList.add('oddColour');
             }
         });
     }
