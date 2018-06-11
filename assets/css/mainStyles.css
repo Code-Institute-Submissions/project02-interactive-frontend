@@ -187,7 +187,7 @@ header.apod {
   border-bottom: 1px solid #333; }
   #epic.epicResults .form-check {
     display: inline-block; }
-  #epic.epicResults #epicResultsContainer {
+  #epic.epicResults #epicResultsContainer, #epic.epicResults #epicMostRecentContainer {
     display: none; }
   #epic.epicResults a {
     color: rgba(255, 255, 255, 0.7); }
@@ -200,13 +200,15 @@ header.apod {
   #epic.epicResults #searchResultContainer {
     float: left; }
   #epic.epicResults #dataCol,
-  #epic.epicResults #pagingRow {
+  #epic.epicResults #pagingRow,
+  #epic.epicResults #epicMostRecentData {
     text-align: left; }
   @media (min-width: 992px) {
-    #epic.epicResults #imageCol img {
+    #epic.epicResults #imageCol img, #epic.epicResults #epicMostRecentImage img {
       max-width: 400px; }
     #epic.epicResults #dataCol,
-    #epic.epicResults #pagingRow {
+    #epic.epicResults #pagingRow,
+    #epic.epicResults #epicMostRecentData {
       text-align: left; } }
 
 #searchLibraryResultsContainer {

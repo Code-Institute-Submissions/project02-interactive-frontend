@@ -1,4 +1,5 @@
 // START APOD =================================================================================================================== //
+// GET DATA Using AJAX
 var url = "https://api.nasa.gov/planetary/apod?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ";
 
 $.ajax({
@@ -30,7 +31,10 @@ $.ajax({
 
 // END APOD ===================================================================================================================== //
 
+
+
 // START EPIC WITH ONE ITEM PER PAGE  - PAGING ================================================================================== //
+// GET DATA Using Fetch
 
 // EPIC Global variables for paging
 var pageList = new Array();
@@ -132,6 +136,9 @@ function getEpicImageByDate() {
 function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varImageCol, totalResultCount) {
     if (result.length !== 0) {
         $('#epicResultsContainer').show(); // Results div hidden when page loads. Show for results.
+        if ($('#epicMostRecentContainer').show) {
+            $('#epicMostRecentContainer').hide();
+        } ; // If most recent EPIC image showing then hide
         result.forEach(function(item) {
             let epicImageTypeUrl = "https://epic.gsfc.nasa.gov/archive/" + varImageType + "/" + objDateSplitUp.year + "/" + objDateSplitUp.month + "/" + objDateSplitUp.day + "/jpg/" + item.image + ".jpg";
             let distanceToSun = dscovrDistance(item.dscovr_j2000_position.x, item.dscovr_j2000_position.y, item.dscovr_j2000_position.z, item.sun_j2000_position.x, item.sun_j2000_position.y, item.sun_j2000_position.z).toLocaleString();
@@ -218,7 +225,53 @@ function check() {
 
 // END EPIC  =========================================================================================================== //
 
+// START EPIC MOST RECENT IMAGE ======================================================================================== //
+
+function getMostRecentEpic() {
+    // START OF GET DATA
+    let varMostRecentImagesDiv = document.getElementById("epicMostRecentImage");
+    let varMostRecentDataDiv = document.getElementById("epicMostRecentData");
+    let url = fetch("https://api.nasa.gov/EPIC/api/enhanced/images?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ") //call to API for natural images
+        .then(function(response) {
+            if (response.ok) {
+                return response.json(); // parses response to JSON
+            }
+            throw new Error('There was a problem connecting to NASA. Please try again later.'); //catch connection errors
+        }).then(function(result) {
+            varMostRecentImagesDiv.innerHTML = ""; //clear div between refreshes
+            varMostRecentDataDiv.innerHTML = "";
+            if (result.length !== 0) {
+                let mostRecent = result[result.length - 1]; //get last array item
+                let imageDate = splitDate(mostRecent.date, 0); //split the date up into year, month, day
+                let strImageDay = imageDate.day; //this contains day and time
+                strImageDay = strImageDay.substring(0, strImageDay.length - 9); //remove time from date string
+                $('#epicMostRecentContainer').show(); // Results div hidden when page loads. Show for results.
+                $('#epicResultsContainer').hide(); // if EPIC results showing then hide
+                console.log(mostRecent);
+
+                varMostRecentDataDiv.innerHTML += "<div><strong>Image name:</strong> " + mostRecent.image + ".jpg</div>" +
+                    "<div><strong>Image date and time: </strong>" + mostRecent.date + "</div>" +
+                    "<div>" + mostRecent.caption + "</div>";
+
+                //Images natural and enhanced
+                varMostRecentImagesDiv.innerHTML += "<div class='earthImage'>" +
+                    "<a href='https://epic.gsfc.nasa.gov/archive/enhanced/" + imageDate.year + "/" + imageDate.month + "/" + strImageDay + "/jpg/" + mostRecent.image + ".jpg' target='blank'><img id='imageID' src='https://epic.gsfc.nasa.gov/archive/enhanced/" + imageDate.year + "/" + imageDate.month + "/" + strImageDay + "/jpg/" + mostRecent.image + ".jpg'/></a>" +
+                    "</div>";
+            }
+            else {
+                document.getElementById('imageStatus').textContent = 'Please note images were not captured before 2015-09-01 or there were no images captured for that date:';
+            }
+        }).catch(function(error) {
+            console.log('Request failed', error.message);
+        });
+}
+
+// END EPIC MOST RECENT IMAGE ======================================================================================== //
+
+
+
 // START NASA IMAGE AND VIDEO LIBRARY ================================================================================== //
+// GET DATA using XMLHttpRequest
 
 //Library global variables for paging
 var pageLibraryList = new Array();
@@ -277,6 +330,7 @@ function searchNASALibrary(searchLibraryText, varMediaType) {
 function getLibraryResultsData(queryResponseData, varMediaType) {
     let resultObj = queryResponseData.collection; // Get result collection
     let itemsArray = resultObj.items; // Get items array
+    console.log(resultObj.links);
     let pagedLibraryResult = pageTheLibraryResult(itemsArray); //slice up the array into pages of 10 items
     // Paging information
     document.getElementById('pageNumber').innerHTML = currentLibraryPage;
@@ -289,10 +343,12 @@ function getLibraryResultsData(queryResponseData, varMediaType) {
             var itemsDataObj = item.data; // Data object
             var itemsLinkObj = item.links; // Links object
 
+
+
             //iterate through Data object for item info
             itemsDataObj.forEach(function(item) {
                 //nasaCenter(item.center);
-                //iterate through Links object to get url for image
+                //iterate through Links object to get url for thumbnail image
                 itemsLinkObj.forEach(function(itemUrl) {
                     var imageUrl = itemUrl.href;
 
@@ -301,11 +357,11 @@ function getLibraryResultsData(queryResponseData, varMediaType) {
 
                     // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
                     document.getElementById('libraryResults').innerHTML += "<div class='row' id='libraryResultsItem" + i + "'><div class='col-3 col-sm-2 text-center'>" +
-                        "<a href='"+imageUrl+"' target='blank'><img src='" + imageUrl + "' alt='" + item.title + "' tooltip='"+ item.title + "'/></a></div>" +
+                        "<a href='" + imageUrl + "' target='blank'><img src='" + imageUrl + "' alt='" + item.title + "' tooltip='" + item.title + "'/></a></div>" +
                         "<div class='col-9 col-sm-10'><p><strong>Title:</strong> " + item.title + "<br>" +
                         "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
                         "<strong>Description:</strong> " + varTruncatedDataDescription + "...<br>" +
-                        "<strong>Center:</strong> " + item.center + "<br>" +                        
+                        "<strong>Center:</strong> " + item.center + "<br>" +
                         "<strong>Nasa id:</strong> " + item.nasa_id + "</p>" +
                         "</div></div>";
                 });

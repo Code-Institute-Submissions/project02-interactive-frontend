@@ -3,58 +3,133 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="NASA API">
-    <meta name="keywords" content="HTML,CSS">
-    <meta name="author" content="Coole Sites 2018">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="cache-control" content="no-cache" />
-    <script type="text/javascript" src="library.js"></script>
-    <title>NASA Library</title>
-    <style type="text/css">
-        #searchResultsContainer {
-            display:none;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NASA API">
+  <meta name="keywords" content="HTML,CSS">
+  <meta name="author" content="Coole Sites 2018">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="cache-control" content="no-cache" />
+
+  <title>NASA Library</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <link href="assets/css/mainStyles.css" rel="stylesheet">
 
 </head>
 
 <body>
-    <h1>Library</h1>
-    <form>
-        <div class="form-group">
-            <label for="searchLibraryText">Search NASA</label>
-            <input type="text" class="form-control" id="searchLibraryText" placeholder="Example input">
+  <section id="library" class="librarySection">
+    <!-- Heading Library -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h2 class="section-heading">Search NASA Image and Video Library</h2>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="mediaType" id="image" value="image" checked>
-            <label class="form-check-label" for="image">Image</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="mediaType" id="video" value="video">
-            <label class="form-check-label" for="video">Video</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="mediaType" id="audio" value="audio">
-            <label class="form-check-label" for="video">Audio</label>
-        </div>
-        <button type="button" class="btn btn-primary" onclick="getQueryText()">Search NASA</button>
-    </form>
-    <div id="errorMessage"></div>
-    <br>
-    <hr><br>
-    <div id="searchResultsContainer">
-        <h1>search results</h1>
-        <div>Total hits: <span id="totalLibraryHits"></span></div>
-
-        <div id="libraryResults"></div>
-        <div id="libraryThumbnailResults"></div>
+      </div>
     </div>
-    <!-- Script Links --------------------------------------------------------------->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <!-- Custom scripts for this template -->
+    <!-- Form Library -->
+    <div class="container">
+      <!-- Form -->
+      <div class="row">
+        <div class="col-12 col-sm-10 mt-5 mx-auto">
+          <form>
+            <div class="form-group text-center">
+              <label for="searchLibraryText">Enter a topic to search and choose the media type.</label>
+              <input type="text" class="form-control" id="searchLibraryText" placeholder="e.g. apollo, moon, europe..." value="orion">
+            </div>
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="mediaType" id="image" value="image" checked>
+              <label class="form-check-label" for="image">Image</label>
+            </div>
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="mediaType" id="video" value="video">
+              <label class="form-check-label" for="video">Video</label>
+            </div>
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="mediaType" id="audio" value="audio">
+              <label class="form-check-label" for="video">Audio</label>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- error message -->
+      <div class="row">
+        <div class="col-12 col-md-8 mx-auto mt-1 text-center errorMessage" id="errorLibraryMessage"></div>
+      </div>
+      <!-- Search NASA button -->
+      <div class="row">
+        <div class="col-12 mx-auto text-center mt-3">
+          <button type="button" class="btn btn-primary btn-xl" onclick="getQueryText()">Search NASA</button>
+        </div>
+      </div>
+    </div>
+    <!-- ruler hr -->
+    <div class="row">
+      <div class="col-12 mx-auto">
+        <hr>
+      </div>
+    </div>
+    <!-- Results Library -->
+    <div class="container" id="searchLibraryResultsContainer">
+      <!-- Paging Buttons -->
+      <div class="row">
+        <div class="col-12">
+          <div id="pagingRow">
+            <div class="float-sm-left text-center">
+              <h3>Search Results</h3>
+            </div>
+            <div class="float-sm-right text-center">
+              <div>
+                <input type="button" id="firstLibrary" onclick="firstLibraryPage()" value="first" class="btn btn-dark btn-sm" />
+                <input type="button" id="previousLibrary" onclick="previousLibraryPage()" value="previous" class="btn btn-dark btn-sm" />
+                <input type="button" id="nextLibrary" onclick="nextLibraryPage()" value="next" class="btn btn-dark btn-sm" />
+                <input type="button" id="lastLibrary" onclick="lastLibraryPage()" value="last" class="btn btn-dark btn-sm" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!------ TEST ------------------------------------------------------------------------->
+       <div class="row">
+        <div class="col-12"><input type="button" id="nexttest" value="nexttest" /></div>
+        <div class="col-12"><input type="button" id="pevioustest" value="previoustest" /></div>
+      </div>
+      <!-- Total Result Hits -->
+      <div class="row">
+        <div class="col-12 mt-3">
+          Total results: <span id="totalLibraryHits"></span>
+        </div>
+      </div>
+      <!-- Paging Information -->
+      <div class="row">
+        <div class="col-12">
+          <div id="pagingInfo">
+            Page <span id="pageNumber"></span> of <span id="pageCount"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Library Results -->
+      <div class="row" id="libraryResults"></div>
+    </div>
+  </section>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+
+  <!-- Custom scripts for this template -->
+  <script src="assets/js/helperTools.js"></script>
+  <script src="library.js"></script>
 
 </body>
 

@@ -5,7 +5,7 @@
   .form-check {
     display: inline-block;
   }
-  #epicResultsContainer {
+  #epicResultsContainer, #epicMostRecentContainer {
     display: none;
   }
   a {
@@ -24,15 +24,17 @@
     float: left;
   }
   #dataCol,
-  #pagingRow {
+  #pagingRow,
+  #epicMostRecentData{
       text-align: left;
     }
   @media (min-width: 992px) {
-    #imageCol img {
+    #imageCol img, #epicMostRecentImage img {
       max-width: 400px;
     }
     #dataCol,
-    #pagingRow {
+    #pagingRow,
+    #epicMostRecentData{
       text-align: left;
     }
   }

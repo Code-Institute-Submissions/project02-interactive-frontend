@@ -67,9 +67,24 @@ function dscovrDistance(x1, y1, z1, x2, y2, z2) {
     return d;
 }
 
+//https://css-tricks.com/snippets/javascript/get-url-variables/
+// Get varialble from url
+function getQueryVariable(variable, url) {
+    var query = url;
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+            return pair[1]; //should be media_type: image, video or audio
+        }
+    }
+    return (false);
+}
 
+
+// Get NASA Center
 function nasaCenter(centerName) {
-     if (centerName !== "") {
+    if (centerName !== "") {
         switch (centerName) {
             case "JPL":
                 varMonth = "January";
@@ -92,20 +107,14 @@ function nasaCenter(centerName) {
             case "HQ":
                 varMonth = "July";
                 break;
-            case "08":
+            case "GRC":
                 varMonth = "August";
                 break;
-            case "09":
+            case "LRC":
                 varMonth = "September";
                 break;
-            case "10":
+            case "HQ":
                 varMonth = "October";
-                break;
-            case "11":
-                varMonth = "November";
-                break;
-            case "12":
-                varMonth = "December";
                 break;
                 Default:
                     varMonth = "No Month supplied";
