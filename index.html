@@ -57,17 +57,32 @@
     </div>
   </nav>
 
-  <section class="apod text-center text-white d-flex" id="apodSection">
+  <header class="intro text-center text-white d-flex">
     <div class="container my-auto">
       <div class="row">
-        <div class="col-12 mx-auto mb-5">
+        <div class="col-12 mx-auto">
           <h1 class="text-uppercase">
-            <strong>Astronomy Image of the day</strong>
+            <strong>Welcome to NASA API</strong>
           </h1>
         </div>
         <div class="col-12 mx-auto mb-3">
+          <p class="text-faded mx-auto p-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis fuga, ut ad similique natus voluptate cupiditate, debitis incidunt exercitationem ab doloribus ullam aut! Sunt suscipit minus iusto. Praesentium, quae perspiciatis consequatur. Omnis voluptatibus facere officiis vel temporibus cupiditate ipsa sunt molestiae assumenda a sit, quos, doloremque aut obcaecati perferendis quasi, sed architecto cumque iste? Iste earum quo minima at provident quam, expedita tempora ex error mollitia, quae officia repellat architecto. Modi reiciendis minima similique cupiditate beatae, veniam vero, accusantium neque ut officiis quod, velit fugiat architecto exercitationem officia quia laborum. Consequatur itaque porro vel! Quibusdam provident, eligendi quod molestiae voluptatibus.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="apodSection" class="apod text-center text-white d-flex">
+    <div class="container my-auto">
+      <div class="row">
+        <div class="col-12 mx-auto mb-5">
+          <h2 class="text-uppercase">
+            <strong>Astronomy Image of the day</strong>
+          </h2>
+        </div>
+        <div class="col-12 mx-auto mb-3">
           <p class="text-faded mx-auto">One of the most popular websites at NASA is the Astronomy Picture of the Day. Each day a different image or photograph of our fascinating universe is featured, along with a brief explanation written by a professional astronomer.
-            <br><a href="https://apod.nasa.gov/apod/archivepix.html" class="paralink" target="blank">Click here</a> <i class='fa fa-external-link' aria-hidden='true'></i> to view all images archived since 1995.</p>
+            <a href="https://apod.nasa.gov/apod/archivepix.html" class="paralink" target="blank">Click here</a> <i class='fa fa-external-link' aria-hidden='true'></i> to view all images archived since 1995.</p>
         </div>
       </div>
       <div class="row">
@@ -77,9 +92,11 @@
         </div>
 
         <div class="col-12 mx-auto video-container" id="apod_vid_container">
-            <iframe id="apod_vid_id" type="text/html" width="460" height="215" frameborder="0"></iframe>
+          <iframe id="apod_vid_id" type="text/html" width="460" height="215" frameborder="0"></iframe>
         </div>
-        <div class="col-12"><h3 id="apod_title_vid"></h3></div>
+        <div class="col-12">
+          <h3 id="apod_title_vid"></h3>
+        </div>
         <div class="col-12 col-sm-8 mx-auto apod-para">
           <p class="text-faded mb-4">
             <span id="apod_date" class="apod-date"></span>
@@ -96,10 +113,12 @@
     <div class="container" id="epicContainer">
       <div class="row">
         <div class="col-12 text-center">
-          <h2 class="section-heading text-white">EPIC</h2>
+          <h2 class="section-heading text-white"><strong>EPIC</strong></h2>
+          <p class="text-faded mb-4">Please note that this section is not compatible with Internet Explorer. Please use Chrome or Firefox to search EPIC.</p>
           <p class="text-faded mb-4">EPIC provides information on the daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument. Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures unique
             perspectives of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a 30-cm aperture Cassegrain telescope.</p>
-          <p class="text-faded nm-4" id="DateHelp"><a onclick="getMostRecentEpic()">View the most recent EPIC image received</a> <i class='fa fa-external-link' aria-hidden='true'></i> or enter a search date and click the search button<br> (the first acquired images start on 01 September 2015).</p>
+          <p class="text-faded mb-4">You can read more about EPIC and the DSCOVR project on the NASA website: <a href="https://epic.gsfc.nasa.gov/epic" target="blank">Earth Polychromatic Imaging Camera</a> <i class='fa fa-external-link' aria-hidden='true'></i></p>
+          <p class="text-faded nm-4" id="DateHelp"><a onclick="getMostRecentEpic()">View the most recent EPIC image received</a> <i class='fa fa-external-link' aria-hidden='true'></i><br> or enter a search date and click the search button<br> <span class="text-muted small">(the first acquired images began on 01 September 2015)</span>.</p>
         </div>
       </div>
       <!-- Date row -->
@@ -137,7 +156,7 @@
     </div>
 
     <div class="container mt-5" id="epicResultsContainer">
-      <!--number of images returned -->
+      <!--Title and number of images returned -->
       <div class="row">
         <div class="col-12 text-center">
           <h3 class="section-heading text-white">EPIC Results</h3>
@@ -167,11 +186,13 @@
     </div>
 
     <div class="container mt-5" id="epicMostRecentContainer">
+      <!--Title -->
       <div class="row">
         <div class="col-12 text-center">
           <h3 class="section-heading text-white">EPIC Most Recent Image</h3>
         </div>
       </div>
+      <!--Most Recent Results -->
       <div class="row">
         <div class="col-12 col-sm-6 text-center">
           <div id="epicMostRecentImage">image loading...</div>
@@ -189,7 +210,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-          <h2 class="section-heading">Search NASA Image and Video Library</h2>
+          <h2 class="section-heading"><strong>Search NASA Image and Video Library</strong></h2>
         </div>
       </div>
     </div>

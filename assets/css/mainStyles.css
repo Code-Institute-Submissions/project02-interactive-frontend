@@ -59,7 +59,8 @@ h6 {
   color: rgba(255, 255, 255, 0.7); }
 
 .errorMessage {
-  color: #cc3333; }
+  color: #cc3333;
+  font-weight: 600; }
 
 section {
   padding: 8rem 0; }
@@ -145,18 +146,43 @@ img::-moz-selection {
           #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
             color: #050215; } }
 
-#apodSection.apod {
+header.intro {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
+  background-image: url("../img/atlantis.jpg");
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+  header.intro h1 {
+    font-size: 2rem;
+    background-color: rgba(0, 18, 52, 0.8); }
+  header.intro p {
+    font-weight: 300;
+    background-color: rgba(0, 18, 52, 0.8); }
+  @media (min-width: 768px) {
+    header.intro p {
+      font-size: 1.15rem; } }
+  @media (min-width: 992px) {
+    header.intro {
+      height: 100vh;
+      min-height: 650px;
+      padding-top: 0;
+      padding-bottom: 0; }
+      header.intro h1 {
+        font-size: 3rem; } }
+  @media (min-width: 1200px) {
+    header.intro h1 {
+      font-size: 4rem; } }
+
+#apodSection.apod {
   background-image: url("../img/stars70.jpg");
   background-position: center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; }
-  #apodSection.apod hr {
-    margin-top: 30px;
-    margin-bottom: 30px; }
   #apodSection.apod h1 {
     font-size: 2rem; }
   #apodSection.apod p {
@@ -185,14 +211,6 @@ img::-moz-selection {
     left: 25%;
     width: 50%;
     height: 100%; }
-  @media (min-width: 992px) {
-    #apodSection.apod {
-      height: 100vh;
-      min-height: 650px;
-      padding-top: 0;
-      padding-bottom: 0; }
-      #apodSection.apod h1 {
-        font-size: 3rem; } }
   @media (min-width: 1200px) {
     #apodSection.apod h1 {
       font-size: 3.5rem; } }
@@ -208,10 +226,8 @@ img::-moz-selection {
     color: rgba(255, 255, 255, 0.7); }
     #epic.epicResults a:hover {
       color: #fff; }
-  #epic.epicResults #imageCol img {
+  #epic.epicResults #imageCol img, #epic.epicResults #epicMostRecentImage img {
     max-width: 250px; }
-  #epic.epicResults .earthImage {
-    text-align: center; }
   #epic.epicResults #searchResultContainer {
     float: left; }
   #epic.epicResults #dataCol,

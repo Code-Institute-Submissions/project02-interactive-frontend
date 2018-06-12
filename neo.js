@@ -1,37 +1,77 @@
 // NEO WS ==================================================================================
 
-//with help from Simen Daehlin on slack
-
-function buildUrl() {
+function buildNeoUrl() {
   let varStartDate = document.getElementById("formStartDate").value;
-  let varNumberOfDays = parseInt(document.getElementById("numberOfDays").value) - 1; // minus 1 because it returns 8 for 7 days for example
+  let varNumberOfDays = parseInt(document.getElementById("numberOfDays").value);
   let varEndDate = addDays(varStartDate, varNumberOfDays);
-  let url = fetch("https://api.nasa.gov/neo/rest/v1/feed?start_date=" + varStartDate + "&end_date=" + varEndDate + "&api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ")
-    .then(function(response) {
-      console.log(response);
-      return response.json(); // parses response to JSON
-    }).catch(function(err) {
-      console.log('Request failed', err);
-    }).then(function(result) {
-      console.log(result);
-      console.dir(result);
-      $("#elementCount").text(result.element_count);
-      $("#near_earth_objects").text(result.near_earth_objects["2018-03-01"]["0"].absolute_magnitude_h);
-      $("#near_earth_objects").text(result.near_earth_objects["2018-03-01"]["0"].neo_reference_id); //3799745
+  if (varNumberOfDays >7) {
+    document.getElementById('neo-Error-Message').innerHTML = "Not bigger than 7";
+  } else {
+    return
+  }
+}
 
-      result.near_earth_objects.forEach(function(item) {
-        Object.keys(item).forEach(function(key) {
-          console.log(key);
-        })
-        $("#nasa-data").text(item.name);
-      });
-    })
+// var url = "https://api.nasa.gov/planetary/apod?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ";
 
+// $.ajax({
+//   url: url,
+//   success: function(result){
+//   if("copyright" in result) {
+//     $("#copyright").text("Image Credits: " + result.copyright);
+//   }
+//   else {
+//     $("#copyright").text("Image Credits: " + "Public Domain");
+//   }
   
-  
-  
-  
-} //end of buildURL()
+//   if(result.media_type == "video") {
+//     $("#apod_img_id").css("display", "none"); 
+//     $("#apod_vid_id").attr("src", result.url);
+//   }
+//   else {
+//     $("#apod_vid_id").css("display", "none"); 
+//     $("#apod_img_id").attr("src", result.url);
+//   }
+//   $("#reqObject").text(url);
+//   $("#returnObject").text(JSON.stringify(result, null, 4));  
+//   $("#apod_explaination").text(result.explanation);
+//   $("#apod_title").text(result.title);
+//   $("#apod_date1").text(result.date);
+//   var euroDateFormat = new Date(result.date);
+//   var euroDateFormatM = new Date(result.date).getMonth() + 1;
+//   $("#apod_date2").text(euroDateFormat.getDate() + " " + euroDateFormatM + " " + euroDateFormat.getFullYear());
+// }
+// });
+
+
+
+
+// function buildUrl() {
+//   let varStartDate = document.getElementById("formStartDate").value;
+//   let varNumberOfDays = parseInt(document.getElementById("numberOfDays").value) - 1; // minus 1 because it returns 8 for 7 days for example
+//   let varEndDate = addDays(varStartDate, varNumberOfDays);
+//   let url = fetch("https://api.nasa.gov/neo/rest/v1/feed?start_date=" + varStartDate + "&end_date=" + varEndDate + "&api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ")
+//     .then(function(response) {
+//       console.log(response);
+//       return response.json(); // parses response to JSON
+//     }).catch(function(err) {
+//       console.log('Request failed', err);
+//     }).then(function(result) {
+//       console.log(result);
+//       console.dir(result);
+//       $("#elementCount").text(result.element_count);
+//       $("#near_earth_objects").text(result.near_earth_objects["2018-03-01"]["0"].absolute_magnitude_h);
+//       $("#near_earth_objects").text(result.near_earth_objects["2018-03-01"]["0"].neo_reference_id); //3799745
+
+//       result.near_earth_objects.forEach(function(item) {
+//         Object.keys(item).forEach(function(key) {
+//           console.log(key);
+//         })
+//         $("#nasa-data").text(item.name);
+//       });
+//     })
+ 
+// } 
+//end of buildURL()
 
 
 

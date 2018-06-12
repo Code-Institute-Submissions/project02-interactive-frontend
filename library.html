@@ -58,12 +58,10 @@
               <input class="form-check-input" type="radio" name="mediaType" id="audio" value="audio">
               <label class="form-check-label" for="video">Audio</label>
             </div>
+            <!-- error message -->
+            <div class="form-check ml-3 float-right errorMessage" id="errorLibraryMessage"></div>
           </form>
         </div>
-      </div>
-      <!-- error message -->
-      <div class="row">
-        <div class="col-12 col-md-8 mx-auto mt-1 text-center errorMessage" id="errorLibraryMessage"></div>
       </div>
       <!-- Search NASA button -->
       <div class="row">
@@ -88,20 +86,16 @@
               <h3>Search Results</h3>
             </div>
             <div class="float-sm-right text-center">
+              <!------ PAGING BUTTONS ------------------------------------------------------------------------->
               <div>
                 <input type="button" id="firstLibrary" onclick="firstLibraryPage()" value="first" class="btn btn-dark btn-sm" />
-                <input type="button" id="previousLibrary" onclick="previousLibraryPage()" value="previous" class="btn btn-dark btn-sm" />
-                <input type="button" id="nextLibrary" onclick="nextLibraryPage()" value="next" class="btn btn-dark btn-sm" />
+                <input type="button" id="previousButton" value="Previous"  class="btn btn-dark btn-sm" />
+                <input type="button" id="nextButton" value="Next"  class="btn btn-dark btn-sm" />
                 <input type="button" id="lastLibrary" onclick="lastLibraryPage()" value="last" class="btn btn-dark btn-sm" />
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!------ TEST ------------------------------------------------------------------------->
-       <div class="row">
-        <div class="col-12"><input type="button" id="nexttest" value="nexttest" /></div>
-        <div class="col-12"><input type="button" id="pevioustest" value="previoustest" /></div>
       </div>
       <!-- Total Result Hits -->
       <div class="row">

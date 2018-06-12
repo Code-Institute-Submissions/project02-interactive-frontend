@@ -5,12 +5,12 @@ var url = "https://api.nasa.gov/planetary/apod?api_key=pyZKDq8cb4x1dJi0dsodTT9PB
 $.ajax({
     url: url,
     success: function(result) {
-        if (result.media_type == "video") {
-            $("#apodSection.apod").css("min-height", "1200px");
-        }
-        else {
-            $("#apodSection.apod").css("min-height", "650px"); //If type image...
-        }
+        // if (result.media_type == "video") {
+        //     $("#apodSection.apod").css("min-height", "1200px");
+        // }
+        // else {
+        //     $("#apodSection.apod").css("min-height", "650px"); //If type image...
+        // }
         
         if ("copyright" in result) {
             $("#copyright").text("Image Credits: " + result.copyright); //Get copyright information and display
@@ -55,6 +55,7 @@ var numberOfImages = 1;
 // Function called from Search button
 // Call made to EPIC API using FETCH. Result Object returned
 // Result object sent to getResultItems() for looping and rendering to HTML
+// with help from Simen Daehlin on slack
 function getEpicImageByDate() {
     if (document.getElementById("formDate").value !== "") {
         document.getElementById("errorMessage").innerHTML = ""; //clear div between refreshes
@@ -71,7 +72,7 @@ function getEpicImageByDate() {
                     if (response.ok) {
                         return response.json(); // parses response to JSON
                     }
-                    throw new Error('There was a problem connecting to NASA. Please try again later.'); //catch connection errors
+                    throw new Error('There was a problem connecting to NASA. Please try again later. EPIC Search is only compatible with Chrome or Firefox.'); //catch connection errors
                 }).then(function(result) {
                     varDataCol.innerHTML = ""; //clear div between refreshes
                     varImageCol.innerHTML = ""; //clear div between refreshes

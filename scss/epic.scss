@@ -14,11 +14,8 @@
       color: $white;
     }
   }
-  #imageCol img {
+  #imageCol img, #epicMostRecentImage img {
     max-width: 250px;
-  }
-  .earthImage {
-    text-align: center;
   }
   #searchResultContainer {
     float: left;

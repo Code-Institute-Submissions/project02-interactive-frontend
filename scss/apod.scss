@@ -1,14 +1,10 @@
 // Styling for the masthead
 #apodSection.apod {
-  padding-top: 10rem;
-  padding-bottom: calc(10rem - 56px);
+  //padding-top: 10rem;
+  //padding-bottom: calc(10rem - 56px);
   background-image: url('../img/stars70.jpg'); //image from https://free-images.com/
   background-position: center center;
   @include background-cover;
-  hr {
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
   h1 {
     font-size: 2rem;
   }
@@ -26,7 +22,7 @@
     float: left;
   }
   .apod-para {
-    background-color: $fadedbkg;
+    background-color: $fadedbkg-03;
     clear: both;
   }
   .video-container {
@@ -46,15 +42,15 @@
     height: 100%;
   }
   @media (min-width: 768px) {}
-  @media (min-width: 992px) {
-    height: 100vh;
-    min-height: 650px;
-    padding-top: 0;
-    padding-bottom: 0;
-    h1 {
-      font-size: 3rem;
-    }
-  }
+  // @media (min-width: 992px) {
+  //   height: 100vh;
+  //   min-height: 650px;
+  //   padding-top: 0;
+  //   padding-bottom: 0;
+  //   h1 {
+  //     font-size: 3rem;
+  //   }
+  // }
   @media (min-width: 1200px) {
     h1 {
       font-size: 3.5rem;
