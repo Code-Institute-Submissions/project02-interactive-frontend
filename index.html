@@ -34,7 +34,7 @@
   <!-- Navigation -->
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">An intro to NASA available data</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Welcome to NASA</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,7 +57,7 @@
     </div>
   </nav>
 
-  <header class="apod text-center text-white d-flex">
+  <section class="apod text-center text-white d-flex" id="apodSection">
     <div class="container my-auto">
       <div class="row">
         <div class="col-12 mx-auto mb-5">
@@ -71,11 +71,15 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 col-sm-4 mx-auto">
+        <div class="col-12 col-sm-4 mx-auto" id="apod_img_container">
           <img id="apod_img_id" class="apod-image mb-2" alt="Astronomy image of the day" />
-          <iframe id="apod_vid_id" type="text/html" width="640" height="385" frameborder="0"></iframe>
-          <h3 id="apod_title"></h3>
+          <h3 id="apod_title_img"></h3>
         </div>
+
+        <div class="col-12 mx-auto video-container" id="apod_vid_container">
+            <iframe id="apod_vid_id" type="text/html" width="460" height="215" frameborder="0"></iframe>
+        </div>
+        <div class="col-12"><h3 id="apod_title_vid"></h3></div>
         <div class="col-12 col-sm-8 mx-auto apod-para">
           <p class="text-faded mb-4">
             <span id="apod_date" class="apod-date"></span>
@@ -86,7 +90,7 @@
       </div>
     </div>
 
-  </header>
+  </section>
 
   <section id="epic" class="epicResults bg-black">
     <div class="container" id="epicContainer">

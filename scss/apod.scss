@@ -1,5 +1,5 @@
 // Styling for the masthead
-header.apod {
+#apodSection.apod {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
   background-image: url('../img/stars70.jpg'); //image from https://free-images.com/
@@ -13,24 +13,39 @@ header.apod {
     font-size: 2rem;
   }
   p {
-    text-align:left;
+    text-align: left;
   }
   .apod-image {
     max-width: 300px;
     border: 1px solid #333;
   }
   .apod-copyright {
-    float:right;
+    float: right;
   }
   .apod-date {
-    float:left;
+    float: left;
   }
   .apod-para {
     background-color: $fadedbkg;
+    clear: both;
   }
-  @media (min-width: 768px) {
-    
+  .video-container {
+    position: relative;
+    padding-bottom: 30%;
+    padding-top: 20px;
+    height: 0;
+    overflow: hidden;
   }
+  .video-container iframe,
+  .video-container object,
+  .video-container embed {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width: 50%;
+    height: 100%;
+  }
+  @media (min-width: 768px) {}
   @media (min-width: 992px) {
     height: 100vh;
     min-height: 650px;

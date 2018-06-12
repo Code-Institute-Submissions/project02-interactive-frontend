@@ -5,6 +5,13 @@ var url = "https://api.nasa.gov/planetary/apod?api_key=pyZKDq8cb4x1dJi0dsodTT9PB
 $.ajax({
     url: url,
     success: function(result) {
+        if (result.media_type == "video") {
+            $("#apodSection.apod").css("min-height", "1200px");
+        }
+        else {
+            $("#apodSection.apod").css("min-height", "650px"); //If type image...
+        }
+        
         if ("copyright" in result) {
             $("#copyright").text("Image Credits: " + result.copyright); //Get copyright information and display
         }
@@ -13,16 +20,17 @@ $.ajax({
         }
 
         if (result.media_type == "video") {
-            $("#apod_img_id").css("display", "none"); //If type video...
+            $("#apod_img_container").css("display", "none"); //If type video...
             $("#apod_vid_id").attr("src", result.url);
+            $("#apod_title_vid").text(result.title); //Image title
         }
         else {
-            $("#apod_vid_id").css("display", "none"); //If type image...
+            $("#apod_img_container").css("display", "none"); //If type image...
             $("#apod_img_id").attr("src", result.url);
+            $("#apod_title_img").text(result.title); //Image title
         }
         $("#apod_explaination").text(result.explanation); //Image explanation
-        $("#apod_title").text(result.title); //Image title
-
+        
         var varDateString = splitDate(result.date, 1); //Show date of image with Month name. 1 = get Month name
 
         $("#apod_date").text(varDateString.day + " " + varDateString.month + " " + varDateString.year);
