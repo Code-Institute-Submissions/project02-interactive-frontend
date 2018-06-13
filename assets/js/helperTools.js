@@ -67,57 +67,45 @@ function dscovrDistance(x1, y1, z1, x2, y2, z2) {
     return d;
 }
 
-//https://css-tricks.com/snippets/javascript/get-url-variables/
-// Get varialble from url
-function getQueryVariable(variable, url) {
-    var query = url;
-    var vars = query.split("&");
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split("=");
-        if (pair[0] == variable) {
-            return pair[1]; //should be media_type: image, video or audio
-        }
-    }
-    return (false);
-}
-
 
 // Get NASA Center
 function nasaCenter(centerName) {
     if (centerName !== "") {
         switch (centerName) {
             case "JPL":
-                varMonth = "January";
+                centerName = "https://www.nasa.gov/centers/jpl/home/index.html";
                 break;
             case "JSC":
-                varMonth = "February";
+                centerName = "https://www.nasa.gov/centers/johnson/home/index.html";
                 break;
             case "ARC":
-                varMonth = "March";
+                centerName = "https://www.nasa.gov/ames";
                 break;
             case "GSFC":
-                varMonth = "April";
+                centerName = "https://www.nasa.gov/goddard";
                 break;
             case "KSC":
-                varMonth = "May";
+                centerName = "https://www.nasa.gov/centers/kennedy/home/index.html";
                 break;
             case "MSFC":
-                varMonth = "June";
+                centerName = "https://www.nasa.gov/centers/marshall/home/index.html";
                 break;
             case "HQ":
-                varMonth = "July";
+                centerName = "https://www.nasa.gov/centers/hq/home/index.html";
                 break;
             case "GRC":
-                varMonth = "August";
+                centerName = "https://www.nasa.gov/centers/glenn/home/index.html";
                 break;
             case "LRC":
-                varMonth = "September";
+                centerName = "https://www.nasa.gov/langley";
                 break;
-            case "HQ":
-                varMonth = "October";
+            case "AFRC":
+                centerName = "https://www.nasa.gov/centers/armstrong/home/index.html";
                 break;
                 Default:
-                    varMonth = "No Month supplied";
+                    centerName = "No center supplied";
         }
+        return centerName;
     }
 }
+

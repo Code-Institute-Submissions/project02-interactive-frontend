@@ -43,7 +43,6 @@ function searchNASALibrary(pagedUrl) {
         if (this.readyState == 4 && this.status == 200) {
             var varNasaLibraryData = JSON.parse(this.responseText); //parse responseText as json object
             varLibraryResult.innerHTML = ""; //clear div between refreshes
-            jsondiv = "";
             document.getElementById("errorLibraryMessage").innerHTML = ""; //clear div between refreshes
             var varTotalLibraryHits = varNasaLibraryData.collection.metadata.total_hits; //check to see if any results came back from query
 
@@ -90,6 +89,8 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
     console.log(itemsArray, varMediaType, pagingLinks, numberOfLibraryPages, varLastPageUrl);
 
     $('#searchLibraryResultsContainer').show(); // Results div hidden when page loads. Show for results.
+    if ($('#paging-buttons').hide()){$('#paging-buttons').show();}
+    if ($('#pagingInfo').hide()){$('#pagingInfo').show();}
 
     itemsArray.forEach(function(item, i) { // Items: data, href, links, we need data[{}] array
         var itemsDataObj = item.data; // Data object
@@ -97,10 +98,10 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
 
         //iterate through Data object for item info
         itemsDataObj.forEach(function(item) {
-            //nasaCenter(item.center);
             //iterate through Links object to get url for thumbnail image
             itemsThumbnailLinkObj.forEach(function(itemUrl) {
                 var imageUrl = itemUrl.href;
+                var nasaCenterWebsite = nasaCenter(item.center);
                 var varTruncatedDataDescription = item.description.substring(0, 170);
                 var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
 
@@ -110,7 +111,7 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
                     "<div class='col-9 col-sm-10'><p><strong>Title:</strong> " + item.title + "<br>" +
                     "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
                     "<strong>Description:</strong> " + varTruncatedDataDescription + "...<br>" +
-                    "<strong>Center:</strong> " + item.center + "<br>" +
+                    "<strong>Center:</strong><a href='" + nasaCenterWebsite + "' target='blank'> " + item.center + "</a><br>" +
                     "<strong>Nasa id:</strong> " + item.nasa_id + "</p>" +
                     "</div></div>";
             }); // end thumbnail forEach
@@ -128,7 +129,6 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
 
 }
 
-
 // Get data items from API result - Audio
 // Render data to HTML
 function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
@@ -142,15 +142,11 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
     $('#paging-buttons').hide();
     $('#pagingInfo').hide();
 
-    console.log(itemsArray);
-
     itemsArray.forEach(function(item, i) { // Items: data, href, we need data[{}] array
         var itemsDataObj = item.data;
         var audioList = item.href; // href object with links to audio files
-
         //iterate through Data object for item info
         itemsDataObj.forEach(function(item) {
-
 
             //Get & parse JSON file of audio file links
             var xhr = new XMLHttpRequest();
@@ -160,23 +156,23 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     linkToAudioJson = JSON.parse(this.responseText);
-
-
-
-                    //nasaCenter(item.center);
-                    var varTruncatedDataDescription = item.description.substring(0, 170);
+                    
+                    var nasaCenterWebsite = nasaCenter(item.center);
+                    var varTruncatedDataDescription = item.description.substring(0, 200);
                     var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
 
                     // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
-                    document.getElementById('libraryResults').innerHTML += "<div class='row' id='libraryResultsItem" + i + "'><div class='col-12'>" +
-                        "<p><strong>Title:</strong> " + item.title + "<br>" +
-                        "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
-                        "<strong>Description:</strong> " + varTruncatedDataDescription + "...<br>" +
-                        "<strong>Center:</strong> " + item.center + "<br>" +
-                        "<strong>Nasa id:</strong> " + item.nasa_id + "</p>" +
-                        "<p id='jsondiv'>" + linkToAudioJson + "</p>" +
-                        "</div>";
 
+                    document.getElementById('libraryResults').innerHTML += "<div class='row' id='libraryResultsItem" + i + "'><div class='col-12'>" +
+                        "<p><strong>Title: </strong>" + item.title + "<br>" +
+                        "<strong>Date created: </strong>" + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
+                        "<strong>Description: </strong>" + varTruncatedDataDescription + " ...<br>" +
+                        "<strong>Center:  </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit " + item.center + "</a><br>" +
+                        "<strong>Nasa id: </strong>" + item.nasa_id + "<br>" +
+                        "<strong>Audio: </strong><a href='" + linkToAudioJson[0] + "' target='blank'>Listen to original audio</a></p>" +
+                        "</div>";    
+                    
+                
                     // if the index (i) is divisable by 2 then it's even otherwise odd
                     // different background colours are applied by css if row is even/odd
                     if (i % 2 == 0) {
@@ -185,13 +181,10 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
                     else {
                         document.getElementById('libraryResultsItem' + i).classList.add('oddColour');
                     }
-
                 }
             };
 
         }); // end data forEach     
-
-
     });
 }
 
