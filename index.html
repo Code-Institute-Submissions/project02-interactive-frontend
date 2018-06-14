@@ -41,6 +41,9 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#apodSection">APOD</a>
+          </li>          
+          <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#epic">EPIC</a>
           </li>
           <li class="nav-item">
@@ -93,8 +96,6 @@
 
         <div class="col-12 mx-auto video-container" id="apod_vid_container">
           <iframe id="apod_vid_id" type="text/html" width="460" height="215" frameborder="0"></iframe>
-        </div>
-        <div class="col-12">
           <h3 id="apod_title_vid"></h3>
         </div>
         <div class="col-12 col-sm-8 mx-auto apod-para">
@@ -118,7 +119,7 @@
           <p class="text-faded mb-4">EPIC provides information on the daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument. Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures unique
             perspectives of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a 30-cm aperture Cassegrain telescope.</p>
           <p class="text-faded mb-4">You can read more about EPIC and the DSCOVR project on the NASA website: <a href="https://epic.gsfc.nasa.gov/epic" target="blank">Earth Polychromatic Imaging Camera</a> <i class='fa fa-external-link' aria-hidden='true'></i></p>
-          <p class="text-faded nm-4" id="DateHelp"><a onclick="getMostRecentEpic()">View the most recent EPIC image received</a> <i class='fa fa-external-link' aria-hidden='true'></i><br> or enter a search date and click the search button<br> <span class="text-muted small">(the first acquired images began on 01 September 2015)</span>.</p>
+          <p class="text-faded nm-4" id="DateHelp"><a id="epic-recent-link" class="epic-click" onclick="getMostRecentEpic()">View the most recent EPIC image received</a> <i class='fa fa-external-link' aria-hidden='true'></i><br> or enter a search date and click the search button<br> <span class="text-muted small">(the first acquired images began on 01 September 2015)</span>.</p>
         </div>
       </div>
       <!-- Date row -->
@@ -149,12 +150,11 @@
       <!-- Button row -->
       <div class="row">
         <div class="col-12 text-center mt-5">
-          <!--<a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>-->
-          <button type="button" class="btn btn-light btn-xl" onclick="getEpicImageByDate()">Search</button>
+          <button id="epic-images-button" type="button" class="btn btn-light btn-xl" onclick="getEpicImageByDate()">Search</button>
         </div>
       </div>
     </div>
-
+<div id="jumpto1"></div>
     <div class="container mt-5" id="epicResultsContainer">
       <!--Title and number of images returned -->
       <div class="row">
@@ -184,7 +184,7 @@
         </div>
       </div>
     </div>
-
+<div id="jumpto2"></div>
     <div class="container mt-5" id="epicMostRecentContainer">
       <!--Title -->
       <div class="row">
@@ -206,93 +206,7 @@
   </section>
 
   <section id="library" class="librarySection">
-    <!-- Heading Library -->
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <h2 class="section-heading"><strong>Search NASA Image and Video Library</strong></h2>
-        </div>
-      </div>
-    </div>
-    <!-- Form Library -->
-    <div class="container">
-      <!-- Form -->
-      <div class="row">
-        <div class="col-12 col-sm-10 mt-5 mx-auto">
-          <form>
-            <div class="form-group text-center">
-              <label for="searchLibraryText">Enter a topic to search and choose the media type.</label>
-              <input type="text" class="form-control" id="searchLibraryText" placeholder="e.g. apollo, moon, europe..." value="orion">
-            </div>
-            <div class="form-check ml-3">
-              <input class="form-check-input" type="radio" name="mediaType" id="image" value="image" checked>
-              <label class="form-check-label" for="image">Image</label>
-            </div>
-            <div class="form-check ml-3">
-              <input class="form-check-input" type="radio" name="mediaType" id="video" value="video">
-              <label class="form-check-label" for="video">Video</label>
-            </div>
-            <div class="form-check ml-3">
-              <input class="form-check-input" type="radio" name="mediaType" id="audio" value="audio">
-              <label class="form-check-label" for="video">Audio</label>
-            </div>
-          </form>
-        </div>
-      </div>
-      <!-- error message -->
-      <div class="row">
-        <div class="col-12 col-md-8 mx-auto mt-1 text-center errorMessage" id="errorLibraryMessage"></div>
-      </div>
-      <!-- Search NASA button -->
-      <div class="row">
-        <div class="col-12 mx-auto text-center mt-3">
-          <button type="button" class="btn btn-primary btn-xl" onclick="getQueryText()">Search NASA</button>
-        </div>
-      </div>
-    </div>
-    <!-- ruler hr -->
-    <div class="row">
-      <div class="col-12 mx-auto">
-        <hr>
-      </div>
-    </div>
-    <!-- Results Library -->
-    <div class="container" id="searchLibraryResultsContainer">
-      <!-- Paging Buttons -->
-      <div class="row">
-        <div class="col-12">
-          <div id="pagingRow">
-            <div class="float-sm-left text-center">
-              <h3>Search Results</h3>
-            </div>
-            <div class="float-sm-right text-center">
-              <div>
-                <input type="button" id="firstLibrary" onclick="firstLibraryPage()" value="first" class="btn btn-dark btn-sm" />
-                <input type="button" id="previousLibrary" onclick="previousLibraryPage()" value="previous" class="btn btn-dark btn-sm" />
-                <input type="button" id="nextLibrary" onclick="nextLibraryPage()" value="next" class="btn btn-dark btn-sm" />
-                <input type="button" id="lastLibrary" onclick="lastLibraryPage()" value="last" class="btn btn-dark btn-sm" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Total Result Hits -->
-      <div class="row">
-        <div class="col-12 mt-3">
-          Total results: <span id="totalLibraryHits"></span>
-        </div>
-      </div>
-      <!-- Paging Information -->
-      <div class="row">
-        <div class="col-12">
-          <div id="pagingInfo">
-            Page <span id="pageNumber"></span> of <span id="pageCount"></span>
-          </div>
-        </div>
-      </div>
-      <!-- Library Results -->
-      <div class="row" id="libraryResults"></div>
-    </div>
+    
   </section>
 
 

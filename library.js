@@ -89,8 +89,8 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
     console.log(itemsArray, varMediaType, pagingLinks, numberOfLibraryPages, varLastPageUrl);
 
     $('#searchLibraryResultsContainer').show(); // Results div hidden when page loads. Show for results.
-    if ($('#paging-buttons').hide()){$('#paging-buttons').show();}
-    if ($('#pagingInfo').hide()){$('#pagingInfo').show();}
+    if ($('#paging-buttons').hide()) { $('#paging-buttons').show(); }
+    if ($('#pagingInfo').hide()) { $('#pagingInfo').show(); }
 
     itemsArray.forEach(function(item, i) { // Items: data, href, links, we need data[{}] array
         var itemsDataObj = item.data; // Data object
@@ -110,10 +110,12 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
                     "<a href='" + imageUrl + "' target='blank'><img src='" + imageUrl + "' alt='" + item.title + "' tooltip='" + item.title + "'/></a></div>" +
                     "<div class='col-9 col-sm-10'><p><strong>Title:</strong> " + item.title + "<br>" +
                     "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
-                    "<strong>Description:</strong> " + varTruncatedDataDescription + "...<br>" +
+                    "<strong>Description:</strong> " + varTruncatedDataDescription + "..." +
+                    "<a tabindex='0' role='button' data-toggle='popover' data-trigger='focus' title='Dismissible popover' data-content='" + item.description + "'>Read more.</a><br>" +
                     "<strong>Center:</strong><a href='" + nasaCenterWebsite + "' target='blank'> " + item.center + "</a><br>" +
                     "<strong>Nasa id:</strong> " + item.nasa_id + "</p>" +
                     "</div></div>";
+
             }); // end thumbnail forEach
         }); // end data forEach
 
@@ -156,9 +158,26 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     linkToAudioJson = JSON.parse(this.responseText);
-                    
-                    var nasaCenterWebsite = nasaCenter(item.center);
-                    var varTruncatedDataDescription = item.description.substring(0, 200);
+
+                    //  $(document).on("click", ".descText", function(e) {
+                    //     $(e.target).popover();
+                    // });
+                    $(function() {
+                        var $trigger = $('.p-trigger').popover({
+                            placement: 'right',
+                            animation: true,
+                            title: "Click me to hide"
+                        });
+                    });
+
+                    var nasaCenterWebsite = getNasaCenter(item.center);
+                    var varTruncatedItemDescription = item.description;
+                    if (varTruncatedItemDescription.length > 22) {
+                        varTruncatedItemDescription = varTruncatedItemDescription.substring(0, 100) + " ...";
+                    }else if (varTruncatedItemDescription.length < 21)  {
+                        $('.p-trigger').hide();
+                    }
+                    var varItemFullDescription = escapeHtml(item.description);
                     var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
 
                     // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
@@ -166,13 +185,13 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
                     document.getElementById('libraryResults').innerHTML += "<div class='row' id='libraryResultsItem" + i + "'><div class='col-12'>" +
                         "<p><strong>Title: </strong>" + item.title + "<br>" +
                         "<strong>Date created: </strong>" + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
-                        "<strong>Description: </strong>" + varTruncatedDataDescription + " ...<br>" +
-                        "<strong>Center:  </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit " + item.center + "</a><br>" +
+                        "<strong>Description: </strong> " + varTruncatedItemDescription  + " " +
+                        "<button class='p-trigger' href='#' data-content='" + varItemFullDescription + "' data-trigger='focus'>Read full description</button><br>" +
+                        "<strong>Center: </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit the " + item.center + " website.</a> <i class='fa fa-external-link' aria-hidden='true'></i><br>" +
                         "<strong>Nasa id: </strong>" + item.nasa_id + "<br>" +
-                        "<strong>Audio: </strong><a href='" + linkToAudioJson[0] + "' target='blank'>Listen to original audio</a></p>" +
-                        "</div>";    
-                    
-                
+                        "<strong>Audio: </strong><a href='" + linkToAudioJson[0] + "' target='blank'>Listen to original audio</a> <i class='fa fa-volume-up' aria-hidden='true'></i></p>" +
+                        "</div>";
+
                     // if the index (i) is divisable by 2 then it's even otherwise odd
                     // different background colours are applied by css if row is even/odd
                     if (i % 2 == 0) {
@@ -183,6 +202,7 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
                     }
                 }
             };
+
 
         }); // end data forEach     
     });
@@ -217,5 +237,7 @@ function checkLibraryResultButtons() {
     document.getElementById("first-Button").disabled = currentLibraryPage == 1 ? true : false;
     document.getElementById("last-Button").disabled = currentLibraryPage == numberOfLibraryPages ? true : false;
 }
+
+
 
 // END NASA IMAGE AND VIDEO LIBRARY ================================================================================== //

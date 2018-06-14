@@ -188,7 +188,7 @@ header.intro {
   #apodSection.apod p {
     text-align: left; }
   #apodSection.apod .apod-image {
-    max-width: 300px;
+    max-width: 100%;
     border: 1px solid #333; }
   #apodSection.apod .apod-copyright {
     float: right; }
@@ -227,7 +227,8 @@ header.intro {
     #epic.epicResults a:hover {
       color: #fff; }
   #epic.epicResults #imageCol img, #epic.epicResults #epicMostRecentImage img {
-    max-width: 250px; }
+    max-width: 250px;
+    min-height: 400px; }
   #epic.epicResults #searchResultContainer {
     float: left; }
   #epic.epicResults #dataCol,
@@ -241,6 +242,9 @@ header.intro {
     #epic.epicResults #pagingRow,
     #epic.epicResults #epicMostRecentData {
       text-align: left; } }
+
+.epic-click {
+  cursor: pointer; }
 
 #searchLibraryResultsContainer {
   display: none; }
@@ -258,6 +262,12 @@ header.intro {
   max-width: 80px; }
 #libraryResults div {
   width: 100%; }
+#libraryResults .p-trigger {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer; }
+#libraryResults button {
+  font-weight: bold; }
 
 .evenColour {
   background-color: #e9ecef; }
@@ -311,6 +321,10 @@ header.intro {
 
 .text-primary {
   color: #050215 !important; }
+
+.popover {
+  max-width: 500px;
+  width: 800px; }
 
 .btn {
   font-weight: 700;

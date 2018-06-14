@@ -16,6 +16,7 @@
   }
   #imageCol img, #epicMostRecentImage img {
     max-width: 250px;
+    min-height: 400px;
   }
   #searchResultContainer {
     float: left;
@@ -35,4 +36,7 @@
       text-align: left;
     }
   }
+}
+.epic-click{
+  cursor: pointer;
 }

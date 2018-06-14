@@ -69,7 +69,7 @@ function dscovrDistance(x1, y1, z1, x2, y2, z2) {
 
 
 // Get NASA Center
-function nasaCenter(centerName) {
+function getNasaCenter(centerName) {
     if (centerName !== "") {
         switch (centerName) {
             case "JPL":
@@ -109,3 +109,16 @@ function nasaCenter(centerName) {
     }
 }
 
+
+// Escape characters returned from API
+function escapeHtml(text) {
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+
+  return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}

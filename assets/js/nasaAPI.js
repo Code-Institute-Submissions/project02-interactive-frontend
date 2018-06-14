@@ -11,7 +11,7 @@ $.ajax({
         // else {
         //     $("#apodSection.apod").css("min-height", "650px"); //If type image...
         // }
-        
+
         if ("copyright" in result) {
             $("#copyright").text("Image Credits: " + result.copyright); //Get copyright information and display
         }
@@ -25,12 +25,12 @@ $.ajax({
             $("#apod_title_vid").text(result.title); //Image title
         }
         else {
-            $("#apod_img_container").css("display", "none"); //If type image...
+            $("#apod_vid_container").css("display", "none"); //If type image...
             $("#apod_img_id").attr("src", result.url);
             $("#apod_title_img").text(result.title); //Image title
         }
         $("#apod_explaination").text(result.explanation); //Image explanation
-        
+
         var varDateString = splitDate(result.date, 1); //Show date of image with Month name. 1 = get Month name
 
         $("#apod_date").text(varDateString.day + " " + varDateString.month + " " + varDateString.year);
@@ -59,14 +59,21 @@ var numberOfImages = 1;
 function getEpicImageByDate() {
     if (document.getElementById("formDate").value !== "") {
         document.getElementById("errorMessage").innerHTML = ""; //clear div between refreshes
+        $('#epicMostRecentContainer').hide(200);
         let varDate = document.getElementById("formDate").value; //Get user date input via form
         let objDateSplitUp = splitDate(varDate, 0); //objDateSplitUp is an object containing year, month, day
         let varImageType = document.querySelector('input[name="imageType"]:checked').value; //get image type from form
         let varDataCol = document.getElementById("dataCol");
         let varImageCol = document.getElementById("imageCol");
 
+        //scroll window to results
+        $('html, body').animate({
+            scrollTop: $("#jumpto1").offset().top - 20
+        }, 'slow');
+
         // START OF GET DATA USING FETCH
         if (varImageType === "enhanced") {
+            $('#epicMostRecentContainer').hide(); // If most recent EPIC image showing then hide
             let url = fetch("https://api.nasa.gov/EPIC/api/enhanced/date/" + varDate + "?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ") //call to API for enhanced images on a specified date
                 .then(function(response) {
                     if (response.ok) {
@@ -89,8 +96,9 @@ function getEpicImageByDate() {
                         getResultItems(pagedResultEnhanced, varImageType, objDateSplitUp, varDataCol, varImageCol, totalResultCount);
                     }
                     else {
-                        $('#epicResultsContainer').show();
+                        $('#epicResultsContainer').show(200);
                         $('#pagingRow').hide();
+                        $('#epicMostRecentContainer').hide(300); // If most recent EPIC image showing then hide
                         document.getElementById('resultStatus').innerHTML += "<p class='text-faded'>Please note images were not captured before 01 September 2015 or there were no images captured for the date: " +
                             +objDateSplitUp.day + "-" + objDateSplitUp.month + "-" + objDateSplitUp.year;
                     }
@@ -99,6 +107,7 @@ function getEpicImageByDate() {
                 });
         }
         else if (varImageType === "natural") {
+            $('#epicMostRecentContainer').hide(); // If most recent EPIC image showing then hide
             let url = fetch("https://api.nasa.gov/EPIC/api/natural/date/" + varDate + "?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ") //call to API for natural images on a specified date
                 .then(function(response) {
                     if (response.ok) {
@@ -122,9 +131,10 @@ function getEpicImageByDate() {
                         getResultItems(pagedResultNatural, varImageType, objDateSplitUp, varDataCol, varImageCol, totalResultCount);
                     }
                     else {
-                        $('#epicResultsContainer').show();
+                        $('#epicResultsContainer').show(200);
                         $('#pagingRow').hide();
-                        document.getElementById('resultStatus').innerHTML += "<p class='text-faded font-weight-bold'>Please note images were not captured before 01 September 2015 or there were no images captured for the date: " +
+                        $('#epicMostRecentContainer').hide(200); // If most recent EPIC image showing then hide
+                        document.getElementById('resultStatus').innerHTML += "<p class='text-faded'>Please note images were not captured before 01 September 2015 or there were no images captured for the date: " +
                             +objDateSplitUp.day + "-" + objDateSplitUp.month + "-" + objDateSplitUp.year;
                     }
                 }).catch(function(error) {
@@ -135,6 +145,7 @@ function getEpicImageByDate() {
         // END OF GET DATA USING FETCH
     }
     else {
+        $('#epicMostRecentContainer').hide(200); // If most recent EPIC image showing then hide
         document.getElementById("errorMessage").textContent = "Please enter a date to search.";
     }
 
@@ -144,10 +155,7 @@ function getEpicImageByDate() {
 // Render data to HTML
 function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varImageCol, totalResultCount) {
     if (result.length !== 0) {
-        $('#epicResultsContainer').show(); // Results div hidden when page loads. Show for results.
-        if ($('#epicMostRecentContainer').show) {
-            $('#epicMostRecentContainer').hide();
-        } ; // If most recent EPIC image showing then hide
+        $('#epicResultsContainer').show(300); // Results div hidden when page loads. Show for results.
         result.forEach(function(item) {
             let epicImageTypeUrl = "https://epic.gsfc.nasa.gov/archive/" + varImageType + "/" + objDateSplitUp.year + "/" + objDateSplitUp.month + "/" + objDateSplitUp.day + "/jpg/" + item.image + ".jpg";
             let distanceToSun = dscovrDistance(item.dscovr_j2000_position.x, item.dscovr_j2000_position.y, item.dscovr_j2000_position.z, item.sun_j2000_position.x, item.sun_j2000_position.y, item.sun_j2000_position.z).toLocaleString();
@@ -173,7 +181,6 @@ function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varIma
     else {
         document.getElementById('resultStatus').innerHTML += "<p class='text-faded'>Please note images were not captured before 01 September 2015 or there were no images captured for the date: " +
             +objDateSplitUp.day + "-" + objDateSplitUp.month + "-" + objDateSplitUp.year;
-        $('#pagingRow').hide();
     }
 
 } //End get data items from API result
@@ -237,6 +244,11 @@ function check() {
 // START EPIC MOST RECENT IMAGE ======================================================================================== //
 
 function getMostRecentEpic() {
+    //scroll window to results
+    $('html, body').animate({
+        scrollTop: $("#jumpto2").offset().top -50
+    }, 'slow');
+
     // START OF GET DATA
     let varMostRecentImagesDiv = document.getElementById("epicMostRecentImage");
     let varMostRecentDataDiv = document.getElementById("epicMostRecentData");
@@ -254,8 +266,8 @@ function getMostRecentEpic() {
                 let imageDate = splitDate(mostRecent.date, 0); //split the date up into year, month, day
                 let strImageDay = imageDate.day; //this contains day and time
                 strImageDay = strImageDay.substring(0, strImageDay.length - 9); //remove time from date string
-                $('#epicMostRecentContainer').show(); // Results div hidden when page loads. Show for results.
-                $('#epicResultsContainer').hide(); // if EPIC results showing then hide
+                $('#epicMostRecentContainer').show(300); // Results div hidden when page loads. Show for results.
+                $('#epicResultsContainer').hide(300); // if EPIC results showing then hide
                 console.log(mostRecent);
 
                 varMostRecentDataDiv.innerHTML += "<div><strong>Image name:</strong> " + mostRecent.image + ".jpg</div>" +
@@ -276,179 +288,17 @@ function getMostRecentEpic() {
 }
 
 // END EPIC MOST RECENT IMAGE ======================================================================================== //
-
-
-
-// START NASA IMAGE AND VIDEO LIBRARY ================================================================================== //
-// GET DATA using XMLHttpRequest
-
-//Library global variables for paging
-var pageLibraryList = new Array();
-var currentLibraryPage = 1;
-var numberPerLibraryPage = 5;
-var numberOfLibraryPages = 1; // calculates the total number of pages
-var currentLibraryImageNumber = 1;
-var numberOfLibraryImages = 1;
-
-// Function called from Search button
-// Values received from html form and validated
-function getQueryText() {
-    document.getElementById("errorMessage").textContent = "";
-    var varLibraryQuery = document.getElementById("searchLibraryText").value; //Get user date input via form
-    var varMediaType = document.querySelector('input[name="mediaType"]:checked').value;
-    if (varLibraryQuery !== "") {
-        searchNASALibrary(varLibraryQuery, varMediaType);
-    }
-    else {
-        document.getElementById("errorLibraryMessage").innerHTML = "Please enter text to search the NASA Library.";
-    }
-}
-
-// Call made to NASA Library API using XMLHttpRequest()
-// Result object sent to getLibraryResultsData() for looping and rendering to HTML
-function searchNASALibrary(searchLibraryText, varMediaType) {
-    var varLibraryResult = document.getElementById("libraryResults");
-
-    var xhr = new XMLHttpRequest();
-    var url = "https://images-api.nasa.gov/search?q=" + searchLibraryText + "&media_type=" + varMediaType;
-
-    xhr.open("GET", url);
-    xhr.send();
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var varNasaLibraryData = JSON.parse(this.responseText); //write out responseText as json object
-            //console.log(varNasaData);
-            varLibraryResult.innerHTML = ""; //clear div between refreshes
-            document.getElementById("errorLibraryMessage").innerHTML = ""; //clear div between refreshes
-
-            var varTotalLibraryHits = varNasaLibraryData.collection.metadata.total_hits;
-            document.getElementById('totalLibraryHits').innerHTML = varTotalLibraryHits; //total number of hits returned by call to API for search query
-            if (varTotalLibraryHits !== 0) {
-                getLibraryResultsData(varNasaLibraryData, varMediaType);
-            }
-            else {
-                document.getElementById("errorLibraryMessage").innerHTML = "There were no <strong>" + varMediaType + "</strong> results for <strong>" + searchLibraryText + "</strong>";
-                $('#searchLibraryResultsContainer').hide();
-            }
-        }
-    };
-}
-
-// Start get data items from Library API result
-// Render data to HTML
-function getLibraryResultsData(queryResponseData, varMediaType) {
-    let resultObj = queryResponseData.collection; // Get result collection
-    let itemsArray = resultObj.items; // Get items array
-    console.log(resultObj.links);
-    let pagedLibraryResult = pageTheLibraryResult(itemsArray); //slice up the array into pages of 10 items
-    // Paging information
-    document.getElementById('pageNumber').innerHTML = currentLibraryPage;
-    document.getElementById('pageCount').innerHTML = numberOfLibraryPages;
-
-    if (varMediaType === "image") {
-        $('#searchLibraryResultsContainer').show(); // Results div hidden when page loads. Show for results.
-
-        pagedLibraryResult.forEach(function(item, i) { // Items: data, href, links, we need data[{}] array
-            var itemsDataObj = item.data; // Data object
-            var itemsLinkObj = item.links; // Links object
-
-
-
-            //iterate through Data object for item info
-            itemsDataObj.forEach(function(item) {
-                //nasaCenter(item.center);
-                //iterate through Links object to get url for thumbnail image
-                itemsLinkObj.forEach(function(itemUrl) {
-                    var imageUrl = itemUrl.href;
-
-                    var varTruncatedDataDescription = item.description.substring(0, 170);
-                    var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and splite out date into day, month, year
-
-                    // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
-                    document.getElementById('libraryResults').innerHTML += "<div class='row' id='libraryResultsItem" + i + "'><div class='col-3 col-sm-2 text-center'>" +
-                        "<a href='" + imageUrl + "' target='blank'><img src='" + imageUrl + "' alt='" + item.title + "' tooltip='" + item.title + "'/></a></div>" +
-                        "<div class='col-9 col-sm-10'><p><strong>Title:</strong> " + item.title + "<br>" +
-                        "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
-                        "<strong>Description:</strong> " + varTruncatedDataDescription + "...<br>" +
-                        "<strong>Center:</strong> " + item.center + "<br>" +
-                        "<strong>Nasa id:</strong> " + item.nasa_id + "</p>" +
-                        "</div></div>";
-                });
-
-            });
-
-            // if the index (i) is divisable by 2 then it's even otherwise odd
-            // different background colours are applied by css if row is even/odd
-            if (i % 2 == 0) {
-                document.getElementById('libraryResultsItem' + i).classList.add('evenColour');
-            }
-            else {
-                document.getElementById('libraryResultsItem' + i).classList.add('oddColour');
-            }
-        });
-    }
-    else if (varMediaType === "video") {
-        console.log("video");
-    }
-    else if (varMediaType === "audio") {
-        console.log
-
-        ("audio");
-    }
-}
-
-// Paging the library result to ten items per page
-function pageTheLibraryResult(resultLibraryApi) {
-    numberOfLibraryPages = getNumberOfLibraryPages(resultLibraryApi);
-    numberOfLibraryImages = resultLibraryApi.length;
-
-    var begin = ((currentLibraryPage - 1) * numberPerLibraryPage);
-    var end = begin + numberPerLibraryPage;
-
-    pageLibraryList = resultLibraryApi.slice(begin, end);
-    checkLibraryResultButtons();
-    return pageLibraryList;
-}
-
-// Get total number of items returned from API
-function getNumberOfLibraryPages(resultLibraryApi) {
-    return Math.ceil(resultLibraryApi.length / numberPerLibraryPage);
-}
-
-// Next Button
-function nextLibraryPage() {
-    currentLibraryPage += 1;
-    currentLibraryImageNumber += 1;
-    getQueryText();
-}
-
-// Previous Button
-function previousLibraryPage() {
-    currentLibraryPage -= 1;
-    currentLibraryImageNumber -= 1;
-    getQueryText();
-}
-
-// First Item Button
-function firstLibraryPage() {
-    currentLibraryPage = 1;
-    currentLibraryImageNumber = 1;
-    getQueryText();
-}
-
-// Last Item Button
-function lastLibraryPage() {
-    currentLibraryPage = numberOfLibraryPages;
-    currentLibraryImageNumber = numberOfLibraryImages;
-    getQueryText();
-}
-
-// Enable/Disable paging buttons if necessary
-function checkLibraryResultButtons() {
-    document.getElementById("nextLibrary").disabled = currentLibraryPage == numberOfLibraryPages ? true : false;
-    document.getElementById("previousLibrary").disabled = currentLibraryPage == 1 ? true : false;
-    document.getElementById("firstLibrary").disabled = currentLibraryPage == 1 ? true : false;
-    document.getElementById("lastLibrary").disabled = currentLibraryPage == numberOfLibraryPages ? true : false;
-}
-
-// END  NASA IMAGE AND VIDEO LIBRARY ================================================================================== //
+// $(document).ready(function() {
+//     $("#epic-recent-link").click(function() {
+//         $('html,body').animate({
+//                 scrollTop: $("#jumpto2").offset().top
+//             },
+//             'slow');
+//     });
+//     $("#epic-images-button").click(function() {
+//         $('html,body').animate({
+//                 scrollTop: $("#jumpto1").offset().top
+//             },
+//             'slow');
+//     });
+// });

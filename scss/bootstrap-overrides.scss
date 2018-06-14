@@ -2,6 +2,10 @@
 .text-primary {
   color: $primary !important;
 }
+.popover {
+  max-width: 500px;
+  width: 800px;
+}
 .btn {
   font-weight: 700;
   text-transform: uppercase;
