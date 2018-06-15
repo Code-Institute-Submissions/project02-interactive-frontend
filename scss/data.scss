@@ -1,0 +1,9 @@
+#data-center, #data-results2 {
+    padding-bottom: 100px;
+    g .x.axis text {
+        text-anchor: end !important;
+        transform: rotate(-90deg);
+        font-size: 0.8em;
+        @include serif-font();
+    }
+}

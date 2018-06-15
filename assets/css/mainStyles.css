@@ -220,15 +220,19 @@ header.intro {
   border-bottom: 1px solid #333; }
   #epic.epicResults .form-check {
     display: inline-block; }
-  #epic.epicResults #epicResultsContainer, #epic.epicResults #epicMostRecentContainer {
+  #epic.epicResults #epicResultsContainer,
+  #epic.epicResults #epicMostRecentContainer {
     display: none; }
   #epic.epicResults a {
     color: rgba(255, 255, 255, 0.7); }
     #epic.epicResults a:hover {
       color: #fff; }
-  #epic.epicResults #imageCol img, #epic.epicResults #epicMostRecentImage img {
-    max-width: 250px;
-    min-height: 400px; }
+  #epic.epicResults #imageCol img,
+  #epic.epicResults #epicMostRecentImage img {
+    max-width: 250px; }
+  #epic.epicResults #imageCol,
+  #epic.epicResults #epicMostRecentImage {
+    min-height: 250px; }
   #epic.epicResults #searchResultContainer {
     float: left; }
   #epic.epicResults #dataCol,
@@ -236,8 +240,12 @@ header.intro {
   #epic.epicResults #epicMostRecentData {
     text-align: left; }
   @media (min-width: 992px) {
-    #epic.epicResults #imageCol img, #epic.epicResults #epicMostRecentImage img {
+    #epic.epicResults #imageCol img,
+    #epic.epicResults #epicMostRecentImage img {
       max-width: 400px; }
+    #epic.epicResults #imageCol,
+    #epic.epicResults #epicMostRecentImage {
+      min-height: 400px; }
     #epic.epicResults #dataCol,
     #epic.epicResults #pagingRow,
     #epic.epicResults #epicMostRecentData {
@@ -256,75 +264,52 @@ header.intro {
   font-size: 0.8rem;
   line-height: 1.2rem; }
 #libraryResults div {
-  margin-top: 10px; }
+  margin-top: 10px;
+  padding-top: 10px; }
 #libraryResults img {
   width: 80px;
   max-width: 80px; }
-#libraryResults div {
-  width: 100%; }
 #libraryResults .p-trigger {
   border: 0;
   background-color: transparent;
-  cursor: pointer; }
+  cursor: pointer;
+  padding-left: 0px;
+  color: #212529; }
 #libraryResults button {
   font-weight: bold; }
+@media (min-width: 576px) {
+  #libraryResults div {
+    width: 100%; } }
 
 .evenColour {
-  background-color: #e9ecef; }
-
-.oddColour {
   background-color: #f8f9fa; }
 
-.neo-box {
-  position: relative;
-  display: block;
-  max-width: 650px;
-  margin: 0 auto; }
-  .neo-box .neo-box-caption {
-    position: absolute;
-    bottom: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    opacity: 0;
-    color: #fff;
-    background: rgba(5, 2, 21, 0.9);
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    transition: all 0.2s; }
-    .neo-box .neo-box-caption .neo-box-caption-content {
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      transform: translateY(-50%);
-      text-align: center; }
-      .neo-box .neo-box-caption .neo-box-caption-content .project-category,
-      .neo-box .neo-box-caption .neo-box-caption-content .project-name {
-        padding: 0 15px;
-        font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; }
-      .neo-box .neo-box-caption .neo-box-caption-content .project-category {
-        font-size: 14px;
-        font-weight: 600;
-        text-transform: uppercase; }
-      .neo-box .neo-box-caption .neo-box-caption-content .project-name {
-        font-size: 18px; }
-  .neo-box:hover .neo-box-caption {
-    opacity: 1; }
-  .neo-box:focus {
-    outline: none; }
-  @media (min-width: 768px) {
-    .neo-box .neo-box-caption .neo-box-caption-content .project-category {
-      font-size: 16px; }
-    .neo-box .neo-box-caption .neo-box-caption-content .project-name {
-      font-size: 22px; } }
+.oddColour {
+  background-color: #e9ecef; }
+
+#data-center, #data-results2 {
+  padding-bottom: 100px; }
+  #data-center g .x.axis text, #data-results2 g .x.axis text {
+    text-anchor: end !important;
+    transform: rotate(-90deg);
+    font-size: 0.8em;
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; }
 
 .text-primary {
   color: #050215 !important; }
 
 .popover {
-  max-width: 500px;
-  width: 800px; }
+  width: 300px;
+  background-color: #666;
+  color: #fff; }
+  .popover .popover-header {
+    background-color: #666;
+    color: #fff; }
+  .popover .popover-body {
+    background-color: #666;
+    color: #fff;
+    height: 300px;
+    overflow: auto; }
 
 .btn {
   font-weight: 700;
@@ -352,5 +337,10 @@ header.intro {
     background-color: black !important; }
   .btn-primary:active, .btn-primary:focus {
     box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important; }
+
+@media (min-width: 768px) {
+  .popover {
+    width: 600px;
+    max-width: 600px; } }
 
 /*# sourceMappingURL=mainStyles.css.map */

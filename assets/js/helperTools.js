@@ -112,13 +112,32 @@ function getNasaCenter(centerName) {
 
 // Escape characters returned from API
 function escapeHtml(text) {
-  var map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  };
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
 
-  return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
+
+// Clear results
+function clearEpicResults() {
+    $("#epicMostRecentContainer").css("display", "none");
+    $("#epicResultsContainer").css("display", "none");
+    $('html, body').animate({
+        scrollTop: $("#jumpto1").offset().top - 20
+    }, 'slow');
+}
+
+
+// Clear results
+function clearLibraryResults() {
+    $("#searchLibraryResultsContainer").css("display", "none");
+    $('html, body').animate({
+        scrollTop: $("#jumpto2").offset().top - 20
+    }, 'slow');
 }

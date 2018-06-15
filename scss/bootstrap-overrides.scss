@@ -2,39 +2,64 @@
 .text-primary {
   color: $primary !important;
 }
+
 .popover {
-  max-width: 500px;
-  width: 800px;
-}
-.btn {
-  font-weight: 700;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 300px;
-  @include sans-serif-font;
-}
-.btn-light:disabled {
-  background-color: $darkgray;
-  color: $midgray;
-}
-.btn-dark:disabled {
-  background-color: $darkgray;
-  color: $midgray;
-}
-.btn-xl {
-  padding: 1rem 2rem;
-}
-.btn-primary {
-  background-color: $primary;
-  border-color: $primary;
-  &:hover,
-  &:focus,
-  &:active {
+  width: 300px;
+  background-color: $midgray;
+  color: $white;
+  .popover-header {
+    background-color: $midgray;
     color: $white;
-    background-color: darken($primary, 5%) !important;
   }
-  &:active,
-  &:focus {
-    box-shadow: 0 0 0 0.2rem rgba(240, 95, 64,.5) !important;
+    .popover-body {
+      background-color: $midgray;
+      color: $white;
+      height: 300px;
+      overflow: auto;
+    }
   }
-}
+
+
+  .btn {
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 300px;
+    @include sans-serif-font;
+  }
+
+  .btn-light:disabled {
+    background-color: $darkgray;
+    color: $midgray;
+  }
+
+  .btn-dark:disabled {
+    background-color: $darkgray;
+    color: $midgray;
+  }
+
+  .btn-xl {
+    padding: 1rem 2rem;
+  }
+
+  .btn-primary {
+    background-color: $primary;
+    border-color: $primary;
+    &:hover,
+    &:focus,
+    &:active {
+      color: $white;
+      background-color: darken($primary, 5%) !important;
+    }
+    &:active,
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, .5) !important;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .popover {
+      width: 600px;
+      max-width: 600px;
+    }
+  }

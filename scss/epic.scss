@@ -1,11 +1,12 @@
 #epic.epicResults {
-    border-top: 1px solid $lightgray;
-    border-bottom: 1px solid $lightgray;
-  
+  border-top: 1px solid $lightgray;
+  border-bottom: 1px solid $lightgray;
+
   .form-check {
     display: inline-block;
   }
-  #epicResultsContainer, #epicMostRecentContainer {
+  #epicResultsContainer,
+  #epicMostRecentContainer {
     display: none;
   }
   a {
@@ -14,29 +15,39 @@
       color: $white;
     }
   }
-  #imageCol img, #epicMostRecentImage img {
+  #imageCol img,
+  #epicMostRecentImage img {
     max-width: 250px;
-    min-height: 400px;
+  }
+  #imageCol,
+  #epicMostRecentImage {
+    min-height: 250px;
   }
   #searchResultContainer {
     float: left;
   }
   #dataCol,
   #pagingRow,
-  #epicMostRecentData{
-      text-align: left;
-    }
+  #epicMostRecentData {
+    text-align: left;
+  }
   @media (min-width: 992px) {
-    #imageCol img, #epicMostRecentImage img {
+    #imageCol img,
+    #epicMostRecentImage img {
       max-width: 400px;
+    }
+    #imageCol,
+    #epicMostRecentImage {
+      min-height: 400px;
     }
     #dataCol,
     #pagingRow,
-    #epicMostRecentData{
+    #epicMostRecentData {
       text-align: left;
     }
   }
 }
-.epic-click{
+
+.epic-click {
   cursor: pointer;
 }

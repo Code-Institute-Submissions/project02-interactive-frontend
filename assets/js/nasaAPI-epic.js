@@ -1,46 +1,3 @@
-// START APOD =================================================================================================================== //
-// GET DATA Using AJAX
-var url = "https://api.nasa.gov/planetary/apod?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ";
-
-$.ajax({
-    url: url,
-    success: function(result) {
-        // if (result.media_type == "video") {
-        //     $("#apodSection.apod").css("min-height", "1200px");
-        // }
-        // else {
-        //     $("#apodSection.apod").css("min-height", "650px"); //If type image...
-        // }
-
-        if ("copyright" in result) {
-            $("#copyright").text("Image Credits: " + result.copyright); //Get copyright information and display
-        }
-        else {
-            $("#copyright").text("Image Credits: " + "Public Domain"); //No copyright information, display 'Public Domain'
-        }
-
-        if (result.media_type == "video") {
-            $("#apod_img_container").css("display", "none"); //If type video...
-            $("#apod_vid_id").attr("src", result.url);
-            $("#apod_title_vid").text(result.title); //Image title
-        }
-        else {
-            $("#apod_vid_container").css("display", "none"); //If type image...
-            $("#apod_img_id").attr("src", result.url);
-            $("#apod_title_img").text(result.title); //Image title
-        }
-        $("#apod_explaination").text(result.explanation); //Image explanation
-
-        var varDateString = splitDate(result.date, 1); //Show date of image with Month name. 1 = get Month name
-
-        $("#apod_date").text(varDateString.day + " " + varDateString.month + " " + varDateString.year);
-    }
-});
-
-// END APOD ===================================================================================================================== //
-
-
-
 // START EPIC WITH ONE ITEM PER PAGE  - PAGING ================================================================================== //
 // GET DATA Using Fetch
 
@@ -146,6 +103,7 @@ function getEpicImageByDate() {
     }
     else {
         $('#epicMostRecentContainer').hide(200); // If most recent EPIC image showing then hide
+        if ($('#errorMessage').css("display", "none")) {$('#errorMessage').show(100);} // if error message showing then hide
         document.getElementById("errorMessage").textContent = "Please enter a date to search.";
     }
 
@@ -155,7 +113,8 @@ function getEpicImageByDate() {
 // Render data to HTML
 function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varImageCol, totalResultCount) {
     if (result.length !== 0) {
-        $('#epicResultsContainer').show(300); // Results div hidden when page loads. Show for results.
+        $('#epicResultsContainer').show(300);
+        $('#pagingRow').show();// Results div hidden when page loads. Show for results.
         result.forEach(function(item) {
             let epicImageTypeUrl = "https://epic.gsfc.nasa.gov/archive/" + varImageType + "/" + objDateSplitUp.year + "/" + objDateSplitUp.month + "/" + objDateSplitUp.day + "/jpg/" + item.image + ".jpg";
             let distanceToSun = dscovrDistance(item.dscovr_j2000_position.x, item.dscovr_j2000_position.y, item.dscovr_j2000_position.z, item.sun_j2000_position.x, item.sun_j2000_position.y, item.sun_j2000_position.z).toLocaleString();
@@ -268,7 +227,7 @@ function getMostRecentEpic() {
                 strImageDay = strImageDay.substring(0, strImageDay.length - 9); //remove time from date string
                 $('#epicMostRecentContainer').show(300); // Results div hidden when page loads. Show for results.
                 $('#epicResultsContainer').hide(300); // if EPIC results showing then hide
-                console.log(mostRecent);
+                if ($('#errorMessage').show()) {$('#errorMessage').hide(100);} // if error message showing then hide
 
                 varMostRecentDataDiv.innerHTML += "<div><strong>Image name:</strong> " + mostRecent.image + ".jpg</div>" +
                     "<div><strong>Image date and time: </strong>" + mostRecent.date + "</div>" +
@@ -288,17 +247,4 @@ function getMostRecentEpic() {
 }
 
 // END EPIC MOST RECENT IMAGE ======================================================================================== //
-// $(document).ready(function() {
-//     $("#epic-recent-link").click(function() {
-//         $('html,body').animate({
-//                 scrollTop: $("#jumpto2").offset().top
-//             },
-//             'slow');
-//     });
-//     $("#epic-images-button").click(function() {
-//         $('html,body').animate({
-//                 scrollTop: $("#jumpto1").offset().top
-//             },
-//             'slow');
-//     });
-// });
+

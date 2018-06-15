@@ -1,11 +1,12 @@
 // Styling for the library section
-
 #searchLibraryResultsContainer {
     display: none;
 }
+
 #library.librarySection .form-check {
     display: inline-block;
 }
+
 #libraryResults {
     p {
         font-size: 0.8rem;
@@ -13,26 +14,36 @@
     }
     div {
         margin-top: 10px;
+        padding-top: 10px;
     }
     img {
         width: 80px;
         max-width: 80px;
     }
     div {
-        width:100%;
+        //width: 100%;
     }
     .p-trigger {
         border: 0;
         background-color: transparent;
-        cursor:pointer;
+        cursor: pointer;
+        padding-left: 0px;
+        color: $gray-900;
     }
     button {
-        font-weight:bold;
+        font-weight: bold;
+    }
+    @media (min-width: 576px) {
+        div{
+            width:100%;
+        }
     }
 }
-    .evenColour {
-        background-color: $gray-200;
-    }
-    .oddColour{
-        background-color: $gray-100;
-    }
+
+.evenColour {
+    background-color: $gray-100;
+}
+
+.oddColour {
+    background-color: $gray-200;
+}

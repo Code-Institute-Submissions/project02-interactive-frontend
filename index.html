@@ -42,7 +42,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#apodSection">APOD</a>
-          </li>          
+          </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#epic">EPIC</a>
           </li>
@@ -50,7 +50,7 @@
             <a class="nav-link js-scroll-trigger" href="#library">Library</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#neo">NEO</a>
+            <a class="nav-link js-scroll-trigger" href="#data">Data</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
@@ -69,7 +69,10 @@
           </h1>
         </div>
         <div class="col-12 mx-auto mb-3">
-          <p class="text-faded mx-auto p-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis fuga, ut ad similique natus voluptate cupiditate, debitis incidunt exercitationem ab doloribus ullam aut! Sunt suscipit minus iusto. Praesentium, quae perspiciatis consequatur. Omnis voluptatibus facere officiis vel temporibus cupiditate ipsa sunt molestiae assumenda a sit, quos, doloremque aut obcaecati perferendis quasi, sed architecto cumque iste? Iste earum quo minima at provident quam, expedita tempora ex error mollitia, quae officia repellat architecto. Modi reiciendis minima similique cupiditate beatae, veniam vero, accusantium neque ut officiis quod, velit fugiat architecto exercitationem officia quia laborum. Consequatur itaque porro vel! Quibusdam provident, eligendi quod molestiae voluptatibus.</p>
+          <p class="text-faded mx-auto p-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis fuga, ut ad similique natus voluptate cupiditate, debitis incidunt exercitationem ab doloribus ullam aut! Sunt suscipit minus iusto. Praesentium, quae perspiciatis consequatur.
+            Omnis voluptatibus facere officiis vel temporibus cupiditate ipsa sunt molestiae assumenda a sit, quos, doloremque aut obcaecati perferendis quasi, sed architecto cumque iste? Iste earum quo minima at provident quam, expedita tempora ex error
+            mollitia, quae officia repellat architecto. Modi reiciendis minima similique cupiditate beatae, veniam vero, accusantium neque ut officiis quod, velit fugiat architecto exercitationem officia quia laborum. Consequatur itaque porro vel! Quibusdam
+            provident, eligendi quod molestiae voluptatibus.</p>
         </div>
       </div>
     </div>
@@ -103,7 +106,7 @@
             <span id="apod_date" class="apod-date"></span>
             <span id="copyright" class="apod-copyright"></span>
           </p>
-          <p class="text-faded pt-4" id="apod_explaination">...loading images details.</p>
+          <p class="text-faded pt-4" id="apod_explaination">...loading image details.</p>
         </div>
       </div>
     </div>
@@ -154,7 +157,7 @@
         </div>
       </div>
     </div>
-<div id="jumpto1"></div>
+    <div id="jumpto1"></div>
     <div class="container mt-5" id="epicResultsContainer">
       <!--Title and number of images returned -->
       <div class="row">
@@ -172,19 +175,20 @@
           <div id="dataCol" class="text-faded"></div>
           <!-- Paging  -->
           <div id="pagingRow">
-            <div class="mt-3 text-center">
+            <div class="mt-3">
               <div class="mx-auto">
                 <input type="button" id="first" onclick="firstPage()" value="first" class="btn btn-light btn-sm" />
-                <input type="button" id="next" onclick="nextPage()" value="next" class="btn btn-light btn-sm" />
                 <input type="button" id="previous" onclick="previousPage()" value="previous" class="btn btn-light btn-sm" />
+                <input type="button" id="next" onclick="nextPage()" value="next" class="btn btn-light btn-sm" />
                 <input type="button" id="last" onclick="lastPage()" value="last" class="btn btn-light btn-sm" />
+                <input type="button" id="clear" onclick="clearEpicResults()" value="Clear Results" class="btn btn-light btn-sm" />
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-<div id="jumpto2"></div>
+    <div id="jumpto2"></div>
     <div class="container mt-5" id="epicMostRecentContainer">
       <!--Title -->
       <div class="row">
@@ -206,18 +210,130 @@
   </section>
 
   <section id="library" class="librarySection">
-    
+    <!-- Heading Library -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h2 class="section-heading">Search NASA Image and Video Library</h2>
+        </div>
+      </div>
+    </div>
+    <!-- Form Library -->
+    <div class="container">
+      <!-- Form -->
+      <div class="row">
+        <div class="col-12 col-sm-10 mt-5 mx-auto">
+          <form>
+            <div class="form-group text-center">
+              <label for="searchLibraryText">Enter a topic to search and choose the media type.</label>
+              <input type="text" class="form-control" id="searchLibraryText" placeholder="e.g. apollo, moon, europe..." value="apollo">
+            </div>
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="mediaType" id="image" value="image" checked>
+              <label class="form-check-label" for="image">Image</label>
+            </div>
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="mediaType" id="video" value="video">
+              <label class="form-check-label" for="video">Video</label>
+            </div>
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="mediaType" id="audio" value="audio">
+              <label class="form-check-label" for="video">Audio</label>
+            </div>
+            <!-- error message -->
+            <div class="form-check ml-3 float-right errorMessage" id="errorLibraryMessage"></div>
+          </form>
+        </div>
+      </div>
+      <!-- Search NASA button -->
+      <div class="row">
+        <div class="col-12 mx-auto text-center mt-3">
+          <button type="button" class="btn btn-primary btn-xl" onclick="getQueryText()">Search NASA</button>
+          <button type="button" class="btn btn-primary btn-xl" onclick="clearLibraryResults()">Clear Results</button>
+        </div>
+      </div>
+    </div>
+    <!-- ruler hr -->
+    <div class="row">
+      <div class="col-12 mx-auto">
+        <hr>
+      </div>
+    </div>
+    <!-- Results Library -->
+    <div class="container" id="searchLibraryResultsContainer">
+      <!-- Paging Buttons -->
+      <div class="row">
+        <div class="col-12">
+          <div id="pagingRow">
+            <div class="float-sm-left text-center">
+              <h3>Search Results</h3>
+            </div>
+            <div class="float-sm-right text-center">
+              <!------ PAGING BUTTONS ------------------------------------------------------------------------->
+              <div id="paging-buttons">
+                <input type="button" id="first-Button" value="First" class="btn btn-dark btn-sm" />
+                <input type="button" id="previous-Button" value="Previous" class="btn btn-dark btn-sm" />
+                <input type="button" id="next-Button" value="Next" class="btn btn-dark btn-sm" />
+                <input type="button" id="last-Button" value="Last" class="btn btn-dark btn-sm" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Total Result Hits -->
+      <div class="row">
+        <div class="col-12 mt-3">
+          Total results: <span id="totalLibraryHits"></span>
+        </div>
+      </div>
+      <!-- Paging Information -->
+      <div class="row">
+        <div class="col-12">
+          <div id="pagingInfo">
+            Page <span id="pageNumber"></span> of <span id="pageCount"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Library Results -->
+      <div class="row" id="libraryResults"></div>
+      <!-- Clear Results button -->
+      <div class="row">
+        <div class="col-12 mx-auto text-center mt-3">
+          <button type="button" class="btn btn-primary btn-xl" onclick="clearLibraryResults()">Clear Results</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="data" class="bg-dark text-white">
+    <div class="container text-center my-auto">
+      <div class="row">
+        <div class="col-12 text-center"><h2 class="section-heading mb-4">Data</h2></div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6"><div id="data-city"></div></div>
+        <div class="col-12 col-md-6"><div id="data-status-pie"></div></div>
+      </div>
+      <div class="row">
+        <div class="col-12"><div id="data-center"></div></div>
+      </div>
+      <div class="row">
+        <div class="col-12"><div id="data-status"></div></div>
+      </div>
+     </div>
   </section>
 
 
   <!-- Bootstrap core JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
   <!-- Plugin JavaScript -->
   <script src="assets/js/jquery-easing/jquery.easing.min.js"></script>
   <script src="assets/js/scrollreveal/scrollreveal.min.js"></script>
   <script src="assets/js/magnific-popup/jquery.magnific-popup.min.js"></script>
+
 
   <!-- Bootstrap Date-Picker Plugin -->
   <!-- Bootstrap Date-Picker supplied by https://bootstrap-datepicker.readthedocs.io/ -->
@@ -242,11 +358,19 @@
     })
   </script>
 
+  <!-- d3 dc queue scripts -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+
   <!-- Custom scripts for this template -->
   <script src="assets/js/custom.js"></script>
   <script src="assets/js/helperTools.js"></script>
-  <script src="assets/js/nasaAPI.js"></script>
-
+  <script src="assets/js/nasaAPI-apod.js"></script>
+  <script src="assets/js/nasaAPI-epic.js"></script>
+  <script src="assets/js/nasaAPI-library.js"></script>
+  <script src="assets/js/nasaAPI-data.js"></script>
 </body>
 
 </html>
