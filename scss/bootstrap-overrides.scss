@@ -53,7 +53,8 @@
     }
     &:active,
     &:focus {
-      box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, .5) !important;
+      // box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, .5) !important;
+      box-shadow: 0 0 0 0.2rem rgba(252, 61, 33, 1.0) !important;
     }
   }
 
@@ -63,3 +64,7 @@
       max-width: 600px;
     }
   }
+
+.btn-light.focus, .btn-light:focus {
+    box-shadow: 0 0 0 0.2rem rgba(252,61,33,1.0);
+}

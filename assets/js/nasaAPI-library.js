@@ -75,6 +75,7 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
     numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); // API returns results in lots of 100
     document.getElementById('pageNumber').innerHTML = currentLibraryPage; // Display Page pageNumber of pageCount
     document.getElementById('pageCount').innerHTML = numberOfLibraryPages; // Display Page pageNumber of pageCount
+    document.getElementById('media-type').innerHTML = "- Images" //Display title search results for images
 
     // PAGING ======================
     checkLibraryResultButtons(); //disable/enable paging buttons as appropriate
@@ -142,6 +143,7 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
     numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); // API returns results in lots of 100
     document.getElementById('pageNumber').innerHTML = currentLibraryPage; // Display Page pageNumber of pageCount
     document.getElementById('pageCount').innerHTML = numberOfLibraryPages; // Display Page pageNumber of pageCount
+    document.getElementById('media-type').innerHTML = "- Audio" //Display title search results for audio    
 
     $('#searchLibraryResultsContainer').show(); //Results div hidden when page loads. Show for results.
     $('#paging-buttons').hide();
@@ -218,6 +220,7 @@ function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
     numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); // API returns results in lots of 100
     document.getElementById('pageNumber').innerHTML = currentLibraryPage; // Display Page pageNumber of pageCount
     document.getElementById('pageCount').innerHTML = numberOfLibraryPages; // Display Page pageNumber of pageCount
+    document.getElementById('media-type').innerHTML = "- Video" //Display title search results for video    
 
     $('#searchLibraryResultsContainer').show(); //Results div hidden when page loads. Show for results.
     $('#paging-buttons').hide();
@@ -319,15 +322,3 @@ function checkLibraryResultButtons() {
 
 
 // END NASA IMAGE AND VIDEO LIBRARY ================================================================================== //
-
-
-
-                    // document.getElementById('libraryResults').innerHTML += "<div class='row' id='libraryResultsItem" + i + "'><div class='col-12'>" +
-                    //     "<p><strong>Title: </strong>" + item.title + "<br>" +
-                    //     "<strong>Date created: </strong>" + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
-                    //     "<strong>Description: </strong> " + varTruncatedItemDescription + " " +
-                    //     "<button class='p-trigger' href='#' data-content='" + varItemFullDescription + "' data-trigger='focus'>Read full description</button><br>" +
-                    //     "<strong>Center: </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit the " + item.center + " website.</a> <i class='fa fa-external-link' aria-hidden='true'></i><br>" +
-                    //     "<strong>Nasa id: </strong>" + item.nasa_id + "<br>" +
-                    //     "<strong>Audio: </strong><a href='" + linkToAudioJson[0] + "' target='blank'>Listen to original audio</a> <i class='fa fa-volume-up' aria-hidden='true'></i></p>" +
-                    //     "</div>";

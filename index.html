@@ -9,7 +9,6 @@
   <meta name="keywords" content="HTML,CSS">
   <meta name="author" content="Coole Sites 2018">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta http-equiv="cache-control" content="no-cache" />
 
   <title>NASA API</title>
 
@@ -19,7 +18,6 @@
   <!-- Custom fonts for this template -->
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet" type="text/css">
 
   <!-- Plugin CSS -->
   <link href="assets/js/magnific-popup/magnific-popup.css" rel="stylesheet">
@@ -34,7 +32,7 @@
   <!-- Navigation -->
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Welcome to NASA</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">NASA Images Portal</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -65,14 +63,16 @@
       <div class="row">
         <div class="col-12 mx-auto">
           <h1 class="text-uppercase">
-            <strong>Welcome to NASA API</strong>
+            <strong>Welcome to NASA Images Portal</strong>
           </h1>
         </div>
         <div class="col-12 mx-auto mb-3">
-          <p class="text-faded mx-auto p-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis fuga, ut ad similique natus voluptate cupiditate, debitis incidunt exercitationem ab doloribus ullam aut! Sunt suscipit minus iusto. Praesentium, quae perspiciatis consequatur.
-            Omnis voluptatibus facere officiis vel temporibus cupiditate ipsa sunt molestiae assumenda a sit, quos, doloremque aut obcaecati perferendis quasi, sed architecto cumque iste? Iste earum quo minima at provident quam, expedita tempora ex error
-            mollitia, quae officia repellat architecto. Modi reiciendis minima similique cupiditate beatae, veniam vero, accusantium neque ut officiis quod, velit fugiat architecto exercitationem officia quia laborum. Consequatur itaque porro vel! Quibusdam
-            provident, eligendi quod molestiae voluptatibus.</p>
+          <p class="mx-auto p-3">This Portal site offers a brief introduction to the type of data NASA makes available to the public.</p>
+          <p class="mx-auto">APOD or Astronomy Picture of the Day is one of the most popular NASA websites. We have provided you with this picture and a brief explanation.</p>
+          <p class="mx-auto">The EPIC section provides information on the daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument. Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures
+            unique perspectives of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a 30-cm aperture Cassegrain telescope. You can read more about the EPIC project on their site:
+            <a href="https://epic.gsfc.nasa.gov/epic" class="paralink">EPIC</a></p>
+          <p class="mx-auto">The Library link takes you to a Search facility. This section provides access to NASA's extensive Image and Video Library. You can search for any topic and see what interesting images and videos NASA have archived.</p>
         </div>
       </div>
     </div>
@@ -83,7 +83,7 @@
       <div class="row">
         <div class="col-12 mx-auto mb-5">
           <h2 class="text-uppercase">
-            <strong>Astronomy Image of the day</strong>
+            <strong>Astronomy Picture of the day</strong>
           </h2>
         </div>
         <div class="col-12 mx-auto mb-3">
@@ -94,11 +94,14 @@
       <div class="row">
         <div class="col-12 col-sm-4 mx-auto" id="apod_img_container">
           <img id="apod_img_id" class="apod-image mb-2" alt="Astronomy image of the day" />
+        </div>
+        <div class="col-12 col-sm-4 mx-auto">
           <h3 id="apod_title_img"></h3>
         </div>
-
         <div class="col-12 mx-auto video-container" id="apod_vid_container">
-          <iframe id="apod_vid_id" type="text/html" width="460" height="215" frameborder="0"></iframe>
+          <iframe id="apod_vid_id" type="text/html" width="460" height="215"></iframe>
+        </div>
+        <div class="col-12 mx-auto">
           <h3 id="apod_title_vid"></h3>
         </div>
         <div class="col-12 col-sm-8 mx-auto apod-para">
@@ -247,8 +250,10 @@
       </div>
       <!-- Search NASA button -->
       <div class="row">
-        <div class="col-12 mx-auto text-center mt-3">
+        <div class="col-12 col-md-6 mx-auto mt-3 text-center">
           <button type="button" class="btn btn-primary btn-xl" onclick="getQueryText()">Search NASA</button>
+        </div>
+        <div class="col-12 col-md-6 mx-auto mt-3 text-center" id="clearResultsDiv">
           <button type="button" class="btn btn-primary btn-xl" onclick="clearLibraryResults()">Clear Results</button>
         </div>
       </div>
@@ -264,12 +269,12 @@
       <!-- Paging Buttons -->
       <div class="row">
         <div class="col-12">
-          <div id="pagingRow">
+          <div id="pagingRowLibrary">
             <div class="float-sm-left text-center">
-              <h3>Search Results</h3>
+              <h3>Search Results <span id="media-type"></span></h3>
             </div>
             <div class="float-sm-right text-center">
-              <!------ PAGING BUTTONS ------------------------------------------------------------------------->
+              <!-- PAGING BUTTONS -->
               <div id="paging-buttons">
                 <input type="button" id="first-Button" value="First" class="btn btn-dark btn-sm" />
                 <input type="button" id="previous-Button" value="Previous" class="btn btn-dark btn-sm" />
@@ -308,21 +313,70 @@
   <section id="data" class="bg-dark text-white">
     <div class="container text-center my-auto">
       <div class="row">
-        <div class="col-12 text-center"><h2 class="section-heading mb-4">Data</h2></div>
+        <div class="col-12 text-center">
+          <h2 class="section-heading mb-4">Data</h2>
+        </div>
       </div>
       <div class="row">
-        <div class="col-12 col-md-6"><div id="data-city"></div></div>
-        <div class="col-12 col-md-6"><div id="data-status-pie"></div></div>
+        <div class="col-12 text-center">
+          <p class="mx-auto">NASA has made available to the public a vast list of datasets. I have chosen to create chart views of the NASA Facilities dataset.<br> This dataset was last updated on August 26, 2015 and first created August 26, 2015. There are 485 rows of
+            data about facilities.<br> You will need to view this page on a desktop device to see all the charts.</p>
+          <p class="mx-auto">You can <a href="assets/img/NASA_Facilities.csv" class="paralink">download</a> a csv version of this data. <a href="assets/img/NASA_Facilities.csv" class="paralink">Download</a> <i class="fa fa-download" aria-hidden="true"></i></p>
+        </div>
       </div>
       <div class="row">
-        <div class="col-12"><div id="data-center"></div></div>
+        <div class="col-12 col-sm-12 col-lg-6">
+          <div id="data-city"></div>
+          <div>Pie-chart illustrates the number of NASA facilities in each city.</div>
+        </div>
+        <div class="col-12 col-sm-12 col-lg-6">
+          <div id="data-status-pie"></div>
+          <div>Pie-chart illustrates the number of NASA facilities by their status - for example active or inactive.</div>
+        </div>
       </div>
       <div class="row">
-        <div class="col-12"><div id="data-status"></div></div>
+        <div class="col-12 d-none d-sm-block mt-5" id="data-center"></div>
       </div>
-     </div>
+      <div class="row">
+        <div class="col-12 d-none d-sm-block mt-5" id="data-status"></div>
+      </div>
+    </div>
   </section>
 
+  <section id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="section-heading">Further Information</h2>
+          <p class="mb-5">Want to find out more about NASA?</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 ml-auto text-center">
+          <i class="fa fa-external-link fa-3x" aria-hidden="true"></i>
+          <p><a href="https://www.nasa.gov/" target="blank">NASA website</a></p>
+        </div>
+        <div class="col-lg-4 mr-auto text-center">
+          <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
+          <p><a href="https://www.instagram.com/nasa/?hl=en">NASA on Instagram</a></p>
+        </div>
+        <div class="col-lg-4 mr-auto text-center">
+          <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
+          <p><a href="https://twitter.com/NASA">NASA on Twitter</a></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 mr-auto text-center">
+          <i class="fa fa-youtube fa-3x" aria-hidden="true"></i>
+          <p><a href="https://www.youtube.com/channel/UCLA_DiR1FfKNvjuUpBHmylQ">NASA on YouTube</a></p>
+        </div>
+        <div class="col-lg-6 mr-auto text-center">
+          <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i>
+          <p><a href="https://www.facebook.com/NASA/">NASA on Facebook</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Bootstrap core JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -359,10 +413,10 @@
   </script>
 
   <!-- d3 dc queue scripts -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
 
   <!-- Custom scripts for this template -->
   <script src="assets/js/custom.js"></script>

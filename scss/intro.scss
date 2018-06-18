@@ -7,10 +7,11 @@ header.intro {
   @include background-cover;
   h1 {
     font-size: 2rem;
-    background-color: $fadedbkg-08;
   }
   p {
     font-weight: 300;
+  }
+  div>div>div {
     background-color: $fadedbkg-08;
   }
   @media (min-width: 768px) {
@@ -21,7 +22,7 @@ header.intro {
   @media (min-width: 992px) {
     height: 100vh;
     min-height: 650px;
-    padding-top: 0;
+    // padding-top: 0;
     padding-bottom: 0;
     h1 {
       font-size: 3rem;
@@ -29,7 +30,7 @@ header.intro {
   }
   @media (min-width: 1200px) {
     h1 {
-      font-size: 4rem;
+      font-size: 3.5rem;
     }
   }
 }

@@ -69,11 +69,11 @@ h6 {
 }
 
 .errorMessage {
-  color: $error-red;
+  color: $nasa-red;
   font-weight: 600;
 }
 
-section{
+section {
   padding: 8rem 0;
 }
 
@@ -102,3 +102,14 @@ img::-moz-selection {
   color: $white;
   background: transparent;
 }
+
+#contact {
+  i {
+    color: $nasa-blue;
+  }
+  i:hover {
+    color: $nasa-red;
+  }
+}
+
+

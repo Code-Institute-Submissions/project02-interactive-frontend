@@ -13,7 +13,7 @@ function makeGraphs(error, facilitiesData) {
 
 
 function show_city(ndx) {
-    var name_dim = ndx.dimension(dc.pluck('city'));
+    var name_dim = ndx.dimension(dc.pluck('center'));
     var group = name_dim.group();
         var total_spend_per_person = name_dim.group().reduceSum(dc.pluck('status'));
         dc.pieChart('#data-city')
@@ -37,7 +37,7 @@ function show_status_pie(ndx) {
 } 
 
 function show_center(ndx) {
-    var dim = ndx.dimension(dc.pluck('center'));
+    var dim = ndx.dimension(dc.pluck('city'));
     var group = dim.group();
 
     dc.barChart('#data-center')
@@ -68,5 +68,5 @@ function show_status(ndx) {
         .x(d3.scale.ordinal())
         .xUnits(dc.units.ordinal)
         .xAxisLabel("Center Status")
-        .yAxis().ticks(20);
+        .yAxis().ticks(15);
 }
