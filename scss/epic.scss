@@ -48,6 +48,31 @@
   }
 }
 
+
+@media (min-width: 420px) {
+  #clear, #last {
+    margin-top:0 !important;
+  }
+}
+@media (min-width: 576px) {
+  #clear, #last {
+    margin-top: 1rem !important;
+  }
+}
+@media (min-width: 768px) {
+  #clear, #last {
+    margin-top: 1rem !important;
+  }
+  #last {
+    margin-top: 0 !important;
+  }
+}
+@media (min-width: 992px) {
+  #clear {
+    margin-top: 0 !important;
+  }
+}
+
 .epic-click {
   cursor: pointer;
 }

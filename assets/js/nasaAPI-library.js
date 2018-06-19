@@ -81,14 +81,15 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
     checkLibraryResultButtons(); //disable/enable paging buttons as appropriate
     // Get next and previous page urls from results object for PAGING
 
-    if (pagingLinks[1] === undefined) {
-        varNextPageUrl = pagingLinks[0]['href'];
+    if (pagingLinks !== undefined) {
+        if (pagingLinks[1] === undefined) {
+            varNextPageUrl = pagingLinks[0]['href'];
+        }
+        else {
+            varPrevPageUrl = pagingLinks[0]['href'];
+            varNextPageUrl = pagingLinks[1]['href'];
+        }
     }
-    else {
-        varPrevPageUrl = pagingLinks[0]['href'];
-        varNextPageUrl = pagingLinks[1]['href'];
-    }
-
     // Build last page url
     varLastPageUrl = "https://images-api.nasa.gov/search?q=" + varLibraryQuery + "&page=" + numberOfLibraryPages + "&media_type=" + varMediaType;
 
@@ -105,19 +106,34 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
             //iterate through Links object to get url for thumbnail image
             itemsThumbnailLinkObj.forEach(function(itemUrl) {
                 var imageUrl = itemUrl.href;
+                //send 'center' to getNasaCenter() to get its website
                 var nasaCenterWebsite = getNasaCenter(item.center);
-                var varTruncatedDataDescription = item.description.substring(0, 170);
+                var varTruncatedItemDescription = item.description;
+                if (varTruncatedItemDescription.length > 22) {
+                    varTruncatedItemDescription = varTruncatedItemDescription.substring(0, 170) + " ...";
+                }
+                // replace chars with html coded version
+                var varItemFullDescription = escapeHtml(item.description);
                 var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
+
+                // reinitiates the popover as the results are not on the page when loaded first
+                $(function() {
+                    var $trigger = $('.p-trigger').popover({
+                        placement: 'right',
+                        animation: true,
+                        title: "Click to hide"
+                    });
+                });
 
                 // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
                 document.getElementById('libraryResults').innerHTML += "<div class='row' id='libraryResultsItem" + i + "'><div class='col-3 col-sm-2 text-center'>" +
                     "<a href='" + imageUrl + "' target='blank'><img src='" + imageUrl + "' alt='" + item.title + "' tooltip='" + item.title + "'/></a></div>" +
                     "<div class='col-9 col-sm-10'><p><strong>Title:</strong> " + item.title + "<br>" +
                     "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
-                    "<strong>Description:</strong> " + varTruncatedDataDescription + "..." +
-                    "<a tabindex='0' role='button' data-toggle='popover' data-trigger='focus' title='Dismissible popover' data-content='" + item.description + "'>Read more.</a><br>" +
                     "<strong>Center: </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit the " + item.center + " website.</a> <i class='fa fa-external-link' aria-hidden='true'></i><br>" +
-                    "<strong>Nasa id:</strong> " + item.nasa_id + "</p>" +
+                    "<strong>Nasa id:</strong> " + item.nasa_id + "<br>" +
+                    "<strong>Description:</strong> " + varTruncatedItemDescription + "<br>" +
+                    "<button class='p-trigger' href='#' data-content='" + varItemFullDescription + "' data-trigger='focus'>Read full description</button></p>" +
                     "</div></div>";
 
             }); // end thumbnail forEach
@@ -164,9 +180,7 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
                 if (this.readyState == 4 && this.status == 200) {
                     linkToAudioJson = JSON.parse(this.responseText);
 
-                    //  $(document).on("click", ".descText", function(e) {
-                    //     $(e.target).popover();
-                    // });
+                    // reinitiates the popover as the results are not on the page when loaded first
                     $(function() {
                         var $trigger = $('.p-trigger').popover({
                             placement: 'bottom',
@@ -175,11 +189,13 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
                         });
                     });
 
+                    //send 'center' to getNasaCenter() to get its website
                     var nasaCenterWebsite = getNasaCenter(item.center);
                     var varTruncatedItemDescription = item.description;
                     if (varTruncatedItemDescription.length > 22) {
                         varTruncatedItemDescription = varTruncatedItemDescription.substring(0, 100) + " ...";
                     }
+                    // replace chars with html coded version
                     var varItemFullDescription = escapeHtml(item.description);
                     var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
 
@@ -193,7 +209,7 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
                         "<strong>Center: </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit the " + item.center + " website.</a> <i class='fa fa-external-link' aria-hidden='true'></i><br>" +
                         "<strong>Nasa id: </strong>" + item.nasa_id + "<br>" +
                         "<strong>Audio: </strong><a href='" + linkToAudioJson[0] + "' target='blank'>Listen to original audio</a> <i class='fa fa-volume-up' aria-hidden='true'></i><br>" +
-                        "<button class='p-trigger' href='#' data-content='" + varItemFullDescription + "' data-trigger='focus'>Read full description</button></p>" +                        
+                        "<button class='p-trigger' href='#' data-content='" + varItemFullDescription + "' data-trigger='focus'>Read full description</button></p>" +
                         "</div>";
 
                     // if the index (i) is divisable by 2 then it's even otherwise odd
@@ -241,9 +257,7 @@ function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
                 if (this.readyState == 4 && this.status == 200) {
                     linkToVideoJson = JSON.parse(this.responseText);
 
-                    //  $(document).on("click", ".descText", function(e) {
-                    //     $(e.target).popover();
-                    // });
+                    // reinitiates the popover as the results are not on the page when loaded first
                     $(function() {
                         var $trigger = $('.p-trigger').popover({
                             placement: 'bottom',
@@ -252,11 +266,13 @@ function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
                         });
                     });
 
+                    //send 'center' to getNasaCenter() to get its website
                     var nasaCenterWebsite = getNasaCenter(item.center);
                     var varTruncatedItemDescription = item.description;
                     if (varTruncatedItemDescription.length > 22) {
                         varTruncatedItemDescription = varTruncatedItemDescription.substring(0, 100) + " ...";
                     }
+                    // replace chars with html coded version
                     var varItemFullDescription = escapeHtml(item.description);
                     var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
 
@@ -270,7 +286,7 @@ function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
                         "<strong>Center: </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit the " + item.center + " website.</a> <i class='fa fa-external-link' aria-hidden='true'></i><br>" +
                         "<strong>Nasa id: </strong>" + item.nasa_id + "<br>" +
                         "<strong>Audio: </strong><a href='" + linkToVideoJson[0] + "' target='blank'>Watch the video</a> <i class='fa fa-play' aria-hidden='true'></i><br>" +
-                        "<button class='p-trigger' href='#' data-content='" + varItemFullDescription + "' data-trigger='focus'>Read full description</button></p>" +                        
+                        "<button class='p-trigger' href='#' data-content='" + varItemFullDescription + "' data-trigger='focus'>Read full description</button></p>" +
                         "</div>";
 
                     // if the index (i) is divisable by 2 then it's even otherwise odd

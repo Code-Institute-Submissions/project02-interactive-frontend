@@ -19,6 +19,7 @@ $.ajax({
         }
         else {
             $("#apod_vid_container").css("display", "none"); //If type image...
+            $('#apod-title-vid-row').css('display', 'none');
             $("#apod_img_id").attr("src", result.url);
             $("#apod_title_img").text(result.title); //Image title
         }

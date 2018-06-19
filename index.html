@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NASA API">
@@ -18,9 +17,6 @@
   <!-- Custom fonts for this template -->
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-
-  <!-- Plugin CSS -->
-  <link href="assets/js/magnific-popup/magnific-popup.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="assets/css/mainStyles.css" rel="stylesheet">
@@ -68,11 +64,11 @@
         </div>
         <div class="col-12 mx-auto mb-3">
           <p class="mx-auto p-3">This Portal site offers a brief introduction to the type of data NASA makes available to the public.</p>
-          <p class="mx-auto">APOD or Astronomy Picture of the Day is one of the most popular NASA websites. We have provided you with this picture and a brief explanation.</p>
+          <p class="mx-auto">APOD or Astronomy Picture of the Day is one of the most popular NASA websites. We have provided you with this picture and its brief explanation.</p>
           <p class="mx-auto">The EPIC section provides information on the daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument. Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures
             unique perspectives of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a 30-cm aperture Cassegrain telescope. You can read more about the EPIC project on their site:
             <a href="https://epic.gsfc.nasa.gov/epic" class="paralink">EPIC</a></p>
-          <p class="mx-auto">The Library link takes you to a Search facility. This section provides access to NASA's extensive Image and Video Library. You can search for any topic and see what interesting images and videos NASA have archived.</p>
+          <p class="mx-auto">The Library section provides access to NASA's extensive Image and Video Library. You can search for any topic and see what interesting images and videos NASA have archived.</p>
         </div>
       </div>
     </div>
@@ -94,14 +90,12 @@
       <div class="row">
         <div class="col-12 col-sm-4 mx-auto" id="apod_img_container">
           <img id="apod_img_id" class="apod-image mb-2" alt="Astronomy image of the day" />
-        </div>
-        <div class="col-12 col-sm-4 mx-auto">
           <h3 id="apod_title_img"></h3>
         </div>
         <div class="col-12 mx-auto video-container" id="apod_vid_container">
           <iframe id="apod_vid_id" type="text/html" width="460" height="215"></iframe>
         </div>
-        <div class="col-12 mx-auto">
+        <div class="col-12 mx-auto" id="apod-title-vid-row">
           <h3 id="apod_title_vid"></h3>
         </div>
         <div class="col-12 col-sm-8 mx-auto apod-para">
@@ -184,7 +178,7 @@
                 <input type="button" id="previous" onclick="previousPage()" value="previous" class="btn btn-light btn-sm" />
                 <input type="button" id="next" onclick="nextPage()" value="next" class="btn btn-light btn-sm" />
                 <input type="button" id="last" onclick="lastPage()" value="last" class="btn btn-light btn-sm" />
-                <input type="button" id="clear" onclick="clearEpicResults()" value="Clear Results" class="btn btn-light btn-sm" />
+                <input type="button" id="clear" onclick="clearEpicResults()" value="Clear Results" class="btn btn-light btn-sm mt-2" />
               </div>
             </div>
           </div>
@@ -229,7 +223,7 @@
           <form>
             <div class="form-group text-center">
               <label for="searchLibraryText">Enter a topic to search and choose the media type.</label>
-              <input type="text" class="form-control" id="searchLibraryText" placeholder="e.g. apollo, moon, europe..." value="apollo">
+              <input type="text" class="form-control" id="searchLibraryText" placeholder="e.g. apollo, moon, europe...">
             </div>
             <div class="form-check ml-3">
               <input class="form-check-input" type="radio" name="mediaType" id="image" value="image" checked>
@@ -327,11 +321,11 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-lg-6">
           <div id="data-city"></div>
-          <div>Pie-chart illustrates the number of NASA facilities in each city.</div>
+          <div>Pie-chart illustrating the number of NASA facilities in each city.</div>
         </div>
         <div class="col-12 col-sm-12 col-lg-6">
           <div id="data-status-pie"></div>
-          <div>Pie-chart illustrates the number of NASA facilities by their status - for example active or inactive.</div>
+          <div>Pie-chart illustrating the number of NASA facilities by their status - for example active or inactive.</div>
         </div>
       </div>
       <div class="row">
@@ -352,27 +346,20 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-4 ml-auto text-center">
-          <i class="fa fa-external-link fa-3x" aria-hidden="true"></i>
-          <p><a href="https://www.nasa.gov/" target="blank">NASA website</a></p>
+        <div class="col-4 col-lg-2 ml-auto text-center">
+          <a href="https://www.nasa.gov/" target="blank" tooltip="NASA website"><i class="fa fa-external-link fa-3x" aria-hidden="true"></i></a>
         </div>
-        <div class="col-lg-4 mr-auto text-center">
-          <i class="fa fa-instagram fa-3x" aria-hidden="true"></i>
-          <p><a href="https://www.instagram.com/nasa/?hl=en">NASA on Instagram</a></p>
+        <div class="col-4 col-lg-2 mr-auto text-center">
+          <a href="https://www.instagram.com/nasa/?hl=en" tooltip="NASA on Instagram"><i class="fa fa-instagram fa-3x" aria-hidden="true"></i></a>
         </div>
-        <div class="col-lg-4 mr-auto text-center">
-          <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
-          <p><a href="https://twitter.com/NASA">NASA on Twitter</a></p>
+        <div class="col-4 col-lg-2 mr-auto text-center">
+          <a href="https://twitter.com/NASA" tooltip="NASA on Twitter"><i class="fa fa-twitter fa-3x" aria-hidden="true"></i></a>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6 mr-auto text-center">
-          <i class="fa fa-youtube fa-3x" aria-hidden="true"></i>
-          <p><a href="https://www.youtube.com/channel/UCLA_DiR1FfKNvjuUpBHmylQ">NASA on YouTube</a></p>
+        <div class="col-6 col-lg-2 mr-auto text-center mt-4">
+          <a href="https://www.youtube.com/channel/UCLA_DiR1FfKNvjuUpBHmylQ" tooltip="NASA on YouTube"><i class="fa fa-youtube fa-3x" aria-hidden="true"></i></a>
         </div>
-        <div class="col-lg-6 mr-auto text-center">
-          <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i>
-          <p><a href="https://www.facebook.com/NASA/">NASA on Facebook</a></p>
+        <div class="col-6 col-lg-2 mr-auto text-center mt-4">
+          <a href="https://www.facebook.com/NASA/" tooltip="NASA on Facebook"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
         </div>
       </div>
     </div>
@@ -386,7 +373,6 @@
   <!-- Plugin JavaScript -->
   <script src="assets/js/jquery-easing/jquery.easing.min.js"></script>
   <script src="assets/js/scrollreveal/scrollreveal.min.js"></script>
-  <script src="assets/js/magnific-popup/jquery.magnific-popup.min.js"></script>
 
 
   <!-- Bootstrap Date-Picker Plugin -->
@@ -418,7 +404,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
 
-  <!-- Custom scripts for this template -->
+  <!-- Custom scripts for this page -->
   <script src="assets/js/custom.js"></script>
   <script src="assets/js/helperTools.js"></script>
   <script src="assets/js/nasaAPI-apod.js"></script>

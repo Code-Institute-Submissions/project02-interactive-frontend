@@ -45,7 +45,7 @@ function getEpicImageByDate() {
                     let totalResultCount = result.length; //get total count of results returned
                     document.getElementById('resultStatus').innerHTML += "<p class='text-faded'>There were <span class='font-weight-bold'>" + totalResultCount + "</span> enhanced images found for <br><span class='font-weight-bold'>" +
                         objDateSplitUp.day + "-" + objDateSplitUp.month + "-" + objDateSplitUp.year + "</span></p>"; //Results message to site user
-
+            
                     if (result.length !== 0) {
                         // Send result object to function 'pageTheResult()' to slice the object for paging
                         let pagedResultEnhanced = pageTheResult(result);
@@ -202,6 +202,7 @@ function check() {
 
 // START EPIC MOST RECENT IMAGE ======================================================================================== //
 
+// Get latest image received from EPIC 
 function getMostRecentEpic() {
     //scroll window to results
     $('html, body').animate({

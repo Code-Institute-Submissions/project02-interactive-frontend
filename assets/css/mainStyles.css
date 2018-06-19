@@ -90,6 +90,16 @@ img::-moz-selection {
   color: #0B3D91; }
 #contact i:hover {
   color: #FC3D21; }
+@media (min-width: 992px) {
+  #contact > div > div:nth-child(2) > div:nth-child(4), #contact > div > div:nth-child(2) > div:nth-child(5) {
+    margin-top: 0 !important; } }
+
+#contact i {
+  transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  -webkit-transition: all 0.35s ease-in-out;
+  -o-transition: all 0.35s ease-in-out;
+  cursor: pointer; }
 
 #mainNav {
   border-bottom: 1px solid rgba(33, 37, 41, 0.1);
@@ -258,6 +268,21 @@ header.intro {
     #epic.epicResults #epicMostRecentData {
       text-align: left; } }
 
+@media (min-width: 420px) {
+  #clear, #last {
+    margin-top: 0 !important; } }
+@media (min-width: 576px) {
+  #clear, #last {
+    margin-top: 1rem !important; } }
+@media (min-width: 768px) {
+  #clear, #last {
+    margin-top: 1rem !important; }
+
+  #last {
+    margin-top: 0 !important; } }
+@media (min-width: 992px) {
+  #clear {
+    margin-top: 0 !important; } }
 .epic-click {
   cursor: pointer; }
 
