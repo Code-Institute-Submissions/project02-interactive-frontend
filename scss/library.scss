@@ -12,9 +12,14 @@
         font-size: 0.8rem;
         line-height: 1.2rem;
     }
-    div {
+    div.row {
         margin-top: 10px;
         padding-top: 10px;
+    }
+    div {
+        padding-top: 10px;
+        overflow: hidden;
+        margin-bottom: 10px;
     }
     img {
         width: 80px;

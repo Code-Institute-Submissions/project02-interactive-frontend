@@ -14,6 +14,7 @@ var varLastPageUrl; // variable for holding the last page
 var linkToAudioJson;
 var linkToVideoJson;
 
+
 // Function called from Search button
 // Values received from html form and validated
 function getQueryText() {
@@ -148,7 +149,6 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
             document.getElementById('libraryResultsItem' + i).classList.add('oddColour');
         }
     });
-
 }
 
 // Get data items from API result - Audio

@@ -166,7 +166,7 @@ header.intro {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
   background-image: url("../img/atlantis.jpg");
-  background-position: center center;
+  background-position: top center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -210,8 +210,9 @@ header.intro {
   #apodSection.apod .apod-date {
     float: left; }
   #apodSection.apod .apod-para {
-    background-color: rgba(0, 18, 52, 0.3);
     clear: both; }
+  #apodSection.apod .apod-para-bg {
+    background-color: rgba(0, 18, 52, 0.3); }
   #apodSection.apod #apod_vid_id {
     border: 0; }
   #apodSection.apod .video-container {
@@ -228,6 +229,8 @@ header.intro {
     left: 25%;
     width: 50%;
     height: 100%; }
+  #apodSection.apod #apod-error-row {
+    display: none; }
   @media (min-width: 1200px) {
     #apodSection.apod h1 {
       font-size: 3.5rem; } }
@@ -295,9 +298,13 @@ header.intro {
 #libraryResults p {
   font-size: 0.8rem;
   line-height: 1.2rem; }
-#libraryResults div {
+#libraryResults div.row {
   margin-top: 10px;
   padding-top: 10px; }
+#libraryResults div {
+  padding-top: 10px;
+  overflow: hidden;
+  margin-bottom: 10px; }
 #libraryResults img {
   width: 80px;
   max-width: 80px; }

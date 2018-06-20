@@ -87,6 +87,9 @@
             <a href="https://apod.nasa.gov/apod/archivepix.html" class="paralink" target="blank">Click here</a> <i class='fa fa-external-link' aria-hidden='true'></i> to view all images archived since 1995.</p>
         </div>
       </div>
+      <div class="row" id="apod-error-row">
+        <div class="col-12 errorMessage" id="apod-error-message"></div>
+      </div>
       <div class="row">
         <div class="col-12 col-sm-4 mx-auto" id="apod_img_container">
           <img id="apod_img_id" class="apod-image mb-2" alt="Astronomy image of the day" />
@@ -99,11 +102,11 @@
           <h3 id="apod_title_vid"></h3>
         </div>
         <div class="col-12 col-sm-8 mx-auto apod-para">
-          <p class="text-faded mb-4">
+          <p class="text-faded mb-4 px-3 py-3">
             <span id="apod_date" class="apod-date"></span>
             <span id="copyright" class="apod-copyright"></span>
           </p>
-          <p class="text-faded pt-4" id="apod_explaination">...loading image details.</p>
+          <p class="text-faded px-3 py-3 apod-para-bg" id="apod_explaination">...loading image details.</p>
         </div>
       </div>
     </div>
@@ -119,7 +122,7 @@
           <p class="text-faded mb-4">EPIC provides information on the daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument. Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures unique
             perspectives of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a 30-cm aperture Cassegrain telescope.</p>
           <p class="text-faded mb-4">You can read more about EPIC and the DSCOVR project on the NASA website: <a href="https://epic.gsfc.nasa.gov/epic" target="blank">Earth Polychromatic Imaging Camera</a> <i class='fa fa-external-link' aria-hidden='true'></i></p>
-          <p class="text-faded nm-4" id="DateHelp"><a id="epic-recent-link" class="epic-click" onclick="getMostRecentEpic()">View the most recent EPIC image received</a> <i class='fa fa-external-link' aria-hidden='true'></i><br> or enter a search date and click the search button<br> <span class="text-muted small">(the first acquired images began on 01 September 2015)</span>.</p>
+          <p class="text-faded nm-4" id="DateHelp"><a id="epic-recent-link" class="epic-click" onclick="getMostRecentEpic()">View the most recent EPIC image received</a> <i class='fa fa-external-link' aria-hidden='true'></i><br> or enter a search date and click the search button<br> <span class="text-faded small">(the first acquired images began on 01 September 2015)</span></p>
         </div>
       </div>
       <!-- Date row -->
@@ -223,18 +226,18 @@
           <form>
             <div class="form-group text-center">
               <label for="searchLibraryText">Enter a topic to search and choose the media type.</label>
-              <input type="text" class="form-control" id="searchLibraryText" placeholder="e.g. apollo, moon, europe...">
+              <input type="text" class="form-control" id="searchLibraryText" placeholder="e.g. apollo, moon, europe..." title="Enter a topic to search and choose the media type">
             </div>
             <div class="form-check ml-3">
-              <input class="form-check-input" type="radio" name="mediaType" id="image" value="image" checked>
+              <input class="form-check-input" type="radio" name="mediaType" id="image" value="image" title="image" checked>
               <label class="form-check-label" for="image">Image</label>
             </div>
             <div class="form-check ml-3">
-              <input class="form-check-input" type="radio" name="mediaType" id="video" value="video">
+              <input class="form-check-input" type="radio" name="mediaType" id="video" value="video" title="video">
               <label class="form-check-label" for="video">Video</label>
             </div>
             <div class="form-check ml-3">
-              <input class="form-check-input" type="radio" name="mediaType" id="audio" value="audio">
+              <input class="form-check-input" type="radio" name="mediaType" id="audio" value="audio" title="audio">
               <label class="form-check-label" for="video">Audio</label>
             </div>
             <!-- error message -->
@@ -245,10 +248,10 @@
       <!-- Search NASA button -->
       <div class="row">
         <div class="col-12 col-md-6 mx-auto mt-3 text-center">
-          <button type="button" class="btn btn-primary btn-xl" onclick="getQueryText()">Search NASA</button>
+          <button type="button" class="btn btn-primary btn-xl" onclick="getQueryText()" id="search-nasa-button" title="Search Nasa">Search NASA</button>
         </div>
         <div class="col-12 col-md-6 mx-auto mt-3 text-center" id="clearResultsDiv">
-          <button type="button" class="btn btn-primary btn-xl" onclick="clearLibraryResults()">Clear Results</button>
+          <button type="button" class="btn btn-primary btn-xl" onclick="clearLibraryResults()" title="Clear Results">Clear Results</button>
         </div>
       </div>
     </div>
@@ -347,19 +350,19 @@
       </div>
       <div class="row">
         <div class="col-4 col-lg-2 ml-auto text-center">
-          <a href="https://www.nasa.gov/" target="blank" tooltip="NASA website"><i class="fa fa-external-link fa-3x" aria-hidden="true"></i></a>
+          <a href="https://www.nasa.gov/" target="blank" title="NASA website"><i class="fa fa-external-link fa-3x" aria-hidden="true"></i></a>
         </div>
         <div class="col-4 col-lg-2 mr-auto text-center">
-          <a href="https://www.instagram.com/nasa/?hl=en" tooltip="NASA on Instagram"><i class="fa fa-instagram fa-3x" aria-hidden="true"></i></a>
+          <a href="https://www.instagram.com/nasa/?hl=en" title="NASA on Instagram"><i class="fa fa-instagram fa-3x" aria-hidden="true"></i></a>
         </div>
         <div class="col-4 col-lg-2 mr-auto text-center">
-          <a href="https://twitter.com/NASA" tooltip="NASA on Twitter"><i class="fa fa-twitter fa-3x" aria-hidden="true"></i></a>
+          <a href="https://twitter.com/NASA" title="NASA on Twitter"><i class="fa fa-twitter fa-3x" aria-hidden="true"></i></a>
         </div>
         <div class="col-6 col-lg-2 mr-auto text-center mt-4">
-          <a href="https://www.youtube.com/channel/UCLA_DiR1FfKNvjuUpBHmylQ" tooltip="NASA on YouTube"><i class="fa fa-youtube fa-3x" aria-hidden="true"></i></a>
+          <a href="https://www.youtube.com/channel/UCLA_DiR1FfKNvjuUpBHmylQ" title="NASA on YouTube"><i class="fa fa-youtube fa-3x" aria-hidden="true"></i></a>
         </div>
         <div class="col-6 col-lg-2 mr-auto text-center mt-4">
-          <a href="https://www.facebook.com/NASA/" tooltip="NASA on Facebook"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
+          <a href="https://www.facebook.com/NASA/" title="NASA on Facebook"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
         </div>
       </div>
     </div>
@@ -411,6 +414,20 @@
   <script src="assets/js/nasaAPI-epic.js"></script>
   <script src="assets/js/nasaAPI-library.js"></script>
   <script src="assets/js/nasaAPI-data.js"></script>
+
+  <script type="text/javascript">
+  $(document).ready(function(){
+    var input = document.getElementById("searchLibraryText");
+    input.addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+        console.log("fjefiojfiehf");
+        document.getElementById("search-nasa-button").click();
+      }
+    });
+  });
+  </script>
+
 </body>
 
 </html>

@@ -3,7 +3,7 @@ header.intro {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
   background-image: url('../img/atlantis.jpg');
-  background-position: center center;
+  background-position: top center;
   @include background-cover;
   h1 {
     font-size: 2rem;

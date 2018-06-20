@@ -28,8 +28,14 @@ $.ajax({
         var varDateString = splitDate(result.date, 1); //Show date of image with Month name. 1 = get Month name
 
         $("#apod_date").text(varDateString.day + " " + varDateString.month + " " + varDateString.year);
-    }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        $("#apod_img_container").hide();
+        $("#apod_vid_container").hide();
+        $(".apod-para").hide();
+        $("#apod-error-row").css("display", "block")
+        $("#apod-error-message").html("There was a problem connecting to NASA Astronomy Picture of the Day. Please try again later.");
+    } 
 });
 
 // END APOD ===================================================================================================================== //
-

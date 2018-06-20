@@ -15,7 +15,7 @@ Semantic HTML5 elements are used throughout to structure the html.
 4.	**Make sure your site is as responsive as possible. You can test this by checking the site on different screen sizes and browsers. 
 Please note that if you are building a data dashboard, only your chart containers are expected to be responsive. Charts using D3.js are not responsive as they are designed for desktop or large-screen viewing.**<br>
 The site has been built to be as responsive as possible. Please see the [Testing](#testing) section for further details.
-5.	**We advise that you write down user stories and create wireframes/mockups before embarking on full-blown development.**<br>
+5.	**We advise that you write down user stories and create wireframes/mock-ups before embarking on full-blown development.**<br>
 User stories and wireframes are provided in the [Scenarios](#scenarios) section and the [Wireframes](#wireframes) section.
 6.	**The site can also make use of CSS frameworks such as Bootstrap, just make sure you maintain a clear separation between the library code and your code.**<br>
 The page is created using HTML5 and CSS3, provided by the Bootstrap Framework 4. 
@@ -47,6 +47,7 @@ GitHub Pages was used to host the final SPA. See [Deployment](#deployment) secti
     *   [Project Charter](#charter)
     *   [Website development Roadmap](#roadmap)
     *   [Strategy Trade-off](#trade)
+    *   [Defensive Design](#def)
 *   [Scope Plane](#scope)
     *   [Note about FETCH](#fetchnote)
     *   [Scenarios](#scenarios)
@@ -84,7 +85,7 @@ GitHub Pages was used to host the final SPA. See [Deployment](#deployment) secti
             *   [nasaAPI-data.js](#jsdata)
             *   [helperTools.js](#jshelper)
         *   [Testing](#testing)
-            *   [Development Testing](#devtesting)
+            *   [Development/Defensive Design Testing](#devtesting)
             *   [Ongoing Testing](#ongoing)
             *   [Usability Testing](#usability)
             *   [Final Testing](#final)
@@ -144,6 +145,25 @@ The UXD will be driven by the API data and user needs.
 |Graph|Opportunity Feasible?|
 |:---|:---|
 |![Trade off graph](ReadMe_Images/graph.jpg)|Feasible for initial release <ul><li>Create Online Presence</li><li>Increase visitor numbers</li><li>Present Select Data</li></ul>Features for future releases<ul><li>Present all NASA data via API</li><li>NEO WS</li></ul>
+
+[Top of page](#topofpage)
+<a name="def"></a>
+## Defensive Design
+Defensive design for the Web usually focuses on the most common points of failure: forms, search, the address bar and server problems
+* it employs validation to check for mistakes before they frustrate the site user,
+* it expands available options based on the user’s implied intent,
+* it protects site visitors from server errors and broken links with informative messages and
+* it assists the user before mistakes happen.
+
+For this SPA all API calls in the JS files will have a message to users if the connection to the API fails for any reason.
+Users will be told there was a network/connection error and to try again later.
+
+If users fail to enter text or a date for inputs fields before clicking a search button, they will be informed that text/date are required.
+
+If users query text fails to return any search results, users will be informed that there were no results for that search query.
+
+
+
 
 [Top of page](#topofpage)
 <a name="scope"></a>
@@ -508,16 +528,22 @@ However, the site was also tested using Firefox and Internet Explorer.
 *   CSS was validated using the **CSS Validation Service** provided by The World Wide Web Consortium (W3C): https://jigsaw.w3.org/css-validator/
 
 ##### During development:
-* Div’s had vibrant background colours so that the developer was easily able to identify them
+* Console.log was used extensively for viewing returned data and testing. 
+* Div’s had vibrant background colours so that the developer was easily able to identify them.
 * Each change was viewed in a chrome browser and tested using developer tools at full width resolution and using a variety of device emulators; Galaxy SIII, Galaxy 5, Laptop touch screen, iPhone 5/SE, iPhone 6/7/8, iPhone 6/7/8 Plus, iPhone X, iPad.
 * emote debugging using Android, Windows OS and Chrome Dev Tools was used to test each new functionality and new/updated page.
-* The SPA was audited using Chrome Dev Tools Audit functionality
+* The SPA was audited using Chrome Dev Tools Audit functionality.
 
 [Top of page](#topofpage)
 
 <a name="devtesting"></a>
-#### Development Testing
+#### Development/Defensive Design Testing
 Testing was carried out continuously while developing the SPA. Each input was tested for empty values and checked for zero results.
+
+As per the [Defensive Design](#def) Strategy described in the Strategy Plan, all form inputs are checked for empty values. Users are messaged if they click a search button without providing text or a date.
+Users are also informed by an on-screen text if their search returns no results. 
+Users are left in no doubt what is required of them, and if their search was unsuccessful.
+
 
 |Error Catch| |
 |:---|:---|
