@@ -220,10 +220,9 @@
     </div>
     <!-- Form Library -->
     <div class="container">
-      <!-- Form -->
-      <div class="row">
-        <div class="col-12 col-sm-10 mt-5 mx-auto">
-          <form>
+      <form>
+        <div class="row">
+          <div class="col-12 col-sm-10 mt-5 mx-auto">
             <div class="form-group text-center">
               <label for="searchLibraryText">Enter a topic to search and choose the media type.</label>
               <input type="text" class="form-control" id="searchLibraryText" placeholder="e.g. apollo, moon, europe..." title="Enter a topic to search and choose the media type">
@@ -242,18 +241,18 @@
             </div>
             <!-- error message -->
             <div class="form-check ml-3 float-right errorMessage" id="errorLibraryMessage"></div>
-          </form>
+          </div>
         </div>
-      </div>
-      <!-- Search NASA button -->
-      <div class="row">
-        <div class="col-12 col-md-6 mx-auto mt-3 text-center">
-          <button type="button" class="btn btn-primary btn-xl" onclick="getQueryText()" id="search-nasa-button" title="Search Nasa">Search NASA</button>
+        <!-- Search NASA button -->
+        <div class="row">
+          <div class="col-12 col-md-6 mx-auto mt-3 text-center">
+            <button type="button" class="btn btn-primary btn-xl" onclick="getQueryText()" id="search-nasa-button" title="Search Nasa">Search NASA</button>
+          </div>
+          <div class="col-12 col-md-6 mx-auto mt-3 text-center" id="clearResultsDiv">
+            <button type="button" class="btn btn-primary btn-xl" onclick="clearLibraryResults()" title="Clear Results">Clear Results</button>
+          </div>
         </div>
-        <div class="col-12 col-md-6 mx-auto mt-3 text-center" id="clearResultsDiv">
-          <button type="button" class="btn btn-primary btn-xl" onclick="clearLibraryResults()" title="Clear Results">Clear Results</button>
-        </div>
-      </div>
+      </form>
     </div>
     <!-- ruler hr -->
     <div class="row">
@@ -281,6 +280,10 @@
             </div>
           </div>
         </div>
+      </div>
+      <!-- results error -->
+      <div class="row">
+        <div class="col-12 errorMessage" id="errorLibraryResultMessage"></div>
       </div>
       <!-- Total Result Hits -->
       <div class="row">
@@ -368,6 +371,7 @@
     </div>
   </section>
 
+
   <!-- Bootstrap core JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -415,19 +419,21 @@
   <script src="assets/js/nasaAPI-library.js"></script>
   <script src="assets/js/nasaAPI-data.js"></script>
 
-  <script type="text/javascript">
-  $(document).ready(function(){
-    var input = document.getElementById("searchLibraryText");
-    input.addEventListener("keyup", function(event) {
-      event.preventDefault();
-      if (event.keyCode === 13) {
-        console.log("fjefiojfiehf");
-        document.getElementById("search-nasa-button").click();
-      }
-    });
-  });
-  </script>
 
+  // <script type="text/javascript">
+  //   $(document).ready(function() {
+  //     var input = document.getElementById("searchLibraryText");
+  //     input.addEventListener("keyup", function(event) {
+  //       event.preventDefault();
+  //       console.log(event);
+  //       event.preventDefault();
+  //       if (event.keyCode === 13) {
+  //         console.log("fjefiojfiehf");
+  //         document.getElementById("search-nasa-button").click();
+  //       }
+  //     });
+  //   });
+  // </script>
 </body>
 
 </html>

@@ -15,13 +15,23 @@ var linkToAudioJson;
 var linkToVideoJson;
 
 
+var input = document.getElementById("myInput");
+  input.addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+         document.getElementById('myBtn').click();
+      }
+  });
+  
+
 // Function called from Search button
 // Values received from html form and validated
-function getQueryText() {
-    document.getElementById("errorLibraryMessage").textContent = ""; //clear div of any previous error messages
-    varLibraryQuery = document.getElementById("searchLibraryText").value; //Get query text from form
-    varMediaType = document.querySelector('input[name="mediaType"]:checked').value; //Get media type from form
-    varFirstPageUrl = "https://images-api.nasa.gov/search?q=" + varLibraryQuery + "&page=1&media_type=" + varMediaType; //create url to send to NASA API
+function someFunction() {
+    
+    //document.getElementById("errorLibraryMessage").textContent = ""; //clear div of any previous error messages
+    //varLibraryQuery = document.getElementById("myInput").value; //Get query text from form
+   // varMediaType = document.querySelector('input[name="mediaType"]:checked').value; //Get media type from form
+    varFirstPageUrl = document.getElementById('myInput').value;
     if (varLibraryQuery !== "") {
     document.getElementById('pageNumber').innerHTML = ""; // Display Page pageNumber of pageCount
     document.getElementById('pageCount').innerHTML = ""; // Display Page pageNumber of pageCount
@@ -30,6 +40,21 @@ function getQueryText() {
     else {
         document.getElementById("errorLibraryMessage").innerHTML = "Please enter text to search the NASA Library.";
     }
+}
+
+
+function getDetails(pagedUrl) {
+  var xhr = new XMLHttpRequest();
+  var url = pagedUrl;
+  xhr.open("GET", url);
+  xhr.send();
+  xhr.onreadystatechange = function() {
+     if (this.readyState == 4 && this.status == 200) {
+      var Data = JSON.parse(this.responseText);
+      //alert(Data);
+      console.log(Data);
+     }
+  }
 }
 
 // Call made to NASA Library API using XMLHttpRequest()
@@ -151,160 +176,6 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
         else {
             document.getElementById('libraryResultsItem' + i).classList.add('oddColour');
         }
-    });
-}
-
-// Get data items from API result - Audio
-// Render data to HTML
-function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
-    let resultObj = queryResponseData.collection; // Get result collection
-    let itemsArray = resultObj.items; // Get items array
-    numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); // API returns results in lots of 100
-    document.getElementById('pageNumber').innerHTML = currentLibraryPage; // Display Page pageNumber of pageCount
-    document.getElementById('pageCount').innerHTML = numberOfLibraryPages; // Display Page pageNumber of pageCount
-    document.getElementById('media-type').innerHTML = "- Audio"; //Display title search results for audio    
-
-    $('#searchLibraryResultsContainer').show(); //Results div hidden when page loads. Show for results.
-    $('#paging-buttons').hide();
-    $('#pagingInfo').hide();
-
-    itemsArray.forEach(function(item, i) { // Items: data, href, we need data[{}] array
-        var itemsDataObj = item.data;
-        var audioList = item.href; // href object with links to audio files
-        //iterate through Data object for item info
-        itemsDataObj.forEach(function(item) {
-
-            //Get & parse JSON file of audio file links
-            var xhr = new XMLHttpRequest();
-            var url = audioList;
-            xhr.open("GET", url);
-            xhr.send();
-            xhr.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    linkToAudioJson = JSON.parse(this.responseText);
-
-                    // reinitiates the popover as the results are not on the page when loaded first
-                    $(function() {
-                        var $trigger = $('.p-trigger').popover({
-                            placement: 'bottom',
-                            animation: true,
-                            title: "Click to hide"
-                        });
-                    });
-
-                    //send 'center' to getNasaCenter() to get its website
-                    var nasaCenterWebsite = getNasaCenter(item.center);
-                    var varTruncatedItemDescription = item.description;
-                    if (varTruncatedItemDescription.length > 22) {
-                        varTruncatedItemDescription = varTruncatedItemDescription.substring(0, 100) + " ...";
-                    }
-                    // replace chars with html coded version
-                    var varItemFullDescription = escapeHtml(item.description);
-                    var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
-
-                    // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
-
-                    document.getElementById('libraryResults').innerHTML += "<div class='col-6 col-md-3' id='libraryResultsItem" + i + "'>" +
-                        "<p>" +
-                        "<strong>Title: </strong>" + item.title + "<br>" +
-                        "<strong>Date created: </strong>" + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
-                        "<strong>Description: </strong> " + varTruncatedItemDescription + "<br>" +
-                        "<strong>Center: </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit the " + item.center + " website.</a> <i class='fa fa-external-link' aria-hidden='true'></i><br>" +
-                        "<strong>Nasa id: </strong>" + item.nasa_id + "<br>" +
-                        "<strong>Audio: </strong><a href='" + linkToAudioJson[0] + "' target='blank'>Listen to original audio</a> <i class='fa fa-volume-up' aria-hidden='true'></i><br>" +
-                        "<button class='p-trigger' href='#' data-content='" + varItemFullDescription + "' data-trigger='focus'>Read full description</button></p>" +
-                        "</div>";
-
-                    // if the index (i) is divisable by 2 then it's even otherwise odd
-                    // different background colours are applied by css if row is even/odd
-                    if (i % 2 == 0) {
-                        document.getElementById('libraryResultsItem' + i).classList.add('evenColour');
-                    }
-                    else {
-                        document.getElementById('libraryResultsItem' + i).classList.add('oddColour');
-                    }
-                }
-            };
-
-
-        }); // end data forEach     
-    });
-}
-
-// Get data items from API result - Video
-// Render data to HTML
-function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
-    let resultObj = queryResponseData.collection; // Get result collection
-    let itemsArray = resultObj.items; // Get items array
-    numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); // API returns results in lots of 100
-    document.getElementById('pageNumber').innerHTML = currentLibraryPage; // Display Page pageNumber of pageCount
-    document.getElementById('pageCount').innerHTML = numberOfLibraryPages; // Display Page pageNumber of pageCount
-    document.getElementById('media-type').innerHTML = "- Video" ;//Display title search results for video    
-
-    $('#searchLibraryResultsContainer').show(); //Results div hidden when page loads. Show for results.
-    $('#paging-buttons').hide();
-    $('#pagingInfo').hide();
-
-    itemsArray.forEach(function(item, i) { // Items: data, href, we need data[{}] array
-        var itemsDataObj = item.data;
-        var videoList = item.href; // href object with links to audio files
-        //iterate through Data object for item info
-        itemsDataObj.forEach(function(item) {
-
-            //Get & parse JSON file of audio file links
-            var xhr = new XMLHttpRequest();
-            var url = videoList;
-            xhr.open("GET", url);
-            xhr.send();
-            xhr.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    linkToVideoJson = JSON.parse(this.responseText);
-
-                    // reinitiates the popover as the results are not on the page when loaded first
-                    $(function() {
-                        var $trigger = $('.p-trigger').popover({
-                            placement: 'bottom',
-                            animation: true,
-                            title: "Click to hide"
-                        });
-                    });
-
-                    //send 'center' to getNasaCenter() to get its website
-                    var nasaCenterWebsite = getNasaCenter(item.center);
-                    var varTruncatedItemDescription = item.description;
-                    if (varTruncatedItemDescription.length > 22) {
-                        varTruncatedItemDescription = varTruncatedItemDescription.substring(0, 100) + " ...";
-                    }
-                    // replace chars with html coded version
-                    var varItemFullDescription = escapeHtml(item.description);
-                    var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
-
-                    // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
-
-                    document.getElementById('libraryResults').innerHTML += "<div class='col-6 col-md-3' id='libraryResultsItem" + i + "'>" +
-                        "<p>" +
-                        "<strong>Title: </strong>" + item.title + "<br>" +
-                        "<strong>Date created: </strong>" + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
-                        "<strong>Description: </strong> " + varTruncatedItemDescription + "<br>" +
-                        "<strong>Center: </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit the " + item.center + " website.</a> <i class='fa fa-external-link' aria-hidden='true'></i><br>" +
-                        "<strong>Nasa id: </strong>" + item.nasa_id + "<br>" +
-                        "<strong>Audio: </strong><a href='" + linkToVideoJson[0] + "' target='blank'>Watch the video</a> <i class='fa fa-play' aria-hidden='true'></i><br>" +
-                        "<button class='p-trigger' href='#' data-content='" + varItemFullDescription + "' data-trigger='focus'>Read full description</button></p>" +
-                        "</div>";
-
-                    // if the index (i) is divisable by 2 then it's even otherwise odd
-                    // different background colours are applied by css if row is even/odd
-                    if (i % 2 == 0) {
-                        document.getElementById('libraryResultsItem' + i).classList.add('evenColour');
-                    }
-                    else {
-                        document.getElementById('libraryResultsItem' + i).classList.add('oddColour');
-                    }
-                }
-            };
-
-
-        }); // end data forEach     
     });
 }
 
