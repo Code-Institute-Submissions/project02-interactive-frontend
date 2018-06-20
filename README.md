@@ -1,5 +1,9 @@
 # Single Page Application using the NASA API
 
+GitHub Pages: https://sonnerz.github.io/project02-interactive-frontend/ <br>
+PDF of ReadMe: ![ReadMe PDF](readme.pdf)
+
+
 **Create a Single Page Application that relies heavily on one or more APIs**
 
 Provide search results in a manner that is visually appealing for your user (by drawing on the skills you have learned in User-Centric Frontend Development
@@ -163,8 +167,6 @@ If users fail to enter text or a date for inputs fields before clicking a search
 If users query text fails to return any search results, users will be informed that there were no results for that search query.
 
 
-
-
 [Top of page](#topofpage)
 <a name="scope"></a>
 # Scope Plane
@@ -187,17 +189,19 @@ The downside of this means that the FETCH API call does not work in Internet Exp
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API</a>
 
 **Desktop**
+
 |Feature|Chrome|Edge|Firefox(Gecko)|IE|Opera|Safari(WebKit)|
 |:---|:---|:---|:---|:---|:---|:---|
-|Basic support|42|14|39 (39) 34[1] <br>52(52)[2]|No support|29 <br>28[1]|10.1
-ReadableStream response body|43|14|No support [3]|No support|?|No support|
+|Basic support|42|14|39 (39) 34[1] <br>52(52)[2]|No support|29 28[1]|10.1
+|ReadableStream response body|43|14|No support[3]|No support|?|No support|
 
 
 **Mobile**
+
 |Feature|Android Webview|Chrome for Android|Edge|Edge Firefox Mobile (Gecko)|IE Phone|Opera Mobile|Safari Mobile|
 |:---|:---|:---|:---|:---|:---|:---|:---|
-|Basic support|42|42|Yes|Yes|No support|No support|10.1
-ReadableStream response body|43|43|Yes|No support [3]|No support|?|No support|
+|Basic support|42|42|Yes|Yes|No support|No support|10.1|
+|ReadableStream response body|43|43|Yes|No support[3]|No support|?|No support|
 
 [Top of page](#topofpage)
 <a name="scenarios"></a>
@@ -256,15 +260,16 @@ The content sections will provide APOD, EPIC images and a search facility.
 <a name="nav"></a>
 ### Navigation systems
 ‘Sticky’ navbar. <br>
-The navbar will be always be available to users at the top of the page regardless of which content section a visitor is viewing. 
+The navbar will be always be available to users at the top of the page regardless of which content section a visitor is viewing.
+
 |Description|Response|
 |:---|:---|
-|NASA Images Portal|Takes the user to the welcome/intro section|
+|NASA Images Portal|Takes the user to the welcome-intro section|
 |APDO|Takes the user to the Astronomy Picture of the Day section|
 |EPIC|Takes the user to the DSCOVR's Earth Polychromatic Imaging Camera (EPIC) section|
 |Library|Takes the user to the search facility that allows visitors to search the NASA image and video library|
 |Data|The Data section shows a mini dashboard of NASA data|
-|Contact/Information|Shows where to get further information about NASA, social media, etc.|
+|Contact-Information|Shows where to get further information about NASA, social media, etc.|
 
 
 [Top of page](#topofpage)
@@ -279,20 +284,20 @@ The input fields will follow user expectations where feedback is provided if use
 The SPA will implement content in a single page. Each content section will be clearly labelled and be visually different from the previous content section. Making it obvious to visitors that they are in a different content section.
 The site directories and files will be organised in the following way;
 
-|![directory structure](md-images/ia.jpg)|At the root of the site:<ul><li>Index.html</li><li>ReadMe.md</li></ul>Assets Directory<ul><li>CSS sub-directory</li><li>Images sub-directory</li><li>JS sub-directory</li></ul>SCSS Directory<ul><li>scss files for css</li></ul>|
+|![directory structure](ReadMe_Images/ia.jpg)|At the root of the site:<ul><li>Index.html</li><li>ReadMe.md</li></ul>Assets Directory<ul><li>CSS sub-directory</li><li>Images sub-directory</li><li>JS sub-directory</li></ul>SCSS Directory<ul><li>scss files for css</li></ul>|
 |:---|:---|
 
 
 [Top of page](#topofpage)
 <a name="wireframes"></a>
 #  Wireframes
-![SPA](md-images/wireframe.jpg)
-## APOD
-![APOD wireframe](md-images/wireframe-apod.jpg)
-## EPIC
-![EPIC wireframe](md-images/wireframe-epic.jpg)
-## Library
-![Library wireframe](md-images/wireframe-library.jpg)
+![SPA](ReadMe_Images/wireframe.jpg)
+## APOD<a name="apodwf"></a>
+![APOD wireframe](ReadMe_Images/wireframe-apod.jpg)
+## EPIC<a name="epicwf"></a>
+![EPIC wireframe](ReadMe_Images/wireframe-epic.jpg)
+## Library<a name="librarywf"></a>
+![Library wireframe](ReadMe_Images/wireframe-library.jpg)
 
 
 [Top of page](#topofpage)
@@ -327,7 +332,7 @@ The Readme provides information on how the site was deployed and tested and if s
 ### HTML/CSS Structure
 **Navigation**
 
-![Navigation Structure](md-images/html-nav.jpg)
+![Navigation Structure](ReadMe_Images/html-nav.jpg)
 
 The navigation is responsive to the type of client device a user is using to view the site.
 Any view below 992px wide will get a collapsing Navigation Bar. The navigation links will have a hover state making it obvious to users which navigation link they are hovering over. The text will turn the official NASA blue: #0B3D91
@@ -336,7 +341,7 @@ The collapsed navigation will have a similar hover state.
 
 **Footer**
 
-![Footer Structure](md-images/html-footer.jpg)
+![Footer Structure](ReadMe_Images/html-footer.jpg)
 
 The footer was developed/designed to be full width and contain links to NASA sites including their social media.
 
@@ -348,18 +353,34 @@ The SPA consists of one page – index.html. The page was created using Bootstra
 The page is divided into six distinct areas, each with its own purpose; welcome, apod, epic, library, data, contact.
 
 ##### Welcome section
-The welcome section welcomes the visitor to the site, it invites the visitor to use each section and briefly explains the purpose of that section.
+The welcome section welcomes the visitor to the site, it invites the visitor to use each section and briefly explains the purpose of that section. 
+It will be a < header > with a large background image and text in a < p >. 
 
 ##### APOD – Astronomy Picture of the Day
 APOD, makes a call to the APOD API returning the NASA chosen image/video of the day and a brief explanation provided by a professional astronomer.
+The HTML < section > has a title and explanation row filling the width of the page. The image and text are displayed in two columns. If the APOD is a video, it will take up one row while its text will take up another row below the video.
+See the [APOD](#apodwf) Wireframe
+
 
 ##### EPIC
-The visitor has the option to view the most recent EPIC image received or chose a date and image type and send that date and image type to the EPIC API. The API returns up to 12 images taken by the EPIC camera on that date.
-The list of images is paged, one image per page.
+The visitor has the option to view the most recent EPIC image received or chose a date and image type and send that date and image type to the EPIC API. The API returns images taken by the EPIC camera on that date. The list of images is paged, one image per page.
+
 If the visitor chooses to view the most recent EPIC image then only one image is returned. It will be the last image received form DSCOVR on the previous day.
 
+EPIC is a HTML < section >. The search part is in a div containing descriptive text, an input field for choosing a date, radio choices for natural/enhanced image and a search button.
+When the user clicks the Search button, a < div > displays showing the results in two columns. The image in the left column and its text in the right column. Paging buttons also appear with the API results.
+The most recent image API call displays the result in the same way as the Date search option.
+
+See the [EPIC](#epicwf) Wireframe
+
 ##### Library – Search NASA Image and Video Library
-The library section takes a text query and media type chosen by the site visitor and sends that query and media type to the library API. The API returns results in lots of 100 items. The user can page through the results.
+The first part of the library < section > takes a text query and media type chosen by the site visitor and sends that query and media type to the library API. The API returns results in lots of 100 items. The user can page through the results.
+
+After the user clicks the Search Button, a div for results appears below the search input area. It shows rows of the search results. Each result has an image in the left column while the text appears in the right column. 
+Paging buttons are at the top of the results section.
+
+See the [Library](#librarywf) Wireframe
+
 
 ##### Data
 The NASA Facilities dataset is made available by NASA as a json file. This section takes the data and using dc/d3/crossfilter renders pie charts and bar charts.
@@ -605,7 +626,6 @@ During usability testing, it was found that the user would prefer if the page sc
 |Popover full desc|Passed|Passed|Passed|Passed|
 
 
-
 |Device/Test|Galaxy SIII|Galaxy 5|Laptop touch screen|iPhone 5/SE|iPhone 6/7/8|iPhone 6/7/8 Plus|iPhone X|iPad|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |Intro Section|Passed|Passed|Passed|Passed|Passed|Passed|Passed|Passed|
@@ -626,7 +646,7 @@ During usability testing, it was found that the user would prefer if the page sc
 
 
 #### Data section
-It was decided that because as charts using D3.js are not responsive as they are designed for desktop or large-screen viewing, these two bar charts can only be viewed in the desktop version of the SPA.
+It was decided that because the charts using D3.js are not responsive as they are designed for desktop or large-screen viewing, these two bar charts can only be viewed in the desktop version of the SPA.
 
 
 [Top of page](#topofpage)
@@ -635,7 +655,7 @@ It was decided that because as charts using D3.js are not responsive as they are
 ### Deployment
 GitHub is used to host the code and publish the pages.
 
-A new repository was created in GitHub called: **interactive-front-end-project**
+A new repository was created in GitHub called: **project02-interactive-frontend**
 
 After a final Git Add and Git commit
 
@@ -645,7 +665,7 @@ After a final Git Add and Git commit
 
 The pages were pushed to the new GitHub repository
 
-``$ git remote add origin https://github.com/Sonnerz/interactive-front-end-project``
+``$ git remote add origin https://github.com/Sonnerz/project02-interactive-frontend``
 
 ``$ git push -u origin master``
 
@@ -655,7 +675,7 @@ The pages were pushed to the new GitHub repository
 
 Under the Settings – GitHub Pages of the new repository, the master branch of the code is published to the url: 
 
-https://sonnerz.github.io/interactive-front-end-project/
+https://sonnerz.github.io/project02-interactive-frontend/
 
 [Top of page](#topofpage)
 
