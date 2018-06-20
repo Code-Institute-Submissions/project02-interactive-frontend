@@ -129,7 +129,7 @@ function clearEpicResults() {
     $("#epicMostRecentContainer").css("display", "none");
     $("#epicResultsContainer").css("display", "none");
     $('html, body').animate({
-        scrollTop: $("#jumpto1").offset().top - 20
+        scrollTop: $("#epic").offset().top - 20
     }, 'slow');
 }
 

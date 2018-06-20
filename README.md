@@ -1,7 +1,8 @@
 # Single Page Application using the NASA API
 
 GitHub Pages: https://sonnerz.github.io/project02-interactive-frontend/ <br>
-PDF of ReadMe: ![ReadMe PDF](readme.pdf)
+PDF of ReadMe: [ReadMe PDF](https://github.com/Sonnerz/project02-interactive-frontend/blob/master/readme.pdf)
+
 
 
 **Create a Single Page Application that relies heavily on one or more APIs**
@@ -418,11 +419,11 @@ mainStyles.css is created from SCSS files.
 A JavaScript file has been created for each content section. Each section has its own API call.
 NASA prefers that developers sign up for a developer key. This key is used in every API call.
 
-* nasaAPI-apod.js	
-* nasaAPI-data.js
-* nasaAPI-library.js	
-* nasaAPI-epic.js
-* helperTools.js	
+* [nasaAPI-apod.js](#jsapod)
+* [nasaAPI-epic.js](#jsepic)
+* [nasaAPI-library.js](#library)
+* [nasaAPI-data.js](#jsdata)
+* [helperTools.js](#jshelper)	
 
 <hr>
 
@@ -430,9 +431,9 @@ NASA prefers that developers sign up for a developer key. This key is used in ev
 #### APOD: 	nasaAPI-apod.js
 This API call uses AJAX.
 
-| | |
+|Returned from API: | |
 |:---|:---|
-|Returned from API: <ul><li>copyright</li><li>date</li><li>explanation</li><li>hdurl</li><li>media_type</li><li>service_version</li><li>title</li><li>url</li></ul>|![APOD Object](ReadMe_Images/apodobj.jpg)|
+|<ul><li>copyright</li><li>date</li><li>explanation</li><li>hdurl</li><li>media_type</li><li>service_version</li><li>title</li><li>url</li></ul>|![APOD Object](ReadMe_Images/apodobj.jpg)|
 
 
 
@@ -453,14 +454,15 @@ The url provided by NASA takes an API key. An AJAX call is made using the url an
 
 <a name="jsepic"></a>
 #### EPIC:	nasaAPI-epic.js
-This API call uses FETCH.
-This content section will not work in Internet Explorer. FETCH is not supported by IE.
+This API call uses FETCH.<br>
+<span style="color:red">This content section will not work in Internet Explorer. FETCH is not supported by IE.</span>
 
-| | |
+|Returned from API:  | |
 |:---|:---|
-|Returned from API: <ul><li>attitude_quaternions</li><li>caption</li><li>centroid_coordinates</li><li>coords</li><li>date</li><li>dscovr_j2000_position</li><li>identifier</li><li>image</li><li>lunar_j2000_position</li><li>sun_j2000_position</li><li>version</li></ul>|![EPIC Object](ReadMe_Images/epicobj.jpg)|
+|<ul><li>attitude_quaternions</li><li>caption</li><li>centroid_coordinates</li><li>coords</li><li>date</li><li>dscovr_j2000_position</li><li>identifier</li><li>image</li><li>lunar_j2000_position</li><li>sun_j2000_position</li><li>version</li></ul>|![EPIC Object](ReadMe_Images/epicobj.jpg)|
 
 
+Urls required by the API for each type of image:
 https://api.nasa.gov/EPIC/api/enhanced/date/Date?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ<br>
 https://api.nasa.gov/EPIC/api/natural/date/Date?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ
 
@@ -483,13 +485,15 @@ https://api.nasa.gov/EPIC/api/natural/date/Date?api_key=pyZKDq8cb4x1dJi0dsodTT9P
 #### Library:	nasaAPI-library.js
 This API call uses XMLHttpRequest.
 
-| | |
+|Object returned from API: | |
 |:---|:---|
-|Object returned from API: <ul><li>href</li><li>caption</li><li>items</li><li>links (only if > 100 items returned)</li><li>metadata</li><li>version</li></ul>|![Library Object](ReadMe_Images/libobj.jpg)|
+|<ul><li>href</li><li>caption</li><li>items</li><li>links (only if > 100 items returned)</li><li>metadata</li><li>version</li></ul>|![Library Object](ReadMe_Images/libobj.jpg)|
 |The data array inside the items array|![Data Object](ReadMe_Images/dataobj.jpg)|
 
 
-API documentation provided by NASA: https://images.nasa.gov/docs/images.nasa.gov_api_docs.pdf
+API documentation provided by NASA: <br>https://images.nasa.gov/docs/images.nasa.gov_api_docs.pdf<br>
+
+Search URL required by API:
 https://images-api.nasa.gov/search?q={q}
 
 
@@ -591,6 +595,7 @@ To ensure that the Library results were being paged correctly, I viewed the JSON
 |Data Section|Formatting issues|Formatting issues|Formatting issues|Formatting issues|
 |Error messages|Passed|Passed|Passed|Passed
 |Popover full desc|Not working|Not working|Not working|Not working
+|Submit with key press|Not working|Not working|Not working|Not applicable|
 
 
 
@@ -624,7 +629,7 @@ During usability testing, it was found that the user would prefer if the page sc
 |Styling|Passed|Passed|Passed|Passed|
 |Data Section|Passed|Passed|Passed|Bar charts hidden
 |Popover full desc|Passed|Passed|Passed|Passed|
-
+|Submit with key press|Passed|Passed|Passed|Not Applicable
 
 |Device/Test|Galaxy SIII|Galaxy 5|Laptop touch screen|iPhone 5/SE|iPhone 6/7/8|iPhone 6/7/8 Plus|iPhone X|iPad|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -691,7 +696,7 @@ The following sites were used as resources to get sample css and debugging css.
 |w3schools|https://www.w3schools.com/|Multiple css styles were researched here
 |Bootstrap Date Picker|https://bootstrap-datepicker.readthedocs.io|This site provided the full solution for the date picker used in the EPIC date input
 |Slack - Simen Daehlin| |Helped with the initial Fetch to the NEO API. Suggested using FETCH
-|Slack - Chris Zelinski| |Helped with understanding CORS. Helped with paging of library results. My paging code was in the wrong location.
+|Slack - Chris Zelinski| |<ul><li>Helped with understanding CORS.</li><li> Helped with paging of library results. My paging code was in the wrong location.</li><li>Helped with getting the key press to submit. My submit button was outside the < form ></li></ul>
 |Astronomy calcs|https://www.calculatorsoup.com/calculators/geometry-solids/distance-two-points.php|Distance between coordinates to work out distances
 |Pagination on EPIC images|http://www.thatsoftwaredude.com/content/6125/how-to-paginate-through-a-collection-in-javascript|Learned how to paginate an object using array.slice when no pagination is supplied by the API
 |NASA API|https://api.nasa.gov/api.html#EPIC|Official NASA API documentation 

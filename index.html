@@ -125,37 +125,39 @@
           <p class="text-faded nm-4" id="DateHelp"><a id="epic-recent-link" class="epic-click" onclick="getMostRecentEpic()">View the most recent EPIC image received</a> <i class='fa fa-external-link' aria-hidden='true'></i><br> or enter a search date and click the search button<br> <span class="text-faded small">(the first acquired images began on 01 September 2015)</span></p>
         </div>
       </div>
-      <!-- Date row -->
-      <div class="row">
-        <div class="col-12 col-sm-6 mx-auto">
-          <input type="text" class="form-control" name="formDate" id="formDate" aria-describedby="DateHelp" placeholder="Enter a date in the format: YYYY-MM-DD" />
-        </div>
-      </div>
-      <!-- Image Type row -->
-      <div class="row">
-        <div class="col-12 col-sm-6 mx-auto">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="imageType" id="naturalImage" value="natural" checked>
-            <label class="form-check-label text-faded" for="naturalImage">Natural Image</label>
-          </div>
-          <div class="form-check ml-3">
-            <input class="form-check-input" type="radio" name="imageType" id="enhancedImage" value="enhanced">
-            <label class="form-check-label text-faded" for="enhancedImage">Enhanced Image</label>
+      <form id="epic-form" onsubmit="getEpicImageByDate()">
+        <!-- Date row -->
+        <div class="row">
+          <div class="col-12 col-sm-6 mx-auto">
+            <input type="text" class="form-control" name="formDate" id="formDate" aria-describedby="DateHelp" placeholder="Enter a date in the format: YYYY-MM-DD" autofocus />
           </div>
         </div>
-      </div>
-      <!-- Error Message Row -->
-      <div class="row">
-        <div class="col-12 col-sm-6 mx-auto">
-          <span id="errorMessage" class="errorMessage"></span>
+        <!-- Image Type row -->
+        <div class="row">
+          <div class="col-12 col-sm-6 mx-auto">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="imageType" id="naturalImage" value="natural" checked>
+              <label class="form-check-label text-faded" for="naturalImage">Natural Image</label>
+            </div>
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="imageType" id="enhancedImage" value="enhanced">
+              <label class="form-check-label text-faded" for="enhancedImage">Enhanced Image</label>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- Button row -->
-      <div class="row">
-        <div class="col-12 text-center mt-5">
-          <button id="epic-images-button" type="button" class="btn btn-light btn-xl" onclick="getEpicImageByDate()">Search</button>
+        <!-- Error Message Row -->
+        <div class="row">
+          <div class="col-12 col-sm-6 mx-auto">
+            <span id="errorMessage" class="errorMessage"></span>
+          </div>
         </div>
-      </div>
+        <!-- Button row -->
+        <div class="row">
+          <div class="col-12 text-center mt-5">
+            <button id="epic-images-button" type="submit" class="btn btn-light btn-xl">Search</button>
+          </div>
+        </div>
+      </form>
     </div>
     <div id="jumpto1"></div>
     <div class="container mt-5" id="epicResultsContainer">
@@ -220,7 +222,7 @@
     </div>
     <!-- Form Library -->
     <div class="container">
-      <form>
+      <form id="library-form" onsubmit="getQueryText()">
         <div class="row">
           <div class="col-12 col-sm-10 mt-5 mx-auto">
             <div class="form-group text-center">
@@ -246,7 +248,7 @@
         <!-- Search NASA button -->
         <div class="row">
           <div class="col-12 col-md-6 mx-auto mt-3 text-center">
-            <button type="button" class="btn btn-primary btn-xl" onclick="getQueryText()" id="search-nasa-button" title="Search Nasa">Search NASA</button>
+            <button type="submit" class="btn btn-primary btn-xl" id="search-nasa-button" title="Search Nasa">Search NASA</button>
           </div>
           <div class="col-12 col-md-6 mx-auto mt-3 text-center" id="clearResultsDiv">
             <button type="button" class="btn btn-primary btn-xl" onclick="clearLibraryResults()" title="Clear Results">Clear Results</button>
@@ -419,21 +421,16 @@
   <script src="assets/js/nasaAPI-library.js"></script>
   <script src="assets/js/nasaAPI-data.js"></script>
 
+  <!-- Ensures submit can be done by button click or key press -->
+  <script type="text/javascript">
+    $("#library-form").submit(function(e) {
+      e.preventDefault();
+    });
 
-  // <script type="text/javascript">
-  //   $(document).ready(function() {
-  //     var input = document.getElementById("searchLibraryText");
-  //     input.addEventListener("keyup", function(event) {
-  //       event.preventDefault();
-  //       console.log(event);
-  //       event.preventDefault();
-  //       if (event.keyCode === 13) {
-  //         console.log("fjefiojfiehf");
-  //         document.getElementById("search-nasa-button").click();
-  //       }
-  //     });
-  //   });
-  // </script>
+    $("#epic-form").submit(function(e) {
+      e.preventDefault();
+    });
+  </script>
 </body>
 
 </html>

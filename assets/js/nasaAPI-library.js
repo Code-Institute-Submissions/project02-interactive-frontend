@@ -22,9 +22,10 @@ function getQueryText() {
     varLibraryQuery = document.getElementById("searchLibraryText").value; //Get query text from form
     varMediaType = document.querySelector('input[name="mediaType"]:checked').value; //Get media type from form
     varFirstPageUrl = "https://images-api.nasa.gov/search?q=" + varLibraryQuery + "&page=1&media_type=" + varMediaType; //create url to send to NASA API
+
     if (varLibraryQuery !== "") {
-    document.getElementById('pageNumber').innerHTML = ""; // Display Page pageNumber of pageCount
-    document.getElementById('pageCount').innerHTML = ""; // Display Page pageNumber of pageCount
+        document.getElementById('pageNumber').innerHTML = ""; // Display Page pageNumber of pageCount
+        document.getElementById('pageCount').innerHTML = ""; // Display Page pageNumber of pageCount
         searchNASALibrary(varFirstPageUrl);
     }
     else {
@@ -64,7 +65,8 @@ function searchNASALibrary(pagedUrl) {
                 document.getElementById("errorLibraryMessage").innerHTML = "There were no <strong>" + varMediaType + "</strong> results for <strong>" + varLibraryQuery + "</strong>";
                 $('#searchLibraryResultsContainer').hide();
             }
-        } else if (this.status == 400) {
+        }
+        else if (this.status == 400) {
             document.getElementById("errorLibraryResultMessage").innerHTML = "Maximum number of search results have been displayed. Please refine your search.";
         }
     };
@@ -112,12 +114,20 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
                 var imageUrl = itemUrl.href;
                 //send 'center' to getNasaCenter() to get its website
                 var nasaCenterWebsite = getNasaCenter(item.center);
-                var varTruncatedItemDescription = item.description;
-                if (varTruncatedItemDescription.length > 22) {
-                    varTruncatedItemDescription = varTruncatedItemDescription.substring(0, 170) + " ...";
+
+                //description or description_508 could be available
+                if (!item.hasOwnProperty("description")) {
+                    var itemDesc = item.description_508;
+                }
+                else {
+                    itemDesc = item.description;
+                }
+
+                if (itemDesc.length > 22) {
+                    var itemDescTrunc = itemDesc.substring(0, 170) + " ...";
                 }
                 // replace chars with html coded version
-                var varItemFullDescription = escapeHtml(item.description);
+                var varItemFullDescription = escapeHtml(itemDesc);
                 var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
 
                 // reinitiates the popover as the results are not on the page when loaded first
@@ -136,7 +146,7 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
                     "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
                     "<strong>Center: </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit the " + item.center + " website.</a> <i class='fa fa-external-link' aria-hidden='true'></i><br>" +
                     "<strong>Nasa id:</strong> " + item.nasa_id + "<br>" +
-                    "<strong>Description:</strong> " + varTruncatedItemDescription + "<br>" +
+                    "<strong>Description:</strong> " + itemDescTrunc + "<br>" +
                     "<button class='p-trigger' href='#' data-content='" + varItemFullDescription + "' data-trigger='focus'>Read full description</button></p>" +
                     "</div></div>";
 
@@ -194,12 +204,20 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
 
                     //send 'center' to getNasaCenter() to get its website
                     var nasaCenterWebsite = getNasaCenter(item.center);
-                    var varTruncatedItemDescription = item.description;
-                    if (varTruncatedItemDescription.length > 22) {
-                        varTruncatedItemDescription = varTruncatedItemDescription.substring(0, 100) + " ...";
+                    
+                    //description or description_508 could be available
+                    if (!item.hasOwnProperty("description")) {
+                        var itemDesc = item.description_508;
+                    }
+                    else {
+                        itemDesc = item.description;
+                    }
+
+                    if (itemDesc.length > 22) {
+                        var itemDescTrunc = itemDesc.substring(0, 170) + " ...";
                     }
                     // replace chars with html coded version
-                    var varItemFullDescription = escapeHtml(item.description);
+                    var varItemFullDescription = escapeHtml(itemDesc);
                     var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
 
                     // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
@@ -208,7 +226,7 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
                         "<p>" +
                         "<strong>Title: </strong>" + item.title + "<br>" +
                         "<strong>Date created: </strong>" + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
-                        "<strong>Description: </strong> " + varTruncatedItemDescription + "<br>" +
+                        "<strong>Description: </strong> " + itemDescTrunc + "<br>" +
                         "<strong>Center: </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit the " + item.center + " website.</a> <i class='fa fa-external-link' aria-hidden='true'></i><br>" +
                         "<strong>Nasa id: </strong>" + item.nasa_id + "<br>" +
                         "<strong>Audio: </strong><a href='" + linkToAudioJson[0] + "' target='blank'>Listen to original audio</a> <i class='fa fa-volume-up' aria-hidden='true'></i><br>" +
@@ -239,7 +257,7 @@ function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
     numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); // API returns results in lots of 100
     document.getElementById('pageNumber').innerHTML = currentLibraryPage; // Display Page pageNumber of pageCount
     document.getElementById('pageCount').innerHTML = numberOfLibraryPages; // Display Page pageNumber of pageCount
-    document.getElementById('media-type').innerHTML = "- Video" ;//Display title search results for video    
+    document.getElementById('media-type').innerHTML = "- Video"; //Display title search results for video    
 
     $('#searchLibraryResultsContainer').show(); //Results div hidden when page loads. Show for results.
     $('#paging-buttons').hide();
@@ -271,12 +289,19 @@ function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
 
                     //send 'center' to getNasaCenter() to get its website
                     var nasaCenterWebsite = getNasaCenter(item.center);
-                    var varTruncatedItemDescription = item.description;
-                    if (varTruncatedItemDescription.length > 22) {
-                        varTruncatedItemDescription = varTruncatedItemDescription.substring(0, 100) + " ...";
+                   
+                   //description or description_508 could be available
+                    if (!item.hasOwnProperty("description")) {
+                        var itemDesc = item.description_508;
+                    }
+                    else {
+                        itemDesc = item.description;
+                    }
+                    if (itemDesc.length >22) {
+                        var itemDescTrunc = itemDesc.substring(0, 170) + " ...";
                     }
                     // replace chars with html coded version
-                    var varItemFullDescription = escapeHtml(item.description);
+                    var varItemFullDescription = escapeHtml(itemDesc);
                     var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
 
                     // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
@@ -285,7 +310,7 @@ function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
                         "<p>" +
                         "<strong>Title: </strong>" + item.title + "<br>" +
                         "<strong>Date created: </strong>" + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
-                        "<strong>Description: </strong> " + varTruncatedItemDescription + "<br>" +
+                        "<strong>Description: </strong> " + itemDescTrunc + "<br>" +
                         "<strong>Center: </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit the " + item.center + " website.</a> <i class='fa fa-external-link' aria-hidden='true'></i><br>" +
                         "<strong>Nasa id: </strong>" + item.nasa_id + "<br>" +
                         "<strong>Audio: </strong><a href='" + linkToVideoJson[0] + "' target='blank'>Watch the video</a> <i class='fa fa-play' aria-hidden='true'></i><br>" +
@@ -302,8 +327,6 @@ function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
                     }
                 }
             };
-
-
         }); // end data forEach     
     });
 }
