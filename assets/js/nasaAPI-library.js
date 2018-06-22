@@ -48,17 +48,14 @@ function searchNASALibrary(pagedUrl) {
             varLibraryResult.innerHTML = ""; //clear div between refreshes
             document.getElementById("errorLibraryMessage").innerHTML = ""; //clear div between refreshes
             var varTotalLibraryHits = varNasaLibraryData.collection.metadata.total_hits; //check to see if any results came back from query
-
-            if (varTotalLibraryHits !== 0 && varMediaType === "image") {
                 document.getElementById('totalLibraryHits').innerHTML = varTotalLibraryHits; //total number of hits returned by call to API for search query
+            if (varTotalLibraryHits !== 0 && varMediaType === "image") {
                 getLibraryResultsDataImage(varNasaLibraryData, varMediaType);
             }
             else if (varTotalLibraryHits !== 0 && varMediaType === "audio") {
-                document.getElementById('totalLibraryHits').innerHTML = varTotalLibraryHits; //total number of hits returned by call to API for search query
                 getLibraryResultsDataAudio(varNasaLibraryData, varMediaType);
             }
             else if (varTotalLibraryHits !== 0 && varMediaType === "video") {
-                document.getElementById('totalLibraryHits').innerHTML = varTotalLibraryHits; //total number of hits returned by call to API for search query
                 getLibraryResultsDataVideo(varNasaLibraryData, varMediaType);
             }
             else {
