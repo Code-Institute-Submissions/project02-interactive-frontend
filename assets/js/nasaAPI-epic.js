@@ -75,7 +75,6 @@ function getEpicImageByDate() {
                     varDataCol.innerHTML = ""; //clear div between refreshes
                     varImageCol.innerHTML = ""; //clear div between refreshes
                     document.getElementById('resultStatus').innerHTML = ""; //clear div between refreshes
-
                     let totalResultCount = result.length; //Get total count of results returned
                     document.getElementById('resultStatus').innerHTML += "<p class='text-faded'>There were <span class='font-weight-bold'>" + totalResultCount + "</span> natural images found for <br><span class='font-weight-bold'>" +
                         objDateSplitUp.day + "-" + objDateSplitUp.month + "-" + objDateSplitUp.year + "</span></p>"; //Results message to site user
