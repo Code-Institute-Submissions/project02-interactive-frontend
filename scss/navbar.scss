@@ -26,7 +26,9 @@
           color: $nasa-blue;
         }
         &.active {
-          color: $primary !important;
+          // color: $primary !important;
+          color: $nasa-red !important;
+          text-decoration: underline;
           background-color: transparent;
           &:hover {
             background-color: transparent;
@@ -36,11 +38,12 @@
       }
     }
   }
+
   @media (min-width: 992px) {
     border-color: transparent;
     background-color: transparent;
     .navbar-brand {
-      color: fade-out($white, .3);
+      color: fade-out($white, .1);
       &:focus,
       &:hover {
         color: $white;
@@ -51,7 +54,7 @@
     }
     .navbar-nav > li.nav-item > a.nav-link,
     .navbar-nav > li.nav-item > a.nav-link:focus {
-      color: fade-out($white, .3);
+      color: fade-out($white, .1);
       &:hover {
         color: $white;
       }

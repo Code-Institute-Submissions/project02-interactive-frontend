@@ -701,5 +701,5 @@ The following sites were used as resources to get sample css and debugging css.
 |Pagination on EPIC images|http://www.thatsoftwaredude.com/content/6125/how-to-paginate-through-a-collection-in-javascript|Learned how to paginate an object using array.slice when no pagination is supplied by the API
 |NASA API|https://api.nasa.gov/api.html#EPIC|Official NASA API documentation 
 |Bootstrap|https://getbootstrap.com/docs/4.1/getting-started/introduction/|Official Bootstrap documentation for version 4.1
-
+|Bootstrap theme|https://startbootstrap.com/template-overviews/creative/|I began with the bootstrap theme and customised it for the project
 [Top of page](#topofpage)

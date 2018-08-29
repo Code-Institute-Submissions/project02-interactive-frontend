@@ -1,6 +1,9 @@
 // Styling for the library section
 #searchLibraryResultsContainer {
     display: none;
+    #result_ex {
+        font-size: 0.8rem;
+    }
 }
 
 #library.librarySection .form-check {

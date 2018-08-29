@@ -11,11 +11,11 @@ function makeGraphs(error, facilitiesData) {
     dc.renderAll();
 }
 
-
+//display piechart NASA city
 function show_city(ndx) {
     var name_dim = ndx.dimension(dc.pluck('center'));
     var group = name_dim.group();
-        var total_spend_per_person = name_dim.group().reduceSum(dc.pluck('status'));
+        var city_by_status = name_dim.group().reduceSum(dc.pluck('status'));
         dc.pieChart('#data-city')
             .height(500)
             .radius(180)
@@ -24,10 +24,11 @@ function show_city(ndx) {
             .group(group);
 }  
 
+//display piechart NASA facility status
 function show_status_pie(ndx) {
     var name_dim = ndx.dimension(dc.pluck('status'));
     var group = name_dim.group();
-        var total_spend_per_person = name_dim.group().reduceSum(dc.pluck('status'));
+        var city_by_status = name_dim.group().reduceSum(dc.pluck('status'));
         dc.pieChart('#data-status-pie')
             .height(500)
             .radius(180)
@@ -36,6 +37,7 @@ function show_status_pie(ndx) {
             .group(group);
 } 
 
+//display NASA center
 function show_center(ndx) {
     var dim = ndx.dimension(dc.pluck('city'));
     var group = dim.group();
@@ -53,7 +55,7 @@ function show_center(ndx) {
         .yAxis().ticks(20);
 }
 
-
+//display NASA center status
 function show_status(ndx) {
     var dim = ndx.dimension(dc.pluck('status'));
     var group = dim.group();

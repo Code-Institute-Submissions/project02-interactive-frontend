@@ -41,17 +41,12 @@
 
   // Scroll reveal calls
   window.sr = ScrollReveal();
-  sr.reveal('.sr-icons', {
-    duration: 600,
-    scale: 0.3,
-    distance: '0px'
-  }, 200);
-  sr.reveal('.sr-button', {
+  sr.reveal('.sr-search', {
     duration: 1000,
-    delay: 200
-  });
+    distance: '0px'
+  }, 300);
   sr.reveal('.sr-contact', {
-    duration: 600,
+    duration: 1000,
     scale: 0.3,
     distance: '0px'
   }, 300);

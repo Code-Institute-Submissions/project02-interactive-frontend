@@ -18,14 +18,20 @@ var linkToVideoJson;
 // Function called from Search button
 // Values received from html form and validated
 function getQueryText() {
-    document.getElementById("errorLibraryMessage").textContent = ""; //clear div of any previous error messages
-    varLibraryQuery = document.getElementById("searchLibraryText").value; //Get query text from form
-    varMediaType = document.querySelector('input[name="mediaType"]:checked').value; //Get media type from form
-    varFirstPageUrl = "https://images-api.nasa.gov/search?q=" + varLibraryQuery + "&page=1&media_type=" + varMediaType; //create url to send to NASA API
+    //clear div of any previous error messages
+    document.getElementById("errorLibraryMessage").textContent = ""; 
+    //Get query text from form
+    varLibraryQuery = document.getElementById("searchLibraryText").value; 
+    //Get media type from form
+    varMediaType = document.querySelector('input[name="mediaType"]:checked').value; 
+    //create url to send to NASA API
+    varFirstPageUrl = "https://images-api.nasa.gov/search?q=" + varLibraryQuery + "&page=1&media_type=" + varMediaType; 
 
     if (varLibraryQuery !== "") {
-        document.getElementById('pageNumber').innerHTML = ""; // Display Page pageNumber of pageCount
-        document.getElementById('pageCount').innerHTML = ""; // Display Page pageNumber of pageCount
+        // Display Page pageNumber of pageCount
+        document.getElementById('pageNumber').innerHTML = ""; 
+        // Display Page pageNumber of pageCount
+        document.getElementById('pageCount').innerHTML = ""; 
         searchNASALibrary(varFirstPageUrl);
     }
     else {
@@ -44,11 +50,16 @@ function searchNASALibrary(pagedUrl) {
     xhr.send();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            var varNasaLibraryData = JSON.parse(this.responseText); //parse responseText as json object
-            varLibraryResult.innerHTML = ""; //clear div between refreshes
-            document.getElementById("errorLibraryMessage").innerHTML = ""; //clear div between refreshes
-            var varTotalLibraryHits = varNasaLibraryData.collection.metadata.total_hits; //check to see if any results came back from query
-                document.getElementById('totalLibraryHits').innerHTML = varTotalLibraryHits; //total number of hits returned by call to API for search query
+            //parse responseText as json object
+            var varNasaLibraryData = JSON.parse(this.responseText);
+            //clear div between refreshes
+            varLibraryResult.innerHTML = ""; 
+            //clear div between refreshes
+            document.getElementById("errorLibraryMessage").innerHTML = ""; 
+            //check to see if any results came back from query
+            var varTotalLibraryHits = varNasaLibraryData.collection.metadata.total_hits; 
+            //total number of hits returned by call to API for search query
+                document.getElementById('totalLibraryHits').innerHTML = varTotalLibraryHits; 
             if (varTotalLibraryHits !== 0 && varMediaType === "image") {
                 getLibraryResultsDataImage(varNasaLibraryData, varMediaType);
             }
@@ -72,16 +83,27 @@ function searchNASALibrary(pagedUrl) {
 // Get data items from API result - Image
 // Render data to HTML
 function getLibraryResultsDataImage(queryResponseData, varMediaType) {
-    let resultObj = queryResponseData.collection; // Get result collection
-    let itemsArray = resultObj.items; // Get items array
-    let pagingLinks = resultObj.links; // Get links array
-    numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); // API returns results in lots of 100
-    document.getElementById('pageNumber').innerHTML = currentLibraryPage; // Display Page pageNumber of pageCount
-    document.getElementById('pageCount').innerHTML = numberOfLibraryPages; // Display Page pageNumber of pageCount
-    document.getElementById('media-type').innerHTML = "- Images"; //Display title search results for images
+    // Get result collection
+    let resultObj = queryResponseData.collection; 
+    // Get items array
+    let itemsArray = resultObj.items; 
+    // Get links array
+    let pagingLinks = resultObj.links; 
+    // API returns results in lots of 100
+    numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); 
+    // Display Page pageNumber of pageCount
+    document.getElementById('pageNumber').innerHTML = currentLibraryPage;
+    if (numberOfLibraryPages > 2) {
+        document.getElementById('result_ex').innerHTML = "&nbsp;&nbsp;(Displaying 50 results per column if more than one column)";
+    }
+    // Display Page pageNumber of pageCount
+    document.getElementById('pageCount').innerHTML = numberOfLibraryPages; 
+    //Display title search results for images
+    document.getElementById('media-type').innerHTML = "- Images"; 
 
     // PAGING ======================
-    checkLibraryResultButtons(); //disable/enable paging buttons as appropriate
+    //disable/enable paging buttons as appropriate
+    checkLibraryResultButtons(); 
     // Get next and previous page urls from results object for PAGING
 
     if (pagingLinks !== undefined) {
@@ -96,13 +118,17 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
     // Build last page url
     varLastPageUrl = "https://images-api.nasa.gov/search?q=" + varLibraryQuery + "&page=" + numberOfLibraryPages + "&media_type=" + varMediaType;
 
-    $('#searchLibraryResultsContainer').show(); // Results div hidden when page loads. Show for results.
+    // Results div hidden when page loads. Show for results.
+    $('#searchLibraryResultsContainer').show(); 
     if ($('#paging-buttons').hide()) { $('#paging-buttons').show(); }
     if ($('#pagingInfo').hide()) { $('#pagingInfo').show(); }
-
-    itemsArray.forEach(function(item, i) { // Items: data, href, links, we need data[{}] array
-        var itemsDataObj = item.data; // Data object
-        var itemsThumbnailLinkObj = item.links; // Links object
+    
+    // Items: data, href, links, we need data[{}] array
+    itemsArray.forEach(function(item, i) { 
+        // Data object
+        var itemsDataObj = item.data; 
+        // Links object
+        var itemsThumbnailLinkObj = item.links; 
 
         //iterate through Data object for item info
         itemsDataObj.forEach(function(item) {
@@ -125,7 +151,8 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
                 }
                 // replace chars with html coded version
                 var varItemFullDescription = escapeHtml(itemDesc);
-                var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
+                // Cut off UTC time and split out date into day, month, year
+                var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); 
 
                 // reinitiates the popover as the results are not on the page when loaded first
                 $(function() {
@@ -137,7 +164,7 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
                 });
 
                 // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
-                document.getElementById('libraryResults').innerHTML += "<div class='row' id='libraryResultsItem" + i + "'><div class='col-3 col-sm-2 text-center'>" +
+                document.getElementById('libraryResults').innerHTML += "<div class='col-12 col-md-6' id='libraryResultsItem" + i + "'><div class='row'><div class='col-3 col-sm-2 text-center'>" +
                     "<a href='" + imageUrl + "' target='blank'><img src='" + imageUrl + "' alt='" + item.title + "' tooltip='" + item.title + "'/></a></div>" +
                     "<div class='col-9 col-sm-10'><p><strong>Title:</strong> " + item.title + "<br>" +
                     "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
@@ -145,7 +172,7 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
                     "<strong>Nasa id:</strong> " + item.nasa_id + "<br>" +
                     "<strong>Description:</strong> " + itemDescTrunc + "<br>" +
                     "<button class='p-trigger' href='#' data-content='" + varItemFullDescription + "' data-trigger='focus'>Read full description</button></p>" +
-                    "</div></div>";
+                    "</div></div></div>";
 
             }); // end thumbnail forEach
         }); // end data forEach
@@ -164,20 +191,29 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
 // Get data items from API result - Audio
 // Render data to HTML
 function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
-    let resultObj = queryResponseData.collection; // Get result collection
-    let itemsArray = resultObj.items; // Get items array
-    numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); // API returns results in lots of 100
-    document.getElementById('pageNumber').innerHTML = currentLibraryPage; // Display Page pageNumber of pageCount
-    document.getElementById('pageCount').innerHTML = numberOfLibraryPages; // Display Page pageNumber of pageCount
-    document.getElementById('media-type').innerHTML = "- Audio"; //Display title search results for audio    
-
-    $('#searchLibraryResultsContainer').show(); //Results div hidden when page loads. Show for results.
+    // Get result collection
+    let resultObj = queryResponseData.collection; 
+    // Get items array
+    let itemsArray = resultObj.items; 
+    // API returns results in lots of 100
+    numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); 
+    // Display Page pageNumber of pageCount
+    document.getElementById('pageNumber').innerHTML = currentLibraryPage;
+    // Display Page pageNumber of pageCount
+    document.getElementById('pageCount').innerHTML = numberOfLibraryPages;
+    //Display title search results for audio 
+    document.getElementById('media-type').innerHTML = "- Audio";    
+    
+    //Results div hidden when page loads. Show for results.
+    $('#searchLibraryResultsContainer').show(); 
     $('#paging-buttons').hide();
     $('#pagingInfo').hide();
 
-    itemsArray.forEach(function(item, i) { // Items: data, href, we need data[{}] array
+    // Items: data, href, we need data[{}] array
+    itemsArray.forEach(function(item, i) { 
         var itemsDataObj = item.data;
-        var audioList = item.href; // href object with links to audio files
+        // href object with links to audio files
+        var audioList = item.href; 
         //iterate through Data object for item info
         itemsDataObj.forEach(function(item) {
 
@@ -215,11 +251,12 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
                     }
                     // replace chars with html coded version
                     var varItemFullDescription = escapeHtml(itemDesc);
-                    var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
+                    // Cut off UTC time and split out date into day, month, year
+                    var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); 
 
                     // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
 
-                    document.getElementById('libraryResults').innerHTML += "<div class='col-6 col-md-3' id='libraryResultsItem" + i + "'>" +
+                    document.getElementById('libraryResults').innerHTML += "<div class='col-12 col-md-3' id='libraryResultsItem" + i + "'>" +
                         "<p>" +
                         "<strong>Title: </strong>" + item.title + "<br>" +
                         "<strong>Date created: </strong>" + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
@@ -249,20 +286,29 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
 // Get data items from API result - Video
 // Render data to HTML
 function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
-    let resultObj = queryResponseData.collection; // Get result collection
-    let itemsArray = resultObj.items; // Get items array
-    numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); // API returns results in lots of 100
-    document.getElementById('pageNumber').innerHTML = currentLibraryPage; // Display Page pageNumber of pageCount
-    document.getElementById('pageCount').innerHTML = numberOfLibraryPages; // Display Page pageNumber of pageCount
-    document.getElementById('media-type').innerHTML = "- Video"; //Display title search results for video    
+    // Get result collection
+    let resultObj = queryResponseData.collection; 
+    // Get items array
+    let itemsArray = resultObj.items; 
+    // API returns results in lots of 100
+    numberOfLibraryPages = Math.ceil(resultObj.metadata.total_hits / 100); 
+    // Display Page pageNumber of pageCount
+    document.getElementById('pageNumber').innerHTML = currentLibraryPage; 
+    // Display Page pageNumber of pageCount
+    document.getElementById('pageCount').innerHTML = numberOfLibraryPages; 
+    //Display title search results for video
+    document.getElementById('media-type').innerHTML = "- Video";     
 
-    $('#searchLibraryResultsContainer').show(); //Results div hidden when page loads. Show for results.
+    //Results div hidden when page loads. Show for results.
+    $('#searchLibraryResultsContainer').show(); 
     $('#paging-buttons').hide();
     $('#pagingInfo').hide();
 
-    itemsArray.forEach(function(item, i) { // Items: data, href, we need data[{}] array
+    // Items: data, href, we need data[{}] array
+    itemsArray.forEach(function(item, i) { 
         var itemsDataObj = item.data;
-        var videoList = item.href; // href object with links to audio files
+        // href object with links to audio files
+        var videoList = item.href; 
         //iterate through Data object for item info
         itemsDataObj.forEach(function(item) {
 
@@ -299,11 +345,12 @@ function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
                     }
                     // replace chars with html coded version
                     var varItemFullDescription = escapeHtml(itemDesc);
-                    var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); // Cut off UTC time and split out date into day, month, year
+                    // Cut off UTC time and split out date into day, month, year
+                    var varTruncatedDataDate = splitDate(item.date_created.substring(0, 10), 1); 
 
                     // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
 
-                    document.getElementById('libraryResults').innerHTML += "<div class='col-6 col-md-3' id='libraryResultsItem" + i + "'>" +
+                    document.getElementById('libraryResults').innerHTML += "<div class='col-12 col-md-3' id='libraryResultsItem" + i + "'>" +
                         "<p>" +
                         "<strong>Title: </strong>" + item.title + "<br>" +
                         "<strong>Date created: </strong>" + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +

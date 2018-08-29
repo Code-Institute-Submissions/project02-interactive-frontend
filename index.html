@@ -8,24 +8,8 @@
   <meta name="keywords" content="HTML,CSS">
   <meta name="author" content="Coole Sites 2018">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicon/apple-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicon/apple-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicon/apple-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon/apple-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicon/apple-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicon/apple-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicon/apple-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicon/apple-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
-  <link rel="manifest" href="assets/img/favicon/manifest.json">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="msapplication-TileImage" content="assets/img/favicon/ms-icon-144x144.png">
+  <link rel="icon" href="assets/img/favicon/favicon.ico" type="image/gif" />
   <meta name="theme-color" content="#ffffff">
-
   <title>NASA API</title>
 
   <!-- Bootstrap core CSS -->
@@ -40,7 +24,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" data-spy="scroll" data-target="#mainNav">
 
   <!-- Navigation -->
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top">
@@ -70,7 +54,7 @@
       </div>
     </div>
   </nav>
-
+  <!-- WELCOME TO NASA IMAGES PORTAL -->
   <header class="intro text-center text-white d-flex">
     <div class="container my-auto">
       <div class="row">
@@ -90,7 +74,7 @@
       </div>
     </div>
   </header>
-
+  <!-- Astronomy Picture of the Day (APOD) -->
   <section id="apodSection" class="apod text-center text-white d-flex">
     <div class="container my-auto">
       <div class="row">
@@ -108,10 +92,12 @@
         <div class="col-12 errorMessage" id="apod-error-message"></div>
       </div>
       <div class="row">
+        <!-- if apod is an image -->
         <div class="col-12 col-sm-4 mx-auto" id="apod_img_container">
           <img id="apod_img_id" class="apod-image mb-2" alt="Astronomy image of the day" />
           <h3 id="apod_title_img"></h3>
         </div>
+        <!-- if apod is a video -->
         <div class="col-12 mx-auto video-container" id="apod_vid_container">
           <iframe id="apod_vid_id" type="text/html" width="460" height="215"></iframe>
         </div>
@@ -129,7 +115,7 @@
     </div>
 
   </section>
-
+  <!-- EPIC -->
   <section id="epic" class="epicResults bg-black">
     <div class="container" id="epicContainer">
       <div class="row">
@@ -139,7 +125,7 @@
           <p class="text-faded mb-4">EPIC provides information on the daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument. Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures unique
             perspectives of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a 30-cm aperture Cassegrain telescope.</p>
           <p class="text-faded mb-4">You can read more about EPIC and the DSCOVR project on the NASA website: <a href="https://epic.gsfc.nasa.gov/epic" target="blank">Earth Polychromatic Imaging Camera</a> <i class='fa fa-external-link' aria-hidden='true'></i></p>
-          <p class="text-faded nm-4" id="DateHelp"><a id="epic-recent-link" class="epic-click" onclick="getMostRecentEpic()">View the most recent EPIC image received</a> <i class='fa fa-external-link' aria-hidden='true'></i><br> or enter a search date and click the search button<br> <span class="text-faded small">(the first acquired images began on 01 September 2015)</span></p>
+          <p class="text-faded nm-4" id="DateHelp"><a id="epic-recent-link" class="epic-click" onclick="getMostRecentEpic()">View the most recent EPIC image received <i class='fa fa-external-link' aria-hidden='true'></i></a><br> or enter a search date and click the search button<br> <span class="text-faded small">(the first acquired images began on 01 September 2015)</span></p>
         </div>
       </div>
       <form id="epic-form" onsubmit="getEpicImageByDate()">
@@ -149,7 +135,7 @@
             <input type="text" class="form-control" name="formDate" id="formDate" aria-describedby="DateHelp" placeholder="Enter a date in the format: YYYY-MM-DD" />
           </div>
         </div>
-        <!-- Image Type row -->
+        <!-- Image Type row, Natural or Enhanced -->
         <div class="row">
           <div class="col-12 col-sm-6 mx-auto">
             <div class="form-check">
@@ -185,11 +171,13 @@
           <div id="resultStatus"></div>
         </div>
       </div>
-      <!-- Results -->
+      <!-- Results of EPIC date search -->
       <div class="row">
+        <!-- image -->
         <div class="col-12 col-sm-6 text-center">
           <div id="imageCol">image loading...</div>
         </div>
+        <!-- image information -->
         <div class="col-12 col-sm-6 pt-5">
           <div id="dataCol" class="text-faded"></div>
           <!-- Paging  -->
@@ -209,7 +197,7 @@
     </div>
     <div id="jumpto2"></div>
     <div class="container mt-5" id="epicMostRecentContainer">
-      <!--Title -->
+      <!--Image Title -->
       <div class="row">
         <div class="col-12 text-center">
           <h3 class="section-heading text-white">EPIC Most Recent Image</h3>
@@ -227,8 +215,8 @@
 
     </div>
   </section>
-
-  <section id="library" class="librarySection">
+  <!-- Search NASA Image and Video Library -->
+  <section id="library" class="librarySection sr-search">
     <!-- Heading Library -->
     <div class="container">
       <div class="row">
@@ -314,7 +302,7 @@
       <div class="row">
         <div class="col-12">
           <div id="pagingInfo">
-            Page <span id="pageNumber"></span> of <span id="pageCount"></span>
+            Page <span id="pageNumber"></span> of <span id="pageCount"></span><span id="result_ex"></span>
           </div>
         </div>
       </div>
@@ -328,7 +316,7 @@
       </div>
     </div>
   </section>
-
+  <!-- Data -->
   <section id="data" class="bg-dark text-white">
     <div class="container text-center my-auto">
       <div class="row">
@@ -361,8 +349,8 @@
       </div>
     </div>
   </section>
-
-  <section id="contact">
+  <!-- Footer/Contact -->
+  <section id="contact" class="sr-contact">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto text-center">
@@ -397,7 +385,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
   <!-- Plugin JavaScript -->
+  <!-- animates the appearance of an image -->
   <script src="assets/js/jquery-easing/jquery.easing.min.js"></script>
+  <!-- reveals page as you scroll -->
   <script src="assets/js/scrollreveal/scrollreveal.min.js"></script>
 
 
@@ -406,7 +396,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
-  <!-- DataPicker script -->
+  <!-- DataPicker script used in EPIC -->
   <script>
     $(document).ready(function() {
       var date_input = $('input[name="formDate"]'); //our date input has the name "date"
@@ -424,13 +414,13 @@
     })
   </script>
 
-  <!-- d3 dc queue scripts -->
+  <!-- d3/dc queue scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
 
-  <!-- Custom scripts for this page -->
+  <!-- My Custom scripts for this page -->
   <script src="assets/js/custom.js"></script>
   <script src="assets/js/helperTools.js"></script>
   <script src="assets/js/nasaAPI-apod.js"></script>
@@ -438,7 +428,7 @@
   <script src="assets/js/nasaAPI-library.js"></script>
   <script src="assets/js/nasaAPI-data.js"></script>
 
-  <!-- Ensures submit can be done by button click or key press -->
+  <!-- Ensures submit can be done by button click or key press return key -->
   <script type="text/javascript">
     $("#library-form").submit(function(e) {
       e.preventDefault();
