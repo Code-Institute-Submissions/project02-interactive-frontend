@@ -10,7 +10,8 @@ var currentImageNumber = 1;
 var numberOfImages = 1;
 
 // Function called from Search button
-// Call made to EPIC API using FETCH. Result Object returned
+// Call made to EPIC API using FETCH. 
+// Result Object returned
 // Result object sent to getResultItems() for looping and rendering to HTML
 // with help from Simen Daehlin on slack
 function getEpicImageByDate() {
@@ -62,6 +63,7 @@ function getEpicImageByDate() {
                         // Send result object to function 'pageTheResult()' to slice the object for paging
                         let pagedResultEnhanced = pageTheResult(result);
                         // Send the sliced object to 'getResultItems()' for looping and rendering to HTML
+                        $('#epicResultsContainer').show(200);
                         getResultItems(pagedResultEnhanced, varImageType, objDateSplitUp, varDataCol, varImageCol, totalResultCount);
                     }
                     else {
@@ -79,25 +81,25 @@ function getEpicImageByDate() {
         else if (varImageType === "natural") {
             // If most recent EPIC image showing then hide
             $('#epicMostRecentContainer').hide();
-            //call to API for natural images on a specified date
+            // call to API for natural images on a specified date
             let url = fetch("https://api.nasa.gov/EPIC/api/natural/date/" + varDate + "?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ") 
                 .then(function(response) {
                     if (response.ok) {
                         // parses response to JSON
                         return response.json(); 
                     }
-                    //catch connection errors
+                    // catch connection errors
                     throw new Error('There was a problem connecting to NASA. Please try again later.'); 
                 }).then(function(result) {
-                    //clear div between refreshes
+                    // clear div between refreshes
                     varDataCol.innerHTML = ""; 
-                    //clear div between refreshes
+                    // clear div between refreshes
                     varImageCol.innerHTML = ""; 
-                    //clear div between refreshes
+                    // clear div between refreshes
                     document.getElementById('resultStatus').innerHTML = ""; 
                     //Get total count of results returned
                     let totalResultCount = result.length; 
-                    //Results message to site user
+                    // Results message to site user
                     document.getElementById('resultStatus').innerHTML += "<p class='text-faded'>There were <span class='font-weight-bold'>" + totalResultCount + "</span> natural images found for <br><span class='font-weight-bold'>" +
                         objDateSplitUp.day + "-" + objDateSplitUp.month + "-" + objDateSplitUp.year + "</span></p>"; 
 
@@ -106,6 +108,7 @@ function getEpicImageByDate() {
                         let pagedResultNatural = pageTheResult(result);
 
                         // Send the sliced object to 'getResultItems()' for looping and rendering to HTML
+                        $('#epicResultsContainer').show(200);
                         getResultItems(pagedResultNatural, varImageType, objDateSplitUp, varDataCol, varImageCol, totalResultCount);
                     }
                     else {
@@ -144,7 +147,7 @@ function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varIma
             let epicImageTypeUrl = "https://epic.gsfc.nasa.gov/archive/" + varImageType + "/" + objDateSplitUp.year + "/" + objDateSplitUp.month + "/" + objDateSplitUp.day + "/jpg/" + item.image + ".jpg";
             let distanceToSun = dscovrDistance(item.dscovr_j2000_position.x, item.dscovr_j2000_position.y, item.dscovr_j2000_position.z, item.sun_j2000_position.x, item.sun_j2000_position.y, item.sun_j2000_position.z).toLocaleString();
             let distanceToEarth = dscovrDistance(0, 0, 0, item.dscovr_j2000_position.x, item.dscovr_j2000_position.y, item.dscovr_j2000_position.z).toLocaleString();
-            //Text data
+            // Image data wrote out to HTML page - image, caption ,desc, coords, etc.
             varDataCol.innerHTML += "<div class='imageData'>" +
                 "<div><strong>Image name:</strong> " + item.image + ".jpg</div>" +
                 "<div>" + item.caption + "</div>" +
@@ -156,9 +159,9 @@ function getResultItems(result, varImageType, objDateSplitUp, varDataCol, varIma
                 "<div class='mt-3'><b>Showing image: </b>" + currentImageNumber + " of " + totalResultCount + "</div>" +
                 "</div>";
 
-            //Images natural and enhanced
+            // Images natural and enhanced
             varImageCol.innerHTML += "<div class='earthImage'>" +
-                "<img id='imageID' src='" + epicImageTypeUrl + "'/>" +
+                "<img id='" + item.image + "' alt='" + item.image + "' title='" + item.image + "' src='" + epicImageTypeUrl + "'/>" +
                 "</div>";
         });
     }
@@ -178,6 +181,7 @@ function pageTheResult(resultApiResponse) {
     var end = begin + numberPerPage;
 
     pageList = resultApiResponse.slice(begin, end);
+    // Enable/Disable paging buttons if necessary
     check();
     return pageList;
 }
@@ -237,27 +241,27 @@ function getMostRecentEpic() {
     // START OF GET DATA
     let varMostRecentImagesDiv = document.getElementById("epicMostRecentImage");
     let varMostRecentDataDiv = document.getElementById("epicMostRecentData");
-    //call to API for natural images
+    // call to API for natural images
     let url = fetch("https://api.nasa.gov/EPIC/api/enhanced/images?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ")
         .then(function(response) {
             if (response.ok) {
                 // parses response to JSON
                 return response.json(); 
             }
-            //catch connection errors
+            // catch connection errors
             throw new Error('There was a problem connecting to NASA. Please try again later.'); 
         }).then(function(result) {
-            //clear div between refreshes
+            // clear div between refreshes
             varMostRecentImagesDiv.innerHTML = ""; 
             varMostRecentDataDiv.innerHTML = "";
             if (result.length !== 0) {
-                //get last array item
+                // get last array item
                 let mostRecent = result[result.length - 1]; 
-                //split the date up into year, month, day
+                // split the date up into year, month, day
                 let imageDate = splitDate(mostRecent.date, 0);
-                //this contains day and time
+                // this contains day and time
                 let strImageDay = imageDate.day;
-                //remove time from date string
+                // remove time from date string
                 strImageDay = strImageDay.substring(0, strImageDay.length - 9);
                 // Results div hidden when page loads. Show for results.
                 $('#epicMostRecentContainer').show(300); 
@@ -272,7 +276,8 @@ function getMostRecentEpic() {
 
                 //Images natural and enhanced
                 varMostRecentImagesDiv.innerHTML += "<div class='earthImage'>" +
-                    "<a href='https://epic.gsfc.nasa.gov/archive/enhanced/" + imageDate.year + "/" + imageDate.month + "/" + strImageDay + "/jpg/" + mostRecent.image + ".jpg' target='blank'><img id='imageID' src='https://epic.gsfc.nasa.gov/archive/enhanced/" + imageDate.year + "/" + imageDate.month + "/" + strImageDay + "/jpg/" + mostRecent.image + ".jpg'/></a>" +
+                    "<a href='https://epic.gsfc.nasa.gov/archive/enhanced/" + imageDate.year + "/" + imageDate.month + "/" + strImageDay + "/jpg/" + mostRecent.image + ".jpg' target='blank'>" +
+                    "<img id='" + mostRecent.image + "' alt='" + mostRecent.image + "' title='" + mostRecent.image + "' src='https://epic.gsfc.nasa.gov/archive/enhanced/" + imageDate.year + "/" + imageDate.month + "/" + strImageDay + "/jpg/" + mostRecent.image + ".jpg'/></a>" +
                     "</div>";
             }
             else {
@@ -285,3 +290,4 @@ function getMostRecentEpic() {
 
 // END EPIC MOST RECENT IMAGE ======================================================================================== //
 
+ 

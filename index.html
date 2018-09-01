@@ -188,7 +188,7 @@
                 <input type="button" id="previous" onclick="previousPage()" value="previous" class="btn btn-light btn-sm" />
                 <input type="button" id="next" onclick="nextPage()" value="next" class="btn btn-light btn-sm" />
                 <input type="button" id="last" onclick="lastPage()" value="last" class="btn btn-light btn-sm" />
-                <input type="button" id="clear" onclick="clearEpicResults()" value="Clear Results" class="btn btn-light btn-sm mt-2" />
+                <input type="button" id="clearResults" onclick="clearEpicResults()" value="Clear Results" class="btn btn-light btn-sm mt-2" />
               </div>
             </div>
           </div>
@@ -210,6 +210,14 @@
         </div>
         <div class="col-12 col-sm-6 pt-5">
           <div id="epicMostRecentData" class="text-faded"></div>
+          <!-- Paging  -->
+          <div id="pagingRowRecent">
+            <div class="mt-3">
+              <div class="mx-auto">
+                <input type="button" id="clear" onclick="clearEpicResults()" value="Clear Results" class="btn btn-light btn-sm mt-2" />
+              </div>
+            </div>
+          </div>          
         </div>
       </div>
 
@@ -363,16 +371,16 @@
           <a href="https://www.nasa.gov/" target="blank" title="NASA website"><i class="fa fa-external-link fa-3x" aria-hidden="true"></i></a>
         </div>
         <div class="col-4 col-lg-2 mr-auto text-center">
-          <a href="https://www.instagram.com/nasa/?hl=en" title="NASA on Instagram"><i class="fa fa-instagram fa-3x" aria-hidden="true"></i></a>
+          <a href="https://www.instagram.com/nasa/?hl=en" target="blank" title="NASA on Instagram"><i class="fa fa-instagram fa-3x" aria-hidden="true"></i></a>
         </div>
         <div class="col-4 col-lg-2 mr-auto text-center">
-          <a href="https://twitter.com/NASA" title="NASA on Twitter"><i class="fa fa-twitter fa-3x" aria-hidden="true"></i></a>
+          <a href="https://twitter.com/NASA" target="blank" title="NASA on Twitter"><i class="fa fa-twitter fa-3x" aria-hidden="true"></i></a>
         </div>
         <div class="col-6 col-lg-2 mr-auto text-center mt-4">
-          <a href="https://www.youtube.com/channel/UCLA_DiR1FfKNvjuUpBHmylQ" title="NASA on YouTube"><i class="fa fa-youtube fa-3x" aria-hidden="true"></i></a>
+          <a href="https://www.youtube.com/channel/UCLA_DiR1FfKNvjuUpBHmylQ" target="blank" title="NASA on YouTube"><i class="fa fa-youtube fa-3x" aria-hidden="true"></i></a>
         </div>
         <div class="col-6 col-lg-2 mr-auto text-center mt-4">
-          <a href="https://www.facebook.com/NASA/" title="NASA on Facebook"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
+          <a href="https://www.facebook.com/NASA/" target="blank" title="NASA on Facebook"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
         </div>
       </div>
     </div>

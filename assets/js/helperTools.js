@@ -43,15 +43,13 @@ function splitDate(varDate, monthName) {
             case "12":
                 varMonth = "December";
                 break;
-                Default:
-                    varMonth = "No Month supplied";
         }
     }
     else {
         varMonth = varMonth;
     }
     var varDay = varDateArray[2]; //day 
-    return { year: varYear, month: varMonth, day: varDay } // return an object with properties year, month(name), day
+    return { year: varYear, month: varMonth, day: varDay }; // return an object with properties year, month(name), day
 }
 
 
@@ -68,7 +66,7 @@ function dscovrDistance(x1, y1, z1, x2, y2, z2) {
 }
 
 
-// Get NASA Center
+// Get NASA Center URL from a NASA center name
 function getNasaCenter(centerName) {
     if (centerName !== "") {
         switch (centerName) {
@@ -102,15 +100,13 @@ function getNasaCenter(centerName) {
             case "AFRC":
                 centerName = "https://www.nasa.gov/centers/armstrong/home/index.html";
                 break;
-                Default:
-                    centerName = "No center supplied";
         }
         return centerName;
     }
 }
 
 
-// Escape characters returned from API
+// Escape characters returned from API text
 function escapeHtml(text) {
     var map = {
         '&': '&amp;',
@@ -124,7 +120,7 @@ function escapeHtml(text) {
 }
 
 
-// Clear results
+// Clear results from browser - allows user to clear the EPIC results if they wish
 function clearEpicResults() {
     $("#epicMostRecentContainer").css("display", "none");
     $("#epicResultsContainer").css("display", "none");
@@ -134,7 +130,7 @@ function clearEpicResults() {
 }
 
 
-// Clear results
+// Clear results - allows user to clear the LIBRARY results if they wish
 function clearLibraryResults() {
     $("#searchLibraryResultsContainer").css("display", "none");
     $('html, body').animate({

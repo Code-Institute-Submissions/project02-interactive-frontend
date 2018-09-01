@@ -15,7 +15,6 @@ function makeGraphs(error, facilitiesData) {
 function show_city(ndx) {
     var name_dim = ndx.dimension(dc.pluck('center'));
     var group = name_dim.group();
-        var city_by_status = name_dim.group().reduceSum(dc.pluck('status'));
         dc.pieChart('#data-city')
             .height(500)
             .radius(180)
@@ -28,7 +27,6 @@ function show_city(ndx) {
 function show_status_pie(ndx) {
     var name_dim = ndx.dimension(dc.pluck('status'));
     var group = name_dim.group();
-        var city_by_status = name_dim.group().reduceSum(dc.pluck('status'));
         dc.pieChart('#data-status-pie')
             .height(500)
             .radius(180)

@@ -138,16 +138,18 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
                 //send 'center' to getNasaCenter() to get its website
                 var nasaCenterWebsite = getNasaCenter(item.center);
 
+                var itemDesc;
+                var itemDescTrunc;
                 //description or description_508 could be available
                 if (!item.hasOwnProperty("description")) {
-                    var itemDesc = item.description_508;
+                    itemDesc = item.description_508;
                 }
                 else {
                     itemDesc = item.description;
                 }
 
                 if (itemDesc.length > 22) {
-                    var itemDescTrunc = itemDesc.substring(0, 170) + " ...";
+                    itemDescTrunc = itemDesc.substring(0, 170) + " ...";
                 }
                 // replace chars with html coded version
                 var varItemFullDescription = escapeHtml(itemDesc);
@@ -165,7 +167,7 @@ function getLibraryResultsDataImage(queryResponseData, varMediaType) {
 
                 // id of div is set by using the value of the index (i) and appending it to text (libraryResultsItem)
                 document.getElementById('libraryResults').innerHTML += "<div class='col-12 col-md-6' id='libraryResultsItem" + i + "'><div class='row'><div class='col-3 col-sm-2 text-center'>" +
-                    "<a href='" + imageUrl + "' target='blank'><img src='" + imageUrl + "' alt='" + item.title + "' tooltip='" + item.title + "'/></a></div>" +
+                    "<a href='" + imageUrl + "' target='blank'><img src='" + imageUrl + "' alt='" + item.title + "' title='" + item.title + "'/></a></div>" +
                     "<div class='col-9 col-sm-10'><p><strong>Title:</strong> " + item.title + "<br>" +
                     "<strong>Date created:</strong> " + varTruncatedDataDate.day + " " + varTruncatedDataDate.month + " " + varTruncatedDataDate.year + "<br>" +
                     "<strong>Center: </strong><a href='" + nasaCenterWebsite + "' target='blank'>Click to visit the " + item.center + " website.</a> <i class='fa fa-external-link' aria-hidden='true'></i><br>" +
@@ -238,16 +240,18 @@ function getLibraryResultsDataAudio(queryResponseData, varMediaType) {
                     //send 'center' to getNasaCenter() to get its website
                     var nasaCenterWebsite = getNasaCenter(item.center);
                     
+                    var itemDesc;
+                    var itemDescTrunc;                    
                     //description or description_508 could be available
                     if (!item.hasOwnProperty("description")) {
-                        var itemDesc = item.description_508;
+                        itemDesc = item.description_508;
                     }
                     else {
                         itemDesc = item.description;
                     }
 
                     if (itemDesc.length > 22) {
-                        var itemDescTrunc = itemDesc.substring(0, 170) + " ...";
+                        itemDescTrunc = itemDesc.substring(0, 170) + " ...";
                     }
                     // replace chars with html coded version
                     var varItemFullDescription = escapeHtml(itemDesc);
@@ -333,15 +337,17 @@ function getLibraryResultsDataVideo(queryResponseData, varMediaType) {
                     //send 'center' to getNasaCenter() to get its website
                     var nasaCenterWebsite = getNasaCenter(item.center);
                    
+                    var itemDesc;
+                    var itemDescTrunc;
                    //description or description_508 could be available
                     if (!item.hasOwnProperty("description")) {
-                        var itemDesc = item.description_508;
+                        itemDesc = item.description_508;
                     }
                     else {
                         itemDesc = item.description;
                     }
                     if (itemDesc.length >22) {
-                        var itemDescTrunc = itemDesc.substring(0, 170) + " ...";
+                        itemDescTrunc = itemDesc.substring(0, 170) + " ...";
                     }
                     // replace chars with html coded version
                     var varItemFullDescription = escapeHtml(itemDesc);

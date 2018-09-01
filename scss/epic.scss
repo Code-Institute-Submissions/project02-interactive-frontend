@@ -50,12 +50,12 @@
 
 
 @media (min-width: 420px) {
-  #clear, #last {
-    margin-top:0 !important;
+  #clear, #last, #clearResults {
+    margin-top: 0 !important;
   }
 }
 @media (min-width: 576px) {
-  #clear, #last {
+  #clear, #last, #clearResults {
     margin-top: 1rem !important;
   }
 }
@@ -68,7 +68,7 @@
   }
 }
 @media (min-width: 992px) {
-  #clear {
+  #clear, #clearResults {
     margin-top: 0 !important;
   }
 }

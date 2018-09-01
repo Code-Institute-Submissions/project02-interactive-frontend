@@ -92,6 +92,7 @@ GitHub Pages was used to host the final SPA. See [Deployment](#deployment) secti
         *   [Ongoing Testing](#ongoing)
             *   [Issues and Solutions](#issues)   
         *   [Usability Testing](#usability)
+        *   [Automated Testing](#auto)
         *   [Final Testing](#final)
 *  [Deployment](#deployment)
 *  [Credits](#external)
@@ -568,6 +569,8 @@ However, the site was also tested using Firefox and Internet Explorer.
 
 *   CSS was validated using the **CSS Validation Service** provided by The World Wide Web Consortium (W3C): https://jigsaw.w3.org/css-validator/
 
+*   JavaScript was tested using http://jshint.com/ and updated subsequently   
+
 ##### During development:
 * Console.log was used extensively for viewing returned data and testing. 
 * Div’s had vibrant background colours so that the developer was easily able to identify them.
@@ -703,6 +706,101 @@ I decided that this change would have to wait until a future release.
 
 Ongoing usability testing found the issue with the enter key not submitting form inputs and the popover description not working as expected.
 
+
+[Top of page](#topofpage)
+
+<a name="auto"></a>
+### Automated Testing
+
+Jasmine testing was implmented to test the helper functions in helperTools.js
+The remaining js files were tested using the browser and dev tools console throughout the development process.
+These files were dependant on API requests and browser output. If the API call failed then nothing was rendered to the browser.
+
+The jasmine testing could test stand alone functions that were dependant upon a value input and one value returned.
+
+The first test tested dscovrDistance(). It accepted coords between the earth and the satellite or the sun and the satellite and 
+returned the distance in kms
+
+```JavaScript
+    describe("dscovrDistance", function() {
+        describe("Get distance from coords", function() {
+            it("It should return 148653299", function() {
+                var result = dscovrDistance(1369514.38358, 340216.540237, 304757.805862, 135998314.92302, 58228275.399883, 25241919.575161)
+                expect(result).toEqual(148653299)
+            });
+        });
+    });
+```
+
+The next, tested splitDate(). It accepted the date returned from the API in the format 2015-10-31 and returned an object
+{year:2015, month: 10, day:31} or {year:2015, month: 'October', day:31}
+This gave me more options to render out the date in whatever format suited me.
+
+```JavaScript
+    describe("splitDate", function() {
+        describe("Get date components form 2015-10-31", function() {
+            it("It should return {year: '2015', month: '10', day: '31'}", function() {
+                var result = splitDate("2015-10-31", 0)
+                expect(result).toEqual({ year: "2015", month: "10", day: "31" })
+            });
+            it("It should return {year: '2015', month: 'October', day: '31'}", function() {
+                var result = splitDate("2015-10-31", 1)
+                expect(result).toEqual({ year: "2015", month: "October", day: "31" })
+            });        
+        });
+    });
+```
+The final jasmine test, tested that the correct url was returned for the respective NASA centre.
+A NASA centre name in its initials format was passed into getNasaCenter() and its url was returned:
+JPL returned the url: https://www.nasa.gov/centers/jpl/home/index.html
+
+```JavaScript
+    describe("getNasaCenter", function() {
+        describe("Get Nasa Centre URL from Centre Initials", function() {
+            it("It should return JPL url", function() {
+                var result = getNasaCenter("JPL")
+                expect(result).toBe("https://www.nasa.gov/centers/jpl/home/index.html")
+            });
+            it("It should return JSC url", function() {
+                var result = getNasaCenter("JSC")
+                expect(result).toBe("https://www.nasa.gov/centers/johnson/home/index.html")
+            });
+            it("It should return ARC url", function() {
+                var result = getNasaCenter("ARC")
+                expect(result).toBe("https://www.nasa.gov/ames")
+            });
+            it("It should return GSFC url", function() {
+                var result = getNasaCenter("GSFC")
+                expect(result).toBe("https://www.nasa.gov/goddard")
+            });
+            it("It should return KSC url", function() {
+                var result = getNasaCenter("KSC")
+                expect(result).toBe("https://www.nasa.gov/centers/kennedy/home/index.html")
+            });
+            it("It should return MSFC url", function() {
+                var result = getNasaCenter("MSFC")
+                expect(result).toBe("https://www.nasa.gov/centers/marshall/home/index.html")
+            });
+            it("It should return HQ url", function() {
+                var result = getNasaCenter("HQ")
+                expect(result).toBe("https://www.nasa.gov/centers/hq/home/index.html")
+            });
+            it("It should return GRC url", function() {
+                var result = getNasaCenter("GRC")
+                expect(result).toBe("https://www.nasa.gov/centers/glenn/home/index.html")
+            });
+            it("It should return LRC url", function() {
+                var result = getNasaCenter("LRC")
+                expect(result).toBe("https://www.nasa.gov/langley")
+            });
+            it("It should return AFRC url", function() {
+                var result = getNasaCenter("AFRC")
+                expect(result).toBe("https://www.nasa.gov/centers/armstrong/home/index.html")
+            });
+        });
+    });
+```
+[Top of page](#topofpage)
 
 <a name="final"></a>
 ###   Final Testing
