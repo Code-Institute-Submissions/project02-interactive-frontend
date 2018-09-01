@@ -1,8 +1,6 @@
 # Single Page Application using the NASA API
 
 GitHub Pages: https://sonnerz.github.io/project02-interactive-frontend/ <br>
-PDF of ReadMe: [ReadMe PDF](https://github.com/Sonnerz/project02-interactive-frontend/blob/master/readme.pdf)
-
 
 
 **Create a Single Page Application that relies heavily on one or more APIs**
@@ -89,13 +87,14 @@ GitHub Pages was used to host the final SPA. See [Deployment](#deployment) secti
             *   [nasaAPI-library.js](#jslibrary)
             *   [nasaAPI-data.js](#jsdata)
             *   [helperTools.js](#jshelper)
-        *   [Testing](#testing)
-            *   [Development/Defensive Design Testing](#devtesting)
-            *   [Ongoing Testing](#ongoing)
-            *   [Usability Testing](#usability)
-            *   [Final Testing](#final)
-        *   [Deployment](#deployment)
-*  [External Help](#external)
+    *   [Testing](#testing)
+        *   [Development/Defensive Design Testing](#devtesting)
+        *   [Ongoing Testing](#ongoing)
+            *   [Issues and Solutions](#issues)   
+        *   [Usability Testing](#usability)
+        *   [Final Testing](#final)
+*  [Deployment](#deployment)
+*  [Credits](#external)
 
 
 <a name="strategy"></a>
@@ -183,8 +182,9 @@ The SPA targeted NASA enthusiasts and casual visitors with NASA data. The site a
 <a name="fetchnote"></a>
 ## Note about FETCH
 **Coding**<br>
-The JavaScript was optimised for Chrome. A combination of AJAX, FETCH and XMLHttpRequest were used to make the API calls. These were used to show flexibility.
-The downside of this means that the FETCH API call does not work in Internet Explorer.
+The JavaScript was optimised for Chrome. A combination of AJAX, FETCH and XMLHttpRequest were used to make the API calls. 
+These were used to illustrate flexibility as a coder.
+The downside of this means that the FETCH API call does **not** work in Internet Explorer.
 
 **Fetch**<br>
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API</a>
@@ -226,15 +226,22 @@ The site will provide visitors with access to the NASA data made available via i
 The site will provide the ability to;
 * navigate content
 * view NASA API data
-  * Astronomy Picture of the Day (APOD) 
-  * Earth Polychromatic Imaging Camera (EPIC) images – the visitor will input a date and select an image type. This API returns up to 12 images and information on each image.
+  * APOD - Astronomy Picture of the Day 
+  * EPIC - Earth Polychromatic Imaging Camera (EPIC) images – the visitor will input a date and select an image type. This API returns up to 12 images and information on each image.
 EPIC takes an image of earth every 2 hours approx.
   * Search the NASA Images and Video Library – the visitor will input a text query and select whether to search for images, audio or video. The API returns the results in pages of 100 items.
   * Data – a select NASA dataset will be used to chart and illustrate the type of data available from NASA.
-* Welcome and Footer area with further information
+* Welcome area and Footer area with further information
 
 The SPA will be optimised for latest version of Chrome, Firefox, Internet Explorer, Safari and Opera and optimised for mobile usage. HTML and CSS will be written using the Mobile-First approach. The mobile-first approach is designing for the smallest screen and working your way up to desktop.
-Please note that the EPIC data will not be available in Internet Explorer due to the use of FETCH.
+
+**Note:** Please note that the EPIC data will not be available in Internet Explorer due to the use of FETCH.
+
+### Future Updates
+1)  Reduce the number of Library image results displayed per page. This section is currently most suited to a desktop/laptop computer.
+Due to the large number of results returned this section is not as mobile device friendly. This future update would increase the number of results pages but reduce the number of results displayed per page.
+2)  Introduce the ability for users to display different numbers of results per page in the Library section - e.g. 20 results per page/50 results per page, etc.
+
 
 [Top of page](#topofpage)
 <a name="content"></a>
@@ -266,7 +273,7 @@ The navbar will be always be available to users at the top of the page regardles
 |Description|Response|
 |:---|:---|
 |NASA Images Portal|Takes the user to the welcome-intro section|
-|APDO|Takes the user to the Astronomy Picture of the Day section|
+|APOD|Takes the user to the Astronomy Picture of the Day section|
 |EPIC|Takes the user to the DSCOVR's Earth Polychromatic Imaging Camera (EPIC) section|
 |Library|Takes the user to the search facility that allows visitors to search the NASA image and video library|
 |Data|The Data section shows a mini dashboard of NASA data|
@@ -387,6 +394,9 @@ See the [Library](#librarywf) Wireframe
 The NASA Facilities dataset is made available by NASA as a json file. This section takes the data and using dc/d3/crossfilter renders pie charts and bar charts.
 
 ##### Colours
+
+NASA red and blue were sourced from https://en.wikipedia.org/wiki/NASA_insignia
+or https://brandcolors.net/
 |Hex|rgba||
 |:---|:---|:---|
 |#050215|rgba(5, 2, 21)|Blue|
@@ -463,8 +473,12 @@ This API call uses FETCH.<br>
 
 
 Urls required by the API for each type of image:
-https://api.nasa.gov/EPIC/api/enhanced/date/Date?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ<br>
-https://api.nasa.gov/EPIC/api/natural/date/Date?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ
+|Image Type|URL|
+|:---|:---|
+|enhanced|https://api.nasa.gov/EPIC/api/enhanced/date/Date?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ|
+|natural|https://api.nasa.gov/EPIC/api/natural/date/Date?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ|
+
+
 
 |Function|Explanation|
 |:---|:---|
@@ -472,10 +486,10 @@ https://api.nasa.gov/EPIC/api/natural/date/Date?api_key=pyZKDq8cb4x1dJi0dsodTT9P
 |getResultItems()|Data items from API result are rendered to HTML in a forEach loop|
 |pageTheResult()|Paging the JSON Object to one item per page using JavaScript Array slice() Method|
 |getNumberOfPages()|Retrieve the total number of items returned from API|
-|nextPage()|Function called from Next Button|
-|previousPage()|Function called from Previous Button|
-|firstPage()|Function called from First Button|
-|lastPage()|Function called from Last Button|
+|nextPage()|Function called from clicking the paging **Next** Button|
+|previousPage()|Function called from clicking the paging **Previous** Button|
+|firstPage()|Function called from clicking the paging **First** Button|
+|lastPage()|Function called from clicking the paging **Last** Button|
 |check()|Enables/Disables paging buttons if necessary e.g. first button enabled then previous button disabled|
 |getMostRecentEpic()|This function retrieves the most recent date of natural colour imagery and displays the last image in the array.|
 
@@ -543,7 +557,7 @@ Common functions used across all the js files
 
 [Top of page](#topofpage)
 <a name="testing"></a>
-###    Testing
+##    Testing
 
 The website was tested on an ongoing basis. Chrome and Chrome Developer Tools were the primary browser and tool used for testing. 
 However, the site was also tested using Firefox and Internet Explorer.
@@ -585,7 +599,7 @@ To ensure that the Library results were being paged correctly, I viewed the JSON
 
 [Top of page](#topofpage)
 <a name="ongoing"></a>
-##### Ongoing Testing
+#### Ongoing Testing
 |Browser/Test|Chrome|Firefox|IE|Chrome Android-Remote Debugging|
 |:---|:---:|:---:|:---:|:---:|
 |Intro Section|Passed|Passed|Intro header formatting issue|Passed|
@@ -594,8 +608,9 @@ To ensure that the Library results were being paged correctly, I viewed the JSON
 |Responsive Navigation|Passed|Passed|Passed|Passed
 |Data Section|Formatting issues|Formatting issues|Formatting issues|Formatting issues|
 |Error messages|Passed|Passed|Passed|Passed
-|Popover full desc|Not working|Not working|Not working|Not working
+|Popover full desc in search results|Not working|Not working|Not working|Not working
 |Submit with key press|Not working|Not working|Not working|Not applicable|
+|Paging returning same 100 results|Paging returning same 100 results|Paging returning same 100 results|Paging returning same 100 results|Paging returning same 100 results|
 
 
 
@@ -610,16 +625,85 @@ To ensure that the Library results were being paged correctly, I viewed the JSON
 |Search results|Styling issues|Styling issues|Styling issues|Styling issues|Styling issues|Styling issues|Styling issues|Styling issues|
 |Data section|Not responsive|Not responsive|Not responsive|Not responsive|Not responsive|Not responsive|Not responsive|Passed|
 |Popover full desc|Not working|Not working|Not working|Not working|Not working|Not working|Not working|Not working|
+|Paging not working|Paging not working|Paging not working|Paging not working|Paging not working|Paging not working|Paging not working|Paging not working|Paging not working
+
+<a name="issues"></a>
+#### Issues and Solutions
+Two issues in the Search NASA Images Library section that were on-going problems throughout development and testing were the 
+paging issue and the popover description.
+
+**Issue 1 - Paging**
+
+The paging returned the first 100 items and did not retrieve the next 100, and so on until the end of the search results.
+It took me a while to notice the issue and it also took me a while to realise that the result data was being made available by the NASA API in lots of 100.
+I thought the 100 items were the total results and I needed to page the 100 items, even though the total result count could have been several thousand.
+
+I needed to return and view the json results returned in a console and find the next and previous links provided by the API.
+I returned the links data: `let pagingLinks = resultObj.links;` 
+and coded the 'paging' url needed to get the next/previous 100 results - line 109 in nasaAPI-library.js
+This is the url that is being sent to the NASA API each time.
+I received help from my mentor on this issue. He helped me understand/investigate the JSON data.
+
+**Issue 2 - Popover Description**
+
+![Navigation Structure](ReadMe_Images/popover.png)
+
+The full description was often too big to appear in search results. I had to find a way to make that information available to users
+and still make the results viewable. Rather than bring users to a new page where they would have to click to return, I opted for a 'popup box' solution.
+Users would click on the 'Read full description' text and the text would appear in an overlayed div.
+The issue was that the popup box would appear briefly and then disappear instantly or not appear at all.
+
+The solution was to initialise the bootstrap popover again after the page displayed the results.
+I got help from users on Slack and https://stackoverflow.com/questions/42533613/initialize-bootstrap-popover-after-element-got-loaded-by-ajax
+The solution was implemented on line #158 of nasaAPI-library.js
+```Javascript
+// reinitiates the popover as the results are not on the page when loaded first
+                $(function() {
+                    var $trigger = $('.p-trigger').popover({
+                        placement: 'right',
+                        animation: true,
+                        title: "Click to hide"
+                    });
+                });
+```   
+
+**Issue 3 - Hitting the 'Enter' keyboard button was not submitting user input from forms**
+
+One issue that was a personal annoyance was the inability to submit form values by clicking the keyboard 'Enter' key.
+Only by clicking the submit button with a mouse was I able to submit search queries. I received help from my mentor on this issue
+This issue was resolved in two ways:
+1.  I moved my form button inside the < form > tags - I had put them outside
+2.  Adding a script to my index.html to prevent the default action of the form onsubmit()
+```Javascript
+    $("#library-form").submit(function(e) {
+      e.preventDefault();
+    });
+
+    $("#epic-form").submit(function(e) {
+      e.preventDefault();
+    });
+```
 
 [Top of page](#topofpage)
 
 <a name="usability"></a>
-#### Usability Testing
-During usability testing, it was found that the user would prefer if the page scrolled to the results section after performing a search. This made it more obvious to users on mobile devices that the results appeared after the search input area.
+### Usability Testing
+During usability testing, it was found that the user would prefer if the page scrolled to the results section 
+after performing a search. This made it more obvious to users on mobile devices that the results appeared 
+after the search input area.
+
+Another issue that was noted during user testing was that Library search _could_ return several thousand results.
+Paging the results was a solution to this, however the NASA API returns these results in groups of 100.
+This meant that the smallest number of results per page was 100.
+If I further 'sliced' these 100 results it would have increased the number of pages yet again.
+
+I decided that this change would have to wait until a future release.
+
+Ongoing usability testing found the issue with the enter key not submitting form inputs and the popover description not working as expected.
 
 
 <a name="final"></a>
-####   Final Testing
+###   Final Testing
 |Browser/Test|Chrome|Firefox|IE|Chrome Android-Remote Debugging|
 |:---|:---:|:---:|:---:|:---:|
 |Intro Section|Passed|Passed|Passed|Passed|
@@ -630,6 +714,8 @@ During usability testing, it was found that the user would prefer if the page sc
 |Data Section|Passed|Passed|Passed|Bar charts hidden
 |Popover full desc|Passed|Passed|Passed|Passed|
 |Submit with key press|Passed|Passed|Passed|Not Applicable
+|Paging returning same 100 results|Passed|Passed|Passed|Passed
+
 
 |Device/Test|Galaxy SIII|Galaxy 5|Laptop touch screen|iPhone 5/SE|iPhone 6/7/8|iPhone 6/7/8 Plus|iPhone X|iPad|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -657,7 +743,7 @@ It was decided that because the charts using D3.js are not responsive as they ar
 [Top of page](#topofpage)
 
 <a name="deployment"></a>
-### Deployment
+# Deployment
 GitHub is used to host the code and publish the pages.
 
 A new repository was created in GitHub called: **project02-interactive-frontend**
@@ -685,7 +771,7 @@ https://sonnerz.github.io/project02-interactive-frontend/
 [Top of page](#topofpage)
 
 <a name="external"></a>
-# External Help
+# Credits
 
 The following sites were used as resources to get sample css and debugging css.
 
@@ -702,4 +788,5 @@ The following sites were used as resources to get sample css and debugging css.
 |NASA API|https://api.nasa.gov/api.html#EPIC|Official NASA API documentation 
 |Bootstrap|https://getbootstrap.com/docs/4.1/getting-started/introduction/|Official Bootstrap documentation for version 4.1
 |Bootstrap theme|https://startbootstrap.com/template-overviews/creative/|I began with the bootstrap theme and customised it for the project
+|NASA Colours|https://en.wikipedia.org/wiki/NASA_insignia or https://brandcolors.net/|hex numbers
 [Top of page](#topofpage)
