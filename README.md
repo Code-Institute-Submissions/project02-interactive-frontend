@@ -470,12 +470,13 @@ The url provided by NASA takes an API key. An AJAX call is made using the url an
 This API call uses FETCH.<br>
 <span style="color:red">This content section will not work in Internet Explorer. FETCH is not supported by IE.</span>
 
-|Returned from API:  | |
+|Returned from API:| |
 |:---|:---|
 |<ul><li>attitude_quaternions</li><li>caption</li><li>centroid_coordinates</li><li>coords</li><li>date</li><li>dscovr_j2000_position</li><li>identifier</li><li>image</li><li>lunar_j2000_position</li><li>sun_j2000_position</li><li>version</li></ul>|![EPIC Object](ReadMe_Images/epicobj.jpg)|
 
 
 Urls required by the API for each type of image:
+
 |Image Type|URL|
 |:---|:---|
 |enhanced|https://api.nasa.gov/EPIC/api/enhanced/date/Date?api_key=pyZKDq8cb4x1dJi0dsodTT9PBoWkQaa5CgxmPAxZ|
