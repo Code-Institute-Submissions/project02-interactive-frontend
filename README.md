@@ -315,6 +315,8 @@ The site directories and files will be organised in the following way;
 <a name="dev"></a>
 ## Development Phase
 
+<p>Much of my early attempts at accessing the NASA API and HTML can be found in the directory: Test-Scripts-HTML</p>
+
 <a name="ide"></a>
 ### IDE
 The website was developed using the Cloud9 IDE. 
